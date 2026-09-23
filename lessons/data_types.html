@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C++ з нуля — інтерактивний урок: Типи даних</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#172033;--muted:#667085;--accent:#00599c;--accent2:#008080;--line:#e6e8ef;--code:#151823;--warn:#fff7df}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+header{background:linear-gradient(135deg,#00599c,#283593);color:#fff;padding:46px 20px}
+.wrap{max-width:1100px;margin:auto}.hero{display:grid;grid-template-columns:1.4fr .6fr;gap:28px;align-items:center}
+h1{font-size:clamp(32px,5vw,58px);line-height:1.03;margin:0 0 12px}.lead{font-size:19px;opacity:.95}
+.badge{display:inline-block;background:#ffffff22;border:1px solid #ffffff44;padding:7px 12px;border-radius:999px;margin:4px}
+nav{position:sticky;top:0;background:#ffffffee;backdrop-filter:blur(8px);z-index:3;border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:8px;overflow:auto;padding:10px 16px} nav a{white-space:nowrap;text-decoration:none;color:var(--ink);padding:8px 12px;border-radius:10px}nav a:hover{background:#eaf2f8}
+main{padding:28px 16px 60px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:18px 0;box-shadow:0 7px 24px #1720330b}
+h2{margin-top:0;font-size:28px}h3{margin-bottom:8px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.note{background:#eaf2f8;border-left:5px solid var(--accent);padding:14px 16px;border-radius:10px}.teacher{background:var(--warn);border-left:5px solid #f4b400;padding:14px 16px;border-radius:10px}
+pre{background:var(--code);color:#f8f8f2;padding:17px;border-radius:13px;overflow:auto;font-size:15px;line-height:1.5}code{font-family:Consolas,monospace}
+table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid var(--line);padding:11px;text-align:left}th{background:#f8f8fc}
+.task{border:1px dashed #00599c88;border-radius:14px;padding:16px;margin:12px 0}.task strong{color:#00599c}
+textarea,input[type=text]{width:100%;border:1px solid #ccd0dc;border-radius:10px;padding:12px;font:inherit;margin:7px 0}
+button{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;background:var(--accent);color:white}button.alt{background:var(--accent2)}button.ghost{background:#eef0f5;color:#273043}
+.answer{display:none;margin-top:10px}.ok{color:#087f5b;font-weight:700}.bad{color:#c92a2a;font-weight:700}
+details{border:1px solid var(--line);padding:12px 14px;border-radius:12px;margin:10px 0}summary{cursor:pointer;font-weight:700}
+.pill{font-size:13px;background:#edf7f5;color:#087f5b;padding:4px 9px;border-radius:999px}
+footer{text-align:center;color:var(--muted);padding:30px}
+@media(max-width:760px){.hero,.grid{grid-template-columns:1fr}.card{padding:18px}}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap hero">
+  <div>
+    <h1>Типи даних у C++</h1>
+    <p class="lead">Інтерактивний урок з поглибленого вивчення типів даних, розміру пам'яті, модифікаторів та приведення типів.</p>
+  </div>
+</div>
+</header>
+
+<nav><div class="wrap">
+<a href="#intro">Вступ</a><a href="#integers">Цілочисельні</a><a href="#floats">Дійсні</a><a href="#chars">Символьні</a><a href="#booleans">Логічні</a><a href="#sizeof">Пам'ять (sizeof)</a><a href="#casting">Приведення</a><a href="#practice">Практика</a><a href="#test">Тест</a>
+</div></nav>
+
+<main class="wrap">
+
+<section class="card" id="intro">
+<h2>1. Класифікація типів даних</h2>
+<p>У C++ кожна змінна має чітко визначений <b>тип даних</b>. Тип визначає, скільки пам'яті займає змінна, які значення вона може зберігати та які операції над нею дозволені.</p>
+<table><tr><th>Категорія</th><th>Типи C++</th><th>Опис</th></tr>
+<tr><td><b>Цілочисельні</b></td><td><code>int</code>, <code>short</code>, <code>long</code>, <code>long long</code></td><td>Цілі числа (додатні, від'ємні, нуль)</td></tr>
+<tr><td><b>Дійсні (дробові)</b></td><td><code>float</code>, <code>double</code></td><td>Числа з плаваючою крапкою</td></tr>
+<tr><td><b>Символьні</b></td><td><code>char</code>, <code>wchar_t</code></td><td>Поодинокі символи у ASCII / Unicode</td></tr>
+<tr><td><b>Логічні</b></td><td><code>bool</code></td><td>Логічні значення: <code>true</code> (1) або <code>false</code> (0)</td></tr>
+<tr><td><b>Рядкові</b></td><td><code>string</code></td><td>Текстові рядки (з бібліотеки <code>&lt;string&gt;</code>)</td></tr></table>
+<p class="note"><b>Пам'ятай:</b> C++ — це мова зі <b>статичною типізацією</b>. Тип змінної вказується при створенні й не може змінюватися під час виконання програми.</p>
+</section>
+
+<section class="card" id="integers">
+<h2>2. Цілочисельні типи та модифікатори</h2>
+<p>Для роботи з цілими числами використовуються різні типи залежно від необхідного діапазону значень:</p>
+<table><tr><th>Тип</th><th>Приблизний розмір</th><th>Діапазон (signed)</th></tr>
+<tr><td><code>short</code></td><td>2 байти</td><td>від -32 768 до 32 767</td></tr>
+<tr><td><code>int</code></td><td>4 байти</td><td>від -2 147 483 648 до 2 147 483 647</td></tr>
+<tr><td><code>long long</code></td><td>8 байтів</td><td>від -9*10<sup>18</sup> до 9*10<sup>18</sup></td></tr></table>
+
+<h3>Модифікатори знаку</h3>
+<ul>
+  <li><code>signed</code> — за замовчуванням. Зберігає від'ємні та додатні числа.</li>
+  <li><code>unsigned</code> — зберігає <b>тільки додатні</b> числа і нуль, за рахунок чого подвоює верхню межу!</li>
+</ul>
+<pre><code>unsigned int studentsCount = 30; // Не може бути від'ємним!
+unsigned char age = 15;          // Від 0 до 255</code></pre>
+<div class="teacher"><b>Зауваження:</b> Якщо записати в <code>unsigned</code> від'ємне число, станеться переповнення, і змінна отримає величезне додатне значення!</div>
+</section>
+
+<section class="card" id="floats">
+<h2>3. Дійсні числа (плаваюча крапка)</h2>
+<p>Для збереження дробових чисел використовують <code>float</code> та <code>double</code>.</p>
+<table><tr><th>Тип</th><th>Розмір</th><th>Точність</th><th>Приклад</th></tr>
+<tr><td><code>float</code></td><td>4 байти</td><td>~6-7 знаків після крапки</td><td><code>3.14159f</code></td></tr>
+<tr><td><code>double</code></td><td>8 байтів</td><td>~15-17 знаків після крапки</td><td><code>3.141592653589793</code></td></tr></table>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+using namespace std;
+
+int main() {
+    float f = 1.23456789f;
+    double d = 1.23456789012345;
+
+    cout &lt;&lt; setprecision(10);
+    cout &lt;&lt; "Float:  " &lt;&lt; f &lt;&lt; endl; // Втрачає точність в кінці
+    cout &lt;&lt; "Double: " &lt;&lt; d &lt;&lt; endl; // Зберігає точність
+
+    return 0;
+}</code></pre>
+<p class="note"><b>Порада:</b> В реальних проєктах та задачах за замовчуванням слід використовувати <code>double</code>, оскільки він надає достатню точність для обчислень.</p>
+</section>
+
+<section class="card" id="chars">
+<h2>4. Символи та рядки</h2>
+<p>Тип <code>char</code> зберігає один символ і записується в <b>одинарних лапках</b>. Кожен символ всередині комп'ютера зберігається як числовий код ASCII.</p>
+<pre><code>char letter = 'A';
+char symbol = '$';
+
+cout &lt;&lt; letter &lt;&lt; " має код " &lt;&lt; int(letter) &lt;&lt; endl; // Виведе: A має код 65</code></pre>
+
+<h3>Рядки (string)</h3>
+<p>Для роботи з текстом використовується клас <code>string</code> із бібліотеки <code>&lt;string&gt;</code>. Текст завжди береться у <b>подвійні лапки</b>.</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string greeting = "Hello, World!";
+    cout &lt;&lt; greeting &lt;&lt; endl;
+    return 0;
+}</code></pre>
+</section>
+
+<section class="card" id="booleans">
+<h2>5. Логічний тип (bool)</h2>
+<p>Тип <code>bool</code> може мати лише два значення: <code>true</code> (істина) або <code>false</code> (хибність).</p>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    bool isStudent = true;
+    bool hasGraduated = false;
+
+    cout &lt;&lt; "isStudent: " &lt;&lt; isStudent &lt;&lt; endl; // Виведе 1
+    
+    // Вивід слів true/false замість 1/0:
+    cout &lt;&lt; boolalpha;
+    cout &lt;&lt; "hasGraduated: " &lt;&lt; hasGraduated &lt;&lt; endl; // Виведе false
+
+    return 0;
+}</code></pre>
+</section>
+
+<section class="card" id="sizeof">
+<h2>6. Оператор sizeof</h2>
+<p>Оператор <code>sizeof</code> дозволяє дізнатися, скільки байтів у пам'яті займає конкретний тип або змінна на вашому комп'ютері.</p>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    cout &lt;&lt; "sizeof(char) = " &lt;&lt; sizeof(char) &lt;&lt; " byte" &lt;&lt; endl;
+    cout &lt;&lt; "sizeof(int) = " &lt;&lt; sizeof(int) &lt;&lt; " bytes" &lt;&lt; endl;
+    cout &lt;&lt; "sizeof(double) = " &lt;&lt; sizeof(double) &lt;&lt; " bytes" &lt;&lt; endl;
+    cout &lt;&lt; "sizeof(bool) = " &lt;&lt; sizeof(bool) &lt;&lt; " byte" &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+<div class="task"><strong>Інтерактивна перевірка.</strong> Який тип займає найбільше пам'яті?
+<input id="qsize" type="text" placeholder="Введіть тип...">
+<button class="alt" onclick="checkSize()">Перевірити</button> <span id="sizeResult"></span></div>
+</section>
+
+<section class="card" id="casting">
+<h2>7. Приведення типів (Type Casting)</h2>
+<p>Приведення типів — це перетворення значення одного типу в інший.</p>
+
+<h3>1. Неявне (автоматичне)</h3>
+<pre><code>int a = 5;
+double b = a; // a автоматично перетворюється на 5.0
+
+double x = 9.99;
+int y = x;    // Автоматично відкидає дробову частину! y стане 9</code></pre>
+
+<h3>2. Явне перетворення (static_cast)</h3>
+<p>Рекомендований стиль у сучасній C++:</p>
+<pre><code>int num = 7, den = 2;
+double result = static_cast&lt;double&gt;(num) / den; // Результат 3.5 замість 3</code></pre>
+</section>
+
+<section class="card" id="practice">
+<h2>8. Практика — задачі на типи даних</h2>
+
+<div class="task"><strong>Завдання 1. ASCII код.</strong> Напишіть програму, яка зчитує один символ і виводить його числовий код ASCII.
+<details><summary>Рішення</summary><pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    char ch;
+    cout &lt;&lt; "Enter character: ";
+    cin &gt;&gt; ch;
+
+    cout &lt;&lt; "ASCII code: " &lt;&lt; static_cast&lt;int&gt;(ch) &lt;&lt; endl;
+
+    return 0;
+}</code></pre></details></div>
+
+<div class="task"><strong>Завдання 2. Точне ділення.</strong> Ввести два цілих числа та знайти їх точну частку (з дробовою частиною).
+<details><summary>Рішення</summary><pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int a, b;
+    cout &lt;&lt; "Enter two integers: ";
+    cin &gt;&gt; a &gt;&gt; b;
+
+    if (b != 0) {
+        double div = static_cast&lt;double&gt;(a) / b;
+        cout &lt;&lt; "Result: " &lt;&lt; div &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Error: Division by zero!" &lt;&lt; endl;
+    }
+
+    return 0;
+}</code></pre></details></div>
+
+<div class="task"><strong>Завдання 3. Температура.</strong> Перетворити температуру з градусів Цельсія у Фаренгейт. Формула: <code>F = C * 1.8 + 32</code>.
+<details><summary>Рішення</summary><pre><code>#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+using namespace std;
+
+int main() {
+    double celsius;
+    cout &lt;&lt; "Celsius: ";
+    cin &gt;&gt; celsius;
+
+    double fahrenheit = celsius * 1.8 + 32;
+
+    cout &lt;&lt; fixed &lt;&lt; setprecision(1);
+    cout &lt;&lt; "Fahrenheit: " &lt;&lt; fahrenheit &lt;&lt; endl;
+
+    return 0;
+}</code></pre></details></div>
+</section>
+
+<section class="card" id="test">
+<h2>9. Міні-тест</h2>
+<p>1. Скільки байтів зазвичай займає тип <code>double</code> у C++?</p>
+<label><input type="radio" name="q1" value="a"> 2</label><br>
+<label><input type="radio" name="q1" value="b"> 4</label><br>
+<label><input type="radio" name="q1" value="c"> 8</label>
+
+<p>2. Яке значення матиме змінна <code>int x = 7.8;</code>?</p>
+<label><input type="radio" name="q2" value="a"> 7.8</label><br>
+<label><input type="radio" name="q2" value="b"> 7</label><br>
+<label><input type="radio" name="q2" value="c"> 8</label>
+
+<p>3. Як правильно оголосити символ у C++?</p>
+<label><input type="radio" name="q3" value="a"> char c = 'A';</label><br>
+<label><input type="radio" name="q3" value="b"> char c = "A";</label><br>
+<label><input type="radio" name="q3" value="c"> string c = 'A';</label><br><br>
+
+<button onclick="quiz()">Перевірити тест</button>
+<p id="quizResult"></p>
+</section>
+
+<section class="card">
+<h2>10. Чеклист знань <span class="pill">checklist</span></h2>
+<label><input type="checkbox"> Розумію різницю між цілими (int) та дійсними (double/float) типами</label><br>
+<label><input type="checkbox"> Знаю, як працює модифікатор <code>unsigned</code></label><br>
+<label><input type="checkbox"> Вмію використовувати <code>sizeof</code> для вимірювання розміру типів</label><br>
+<label><input type="checkbox"> Розумію різницю між <code>char</code> ('A') та <code>string</code> ("A")</label><br>
+<label><input type="checkbox"> Вмію виконувати явне приведення типів за допомогою <code>static_cast</code></label>
+</section>
+
+</main>
+
+<footer>Інтерактивний навчальний конспект • C++: Типи даних</footer>
+
+<script>
+function checkSize(){
+ const v=document.getElementById('qsize').value.trim().toLowerCase();
+ const r=document.getElementById('sizeResult');
+ if(v==='double' || v==='long long'){r.textContent='✓ Правильно! (8 байтів)';r.className='ok'}else{r.textContent='Підказка: шукаємо тип, який займає 8 байтів (наприклад, double або long long).';r.className='bad'}
+}
+function quiz(){
+ let s=0;
+ const a=document.querySelector('input[name=q1]:checked');
+ const b=document.querySelector('input[name=q2]:checked');
+ const c=document.querySelector('input[name=q3]:checked');
+ if(a&&a.value==='c')s++; 
+ if(b&&b.value==='b')s++; 
+ if(c&&c.value==='a')s++;
+ const r=document.getElementById('quizResult');
+ r.textContent='Результат: '+s+'/3'+(s===3?' — чудово!':' — переглянь теорію та спробуй ще раз.');
+ r.className=s===3?'ok':'bad';
+}
+</script>
+</body>
+</html>

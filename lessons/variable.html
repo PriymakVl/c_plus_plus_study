@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C++ з нуля — інтерактивний урок: Все про Змінні</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#172033;--muted:#667085;--accent:#00599c;--accent2:#008080;--line:#e6e8ef;--code:#151823;--warn:#fff7df}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+header{background:linear-gradient(135deg,#00599c,#283593);color:#fff;padding:46px 20px}
+.wrap{max-width:1100px;margin:auto}.hero{display:grid;grid-template-columns:1.4fr .6fr;gap:28px;align-items:center}
+h1{font-size:clamp(32px,5vw,58px);line-height:1.03;margin:0 0 12px}.lead{font-size:19px;opacity:.95}
+.badge{display:inline-block;background:#ffffff22;border:1px solid #ffffff44;padding:7px 12px;border-radius:999px;margin:4px}
+nav{position:sticky;top:0;background:#ffffffee;backdrop-filter:blur(8px);z-index:3;border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:8px;overflow:auto;padding:10px 16px} nav a{white-space:nowrap;text-decoration:none;color:var(--ink);padding:8px 12px;border-radius:10px}nav a:hover{background:#eaf2f8}
+main{padding:28px 16px 60px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:18px 0;box-shadow:0 7px 24px #1720330b}
+h2{margin-top:0;font-size:28px}h3{margin-bottom:8px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.note{background:#eaf2f8;border-left:5px solid var(--accent);padding:14px 16px;border-radius:10px}.teacher{background:var(--warn);border-left:5px solid #f4b400;padding:14px 16px;border-radius:10px}
+pre{background:var(--code);color:#f8f8f2;padding:17px;border-radius:13px;overflow:auto;font-size:15px;line-height:1.5}code{font-family:Consolas,monospace}
+table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid var(--line);padding:11px;text-align:left}th{background:#f8f8fc}
+.task{border:1px dashed #00599c88;border-radius:14px;padding:16px;margin:12px 0}.task strong{color:#00599c}
+textarea,input[type=text]{width:100%;border:1px solid #ccd0dc;border-radius:10px;padding:12px;font:inherit;margin:7px 0}
+button{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;background:var(--accent);color:white}button.alt{background:var(--accent2)}button.ghost{background:#eef0f5;color:#273043}
+.answer{display:none;margin-top:10px}.ok{color:#087f5b;font-weight:700}.bad{color:#c92a2a;font-weight:700}
+details{border:1px solid var(--line);padding:12px 14px;border-radius:12px;margin:10px 0}summary{cursor:pointer;font-weight:700}
+.pill{font-size:13px;background:#edf7f5;color:#087f5b;padding:4px 9px;border-radius:999px}
+footer{text-align:center;color:var(--muted);padding:30px}
+@media(max-width:760px){.hero,.grid{grid-template-columns:1fr}.card{padding:18px}}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap hero">
+  <div>
+    <h1>Змінні у C++</h1>
+    <p class="lead">Повний інтерактивний урок: типи, правильні назви (імена) та вставка змінних у текстові рядки.</p>
+  </div>
+</div>
+</header>
+
+<nav><div class="wrap">
+<a href="#definition">Що таке змінна</a><a href="#naming">Правила назв</a><a href="#types">Типи даних</a><a href="#embed">Вставка в рядок</a><a href="#practice">Практика</a><a href="#test">Тест</a>
+</div></nav>
+
+<main class="wrap">
+
+<section class="card" id="definition">
+<h2>1. Оголошення та ініціалізація змінної</h2>
+<p><b>Змінна</b> — це іменована область пам'яті для збереження даних. У C++ обов'язково спочатку вказується <b>тип</b>, а потім <b>ім'я</b>.</p>
+<pre><code>// Створення (оголошення)
+int age;
+
+// Присвоєння значення (ініціалізація)
+age = 15;
+
+// Створення та надання значення в один рядок:
+double price = 99.99;
+string name = "Олексій";</code></pre>
+<div class="teacher"><b>Пояснення:</b> Оператор <code>=</code> — це не рівність, а <i>присвоєння</i>. Обчислюється вираз праворуч і записується у змінну ліворуч.</div>
+</section>
+
+<section class="card" id="naming">
+<h2>2. Символи та правила в назві змінної</h2>
+<p>Ім'я змінної (ідентифікатор) підпорядковується чітким правилам мови C++:</p>
+<table>
+<tr><th>Що можна використовувати</th><th>Приклади дозволених імен</th></tr>
+<tr><td>
+<ul>
+  <li>Латинські літери: <code>a-z</code>, <code>A-Z</code></li>
+  <li>Цифри: <code>0-9</code> (але <b>НЕ</b> на початку!)</li>
+  <li>Знак підкреслення: <code>_</code></li>
+</ul>
+</td><td>
+<code>user_age</code>, <code>score2</code>, <code>_total</code>, <code>playerHealth</code>
+</td></tr>
+</table>
+
+<h3 style="margin-top:20px;">Критичні правила та обмеження:</h3>
+<ol>
+  <li><b>Не можна починати з цифри:</b> <code>1player</code> — <span class="bad">ПОМИЛКА</span>! (Правильно: <code>player1</code>).</li>
+  <li><b>Спеціальні символи заборонені:</b> Пробіли, дефіси, розділові знаки, знаки <code>$</code>, <code>%</code>, <code>@</code>, <code>#</code>, <code>!</code> — <span class="bad">НЕ МОЖНА</span>. (<code>user-age</code> — помилка, використовуйте <code>user_age</code>).</li>
+  <li><b>Кирилиця та інші алфавіти:</b> Використовувати не бажано (і в багатьох стандартах заборонено). Називайте змінні англійською.</li>
+  <li><b>Чутливість до регістру:</b> <code>speed</code>, <code>Speed</code> та <code>SPEED</code> — це три <b>різні</b> змінні!</li>
+  <li><b>Ключові (зарезервовані) слова:</b> Не можна називати змінну <code>int</code>, <code>double</code>, <code>class</code>, <code>return</code>, <code>using</code> тощо.</li>
+</ol>
+
+<div class="task"><strong>Інтерактивна перевірка імені змінної.</strong> Введіть назву змінної, щоб дізнатися, чи вона правильна для C++:
+<input id="varNameInput" type="text" placeholder="Наприклад: my_score1">
+<button onclick="checkVarName()">Перевірити назву</button> 
+<span id="varNameResult"></span></div>
+</section>
+
+<section class="card" id="types">
+<h2>3. Типи даних для змінних</h2>
+<table><tr><th>Тип</th><th>Що зберігає</th><th>Символи / Значення</th><th>Приклад</th></tr>
+<tr><td><code>int</code></td><td>Цілі числа</td><td>цифри зі знаком <code>-</code> або без</td><td><code>int count = 10;</code></td></tr>
+<tr><td><code>double</code></td><td>Дробові числа</td><td>цифри з крапкою <code>.</code></td><td><code>double pi = 3.1415;</code></td></tr>
+<tr><td><code>char</code></td><td>Один символ</td><td>береться в <b>поодинокі дужки</b> <code>' '</code></td><td><code>char grade = 'A';</code></td></tr>
+<tr><td><code>string</code></td><td>Текстовий рядок</td><td>береться в <b>подвійні лапки</b> <code>" "</code></td><td><code>string city = "Київ";</code></td></tr>
+<tr><td><code>bool</code></td><td>Логічний прапорець</td><td><code>true</code> (істина) або <code>false</code> (хибність)</td><td><code>bool isOnline = true;</code></td></tr>
+</table>
+</section>
+
+<section class="card" id="embed">
+<h2>4. Як вставити змінну в рядок</h2>
+<p>У C++ є кілька основних способів виведення змінних разом із текстом та поєднання їх у єдиний рядок.</p>
+
+<h3>Спосіб 1: Потік <code>std::cout</code> (Найпростіший та найуживаніший)</h3>
+<p>Оператор <code>&lt;&lt;</code> дозволяє «зліплювати» текст у подвійних лапках і змінні послідовно:</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string name = "Анна";
+    int age = 16;
+    double score = 98.5;
+
+    // Вставка кількох змінних у текст
+    cout &lt;&lt; "Привіт, мене звати " &lt;&lt; name &lt;&lt; ", мені " &lt;&lt; age &lt;&lt; " років!" &lt;&lt; endl;
+    cout &lt;&lt; "Мій бал: " &lt;&lt; score &lt;&lt; " зі 100." &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+
+<h3>Спосіб 2: Конкатенація рядків через `+` (тільки для <code>string</code>)</h3>
+<p>Якщо потрібно створити новий рядок у пам'яті, з'єднавши текст та інші змінні:</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string name = "Іван";
+    int level = 5;
+
+    // Щоб додати число до string, його треба перетворити за допомогою to_string()
+    string message = "Гравець " + name + " досяг рівня " + to_string(level) + "!";
+    
+    cout &lt;&lt; message &lt;&lt; endl;
+    return 0;
+}</code></pre>
+<div class="note"><b>Зверніть увагу:</b> Числові змінні (<code>int</code>, <code>double</code>) не можна просто так додавати до `string` через `+`. Потрібно обов'язково використовувати <code>to_string(variable)</code>!</div>
+
+<h3>Спосіб 3: Сучасне форматування <code>std::format</code> (C++20)</h3>
+<p>У сучасній мові C++20 додано аналог f-string з Python чи string.Format з C#:</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;format&gt; // Потрібен стандарт C++20
+using namespace std;
+
+int main() {
+    string item = "Яблуко";
+    int count = 3;
+    
+    // Вставка змінних у місця фігурних дужок {}
+    string text = format("Ви купили {} шт. товару: {}.", count, item);
+    cout &lt;&lt; text &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+</section>
+
+<section class="card" id="practice">
+<h2>5. Практичні завдання</h2>
+
+<div class="task"><strong>Завдання 1. Виправлення помилок у назвах.</strong> 
+Які з цих назв змінних написані з помилкою і чому?
+<p><code>1st_place</code>, <code>total-sum</code>, <code>user_age</code>, <code>double</code>, <code>myScore</code></p>
+<details><summary>Перевірити відповідь</summary>
+<ul>
+  <li><span class="bad">1st_place</span> — Помилка: починається з цифри.</li>
+  <li><span class="bad">total-sum</span> — Помилка: дефіс не дозволений (треба використовувати підкреслення <code>total_sum</code>).</li>
+  <li><span class="ok">user_age</span> — Правильно!</li>
+  <li><span class="bad">double</span> — Помилка: це зарезервоване слово (тип даних).</li>
+  <li><span class="ok">myScore</span> — Правильно (стиль camelCase).</li>
+</ul>
+</details></div>
+
+<div class="task"><strong>Завдання 2. Вставка в рядок.</strong> Складіть програму, де оголошено змінні <code>city</code> (город), <code>temp</code> (температура), і виведіть фразою: "Сьогодні у місті [city] температура [temp] градусов."
+<details><summary>Показати C++ код</summary>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string city = "Київ";
+    int temp = 22;
+
+    cout &lt;&lt; "Сьогодні у місті " &lt;&lt; city &lt;&lt; " температура " &lt;&lt; temp &lt;&lt; " градусів." &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+</details></div>
+
+<div class="task"><strong>Завдання 3. Конкатенація через to_string.</strong> Запишіть у змінну <code>fullInfo</code> рядок із назвою товару та його ціною.
+<details><summary>Показати C++ код</summary>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string title = "Ноутбук";
+    double price = 25500.50;
+
+    string fullInfo = "Товар: " + title + " | Ціна: " + to_string(price) + " грн";
+    cout &lt;&lt; fullInfo &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+</details></div>
+</section>
+
+<section class="card" id="test">
+<h2>6. Міні-тест про змінні</h2>
+<p>1. Який символ МОЖНА використовувати у назві змінної C++?</p>
+<label><input type="radio" name="q1" value="a"> Дефіс (-)</label><br>
+<label><input type="radio" name="q1" value="b"> Знак підкреслення (_)</label><br>
+<label><input type="radio" name="q1" value="c"> Знак долара ($)</label>
+
+<p>2. Яке ім'я змінної є КОРЕКТНИМ?</p>
+<label><input type="radio" name="q2" value="a"> 2cat</label><br>
+<label><input type="radio" name="q2" value="b"> my cat</label><br>
+<label><input type="radio" name="q2" value="c"> my_cat2</label>
+
+<p>3. Що потрібно використовувати для перетворення числа у string при з'єднанні через `+`?</p>
+<label><input type="radio" name="q3" value="a"> to_string(x)</label><br>
+<label><input type="radio" name="q3" value="b"> convert(x)</label><br>
+<label><input type="radio" name="q3" value="c"> (string)x</label><br><br>
+
+<button onclick="quiz()">Перевірити тест</button>
+<p id="quizResult"></p>
+</section>
+
+<section class="card">
+<h2>7. Чек-лист знань <span class="pill">checklist</span></h2>
+<label><input type="checkbox"> Знаю дозволені символи: латинські літери, цифри, знак підкреслення</label><br>
+<label><input type="checkbox"> Пам'ятаю, що назва НЕ може починатися з цифри і містити дефіс/пробіли</label><br>
+<label><input type="checkbox"> Розумію, що C++ чутливий до регістру (<code>age</code> != <code>Age</code>)</label><br>
+<label><input type="checkbox"> Вмію виводити змінні разом з текстом через <code>cout &lt;&lt; "текст " &lt;&lt; var</code></label><br>
+<label><input type="checkbox"> Вмію об'єднувати рядки та числа через <code>to_string()</code></label>
+</section>
+
+</main>
+
+<footer>Інтерактивний навчальний конспект • C++: Змінні та назви</footer>
+
+<script>
+function checkVarName() {
+  const input = document.getElementById('varNameInput').value.trim();
+  const res = document.getElementById('varNameResult');
+  
+  if (!input) {
+    res.textContent = 'Введіть назву!';
+    res.className = 'bad';
+    return;
+  }
+
+  const keywords = ["int","double","float","char","string","bool","return","using","namespace","class","struct","if","else","for","while"];
+  
+  if (keywords.includes(input)) {
+    res.textContent = '✗ Помилка: це зарезервоване слово C++!';
+    res.className = 'bad';
+    return;
+  }
+  
+  const validPattern = /^[a-zA-Z_][a-zA-Z0-9_]*$/;
+  if (validPattern.test(input)) {
+    res.textContent = '✓ Чудово! Це правильна назва змінної.';
+    res.className = 'ok';
+  } else {
+    if (/^[0-9]/.test(input)) {
+      res.textContent = '✗ Помилка: назва не може починатися з цифри!';
+    } else if (/\s/.test(input)) {
+      res.textContent = '✗ Помилка: пробіли заборонені!';
+    } else if (/-/.test(input)) {
+      res.textContent = '✗ Помилка: дефіс заборонено, використовуйте підкреслення (_)!';
+    } else {
+      res.textContent = '✗ Помилка: використовуйте тільки латиницю, цифри та _!';
+    }
+    res.className = 'bad';
+  }
+}
+
+function quiz() {
+  let score = 0;
+  const a = document.querySelector('input[name=q1]:checked');
+  const b = document.querySelector('input[name=q2]:checked');
+  const c = document.querySelector('input[name=q3]:checked');
+  
+  if(a && a.value === 'b') score++;
+  if(b && b.value === 'c') score++;
+  if(c && c.value === 'a') score++;
+  
+  const r = document.getElementById('quizResult');
+  r.textContent = 'Результат: ' + score + '/3' + (score === 3 ? ' — Відмінно!' : ' — Спробуйте ще раз!');
+  r.className = score === 3 ? 'ok' : 'bad';
+}
+</script>
+</body>
+</html>

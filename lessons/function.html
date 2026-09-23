@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Функції в C++ — інтерактивний урок</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#172033;--muted:#667085;--accent:#00599c;--accent2:#00a896;--line:#e6e8ef;--code:#151823;--warn:#fff7df}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+header{background:linear-gradient(135deg,#00599c,#283593);color:#fff;padding:46px 20px}
+.wrap{max-width:1100px;margin:auto}.hero{display:grid;grid-template-columns:1.4fr .6fr;gap:28px;align-items:center}
+h1{font-size:clamp(32px,5vw,58px);line-height:1.03;margin:0 0 12px}.lead{font-size:19px;opacity:.95}
+.badge{display:inline-block;background:#ffffff22;border:1px solid #ffffff44;padding:7px 12px;border-radius:999px;margin:4px}
+nav{position:sticky;top:0;background:#ffffffee;backdrop-filter:blur(8px);z-index:3;border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:8px;overflow:auto;padding:10px 16px} nav a{white-space:nowrap;text-decoration:none;color:var(--ink);padding:8px 12px;border-radius:10px}nav a:hover{background:#eef4fa}
+main{padding:28px 16px 60px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:18px 0;box-shadow:0 7px 24px #1720330b}
+h2{margin-top:0;font-size:28px}h3{margin-bottom:8px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.note{background:#eef4fa;border-left:5px solid var(--accent);padding:14px 16px;border-radius:10px}.teacher{background:var(--warn);border-left:5px solid #f4b400;padding:14px 16px;border-radius:10px}
+pre{background:var(--code);color:#f8f8f2;padding:17px;border-radius:13px;overflow:auto;font-size:15px;line-height:1.5}code{font-family:Consolas,monospace}
+table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid var(--line);padding:11px;text-align:left}th{background:#f8f8fc}
+.task{border:1px dashed #90caf9;border-radius:14px;padding:16px;margin:12px 0}.task strong{color:#00599c}
+textarea,input[type=text]{width:100%;border:1px solid #ccd0dc;border-radius:10px;padding:12px;font:inherit;margin:7px 0}
+button{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;background:var(--accent);color:white}button.alt{background:var(--accent2)}button.ghost{background:#eef0f5;color:#273043}
+.answer{display:none;margin-top:10px}.ok{color:#087f5b;font-weight:700}.bad{color:#c92a2a;font-weight:700}
+details{border:1px solid var(--line);padding:12px 14px;border-radius:12px;margin:10px 0}summary{cursor:pointer;font-weight:700}
+.pill{font-size:13px;background:#edf7f5;color:#087f5b;padding:4px 9px;border-radius:999px}
+footer{text-align:center;color:var(--muted);padding:30px}
+@media(max-width:760px){.hero,.grid{grid-template-columns:1fr}.card{padding:18px}}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap hero">
+  <div>
+    <h1>Функції в C++</h1>
+    <p class="lead">Інтерактивний урок з вивчення підпрограм, прототипів, передачі параметрів за посиланням та повернення значень у C++.</p>
+  </div>
+</div>
+</header>
+
+<nav><div class="wrap">
+<a href="#cmath">Вбудовані функції (&lt;cmath&gt;)</a><a href="#functions">Створення функцій</a><a href="#void">Функції void</a><a href="#params">Передача за посиланням (&amp;)</a><a href="#scope">Область видимості</a><a href="#practice">Практика</a><a href="#test">Міні-тест</a>
+</div></nav>
+
+<main class="wrap">
+
+<section class="card" id="cmath">
+<h2>1. Вбудовані математичні функції (&lt;cmath&gt;)</h2>
+<p><b>Функція</b> — це ізольований блок коду, який приймає аргументи, виконує обчислення та **повертає результат**. Для використання математичних функцій у C++ підключають бібліотеку <code>#include &lt;cmath&gt;</code> (а для рядків — <code>&lt;string&gt;</code>).</p>
+<table><tr><th>Функція</th><th>Що робить</th><th>Приклад</th><th>Результат</th></tr>
+<tr><td><code>pow(x, y)</code></td><td>Підношення до степеня ($x^y$)</td><td><code>pow(5, 2)</code></td><td>25.0 (тип double)</td></tr>
+<tr><td><code>sqrt(x)</code></td><td>Квадратний корінь ($\sqrt{x}$)</td><td><code>sqrt(16.0)</code></td><td>4.0 (тип double)</td></tr>
+<tr><td><code>abs(x) / fabs(x)</code></td><td>Модуль числа ($|x|$)</td><td><code>abs(-7)</code></td><td>7</td></tr>
+<tr><td><code>s.length()</code></td><td>Довжина рядка (із <code>&lt;string&gt;</code>)</td><td><code>string s="C++"; s.length()</code></td><td>3</td></tr>
+<tr><td><code>round(x)</code></td><td>Округлення до найближчого цілого</td><td><code>round(3.7)</code></td><td>4.0</td></tr>
+<tr><td><code>floor(x) / ceil(x)</code></td><td>Округлення вниз / вгору</td><td><code>floor(3.7)</code> / <code>ceil(3.1)</code></td><td>3.0 / 4.0</td></tr></table>
+
+<div class="task"><strong>Швидка перевірка.</strong> Що поверне вираз <code>pow(abs(-3), 2)</code>?
+<input id="qbuiltin" type="text" placeholder="Введіть число...">
+<button class="alt" onclick="checkBuiltin()">Перевірити</button> <span id="builtinResult"></span></div>
+</section>
+
+<section class="card" id="functions">
+<h2>2. Створення власних функцій (Return type)</h2>
+<p>У C++ тип значення, яке повертає функція, вказується **перед її ім'ям**. Для повернення результату використовується оператор <code>return</code>.</p>
+<pre><code>ТипРезультату НазваФункції(Тип1 параметр1, Тип2 параметр2) {
+    // локальні змінні (за потреби)
+    return результат; // повернення значення
+}</code></pre>
+
+<h3>Приклад: Функція обчислення площі прямокутника</h3>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+// Оголошення та визначення функції
+double getArea(double a, double b) {
+    return a * b; // повертаємо результат обчислення
+}
+
+int main() {
+    double x, y;
+    cout &lt;&lt; "Введіть сторони: ";
+    cin &gt;&gt; x &gt;&gt; y;
+    
+    double area = getArea(x, y); // виклик функції
+    cout &lt;&lt; "Площа: " &lt;&lt; area &lt;&lt; endl;
+    
+    return 0;
+}</code></pre>
+<p class="note"><b>Запам'ятай:</b> Виконання функції припиняється одразу після того, як спрацює оператор <code>return</code>.</p>
+</section>
+
+<section class="card" id="void">
+<h2>3. Функції, що нічого не повертають (void)</h2>
+<p>Якщо функція виконує дію (наприклад, друкує текст чи очищує екран) і не повинна повертати значення, її типом повернення вказують <code>void</code> (аналог процедур у Pascal).</p>
+
+<div class="grid">
+<div>
+<h3>Функція зі значенням</h3>
+<pre><code>int cube(int x) {
+    return x * x * x;
+}
+
+// Виклик у виразі або виводі:
+int ans = cube(3);
+cout &lt;&lt; cube(3);</code></pre>
+</div>
+<div>
+<h3>Функція типа void</h3>
+<pre><code>void printLine() {
+    cout &lt;&lt; "--------------------" &lt;&lt; endl;
+}
+
+// Виклик як окрема команда:
+printLine();</code></pre>
+</div>
+</div>
+<div class="teacher"><b>Для вчителя.</b> Поясніть різницю: функцію із типом (<code>int</code>, <code>double</code>) можна підставити у <code>cout &lt;&lt; cube(3)</code> або вираз, а <code>void</code>-функцію викликають тільки як окремий оператор.</div>
+</section>
+
+<section class="card" id="params">
+<h2>4. Передача за значенням та за посиланням (&amp;)</h2>
+<p>За замовчуванням параметри передаються за значенням (створюється копія). Щоб функція могла **змінити значення оригінальної змінної**, використовують амперсанд <code>&amp;</code> (передача за посиланням).</p>
+
+<pre><code>void swap(int &amp;a, int &amp;b) { // &amp; дозволяє змінювати оригінали
+    int temp = a;
+    a = b;
+    b = temp;
+}</code></pre>
+
+<table><tr><th>Тип передачі</th><th>Синтаксис</th><th>Опис</th><th>Змінює оригінал?</th></tr>
+<tr><td>За значенням</td><td><code>(int a)</code></td><td>Передається копія даних</td><td>Ні</td></tr>
+<tr><td>За посиланням</td><td><code>(int &amp;a)</code></td><td>Передається адреса самої змінної</td><td>Так</td></tr>
+<tr><td>Константне посилання</td><td><code>(const string &amp;s)</code></td><td>Передача без копіювання (швидко), але без права зміни</td><td>Ні</td></tr></table>
+</section>
+
+<section class="card" id="scope">
+<h2>5. Локальні та глобальні змінні</h2>
+<p>Змінні, оголошені поза будь-якою функцією, є **глобальними**. Змінні, оголошені всередині функції — **локальними** (існують тільки під час виконання цієї функції та всередині її блоку <code>{}</code>).</p>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int g = 10; // Глобальна змінна
+
+void test() {
+    int l = 5; // Локальна змінна
+    cout &lt;&lt; g &lt;&lt; endl; // Глобальні змінні видно всюди
+}
+
+int main() {
+    test();
+    // cout &lt;&lt; l; -> ПОМИЛКА КОМПІЛЯЦІЇ! Змінна 'l' тут не існує.
+    return 0;
+}</code></pre>
+</section>
+
+<section class="card" id="practice">
+<h2>6. Практика — пишемо самі</h2>
+
+<div class="task"><strong>Завдання 1. Максимум з двох чисел.</strong> Напишіть функцію <code>int getMax(int a, int b)</code>, яка повертає більше з двох чисел.
+<details><summary>Код для вчителя</summary><pre><code>int getMax(int a, int b) {
+    if (a &gt; b) {
+        return a;
+    } else {
+        return b;
+    }
+}</code></pre></details></div>
+
+<div class="task"><strong>Завдання 2. Перевірка парності.</strong> Створіть функцію <code>bool isEven(int n)</code>, яка повертає <code>true</code>, якщо число парне, і <code>false</code>, якщо ні.
+<details><summary>Код для вчителя</summary><pre><code>bool isEven(int n) {
+    return n % 2 == 0;
+}</code></pre></details></div>
+
+<div class="task"><strong>Завдання 3. Процедура привітання.</strong> Напишіть void-функцію <code>void sayHello(string name)</code>, яка виводить рядок <code>Вітаю, &lt;ім'я&gt;!</code>.
+<details><summary>Код для вчителя</summary><pre><code>void sayHello(string name) {
+    cout &lt;&lt; "Вітаю, " &lt;&lt; name &lt;&lt; "!" &lt;&lt; endl;
+}</code></pre></details></div>
+
+<div class="task"><strong>Завдання 4. Подвоєння значення.</strong> Створіть функцію <code>void doubleValue(int &amp;x)</code>, яка збільшує значення змінної у 2 рази безпосередньо в пам'яті.
+<details><summary>Код для вчителя</summary><pre><code>void doubleValue(int &amp;x) {
+    x = x * 2;
+}</code></pre></details></div>
+</section>
+
+<section class="card" id="test">
+<h2>7. Міні-тест</h2>
+<p>1. Що вказує тип <code>void</code> перед назвою функції?</p>
+<label><input type="radio" name="q1" value="a"> Функція обов'язково повертає ціле число</label><br>
+<label><input type="radio" name="q1" value="b"> Функція нічого не повертає</label><br>
+<label><input type="radio" name="q1" value="c"> Функція виконується безконечно</label>
+
+<p>2. Який символ використовується для передачі параметра за посиланням у C++?</p>
+<label><input type="radio" name="q1_2" name="q2" value="a"> *</label><br>
+<label><input type="radio" name="q2" value="b"> &amp;</label><br>
+<label><input type="radio" name="q2" value="c"> %</label>
+
+<p>3. Як правильно завершити виконання функції та повернути значення <code>x + y</code>?</p>
+<label><input type="radio" name="q3" value="a"> return x + y;</label><br>
+<label><input type="radio" name="q3" value="b"> result = x + y;</label><br>
+<label><input type="radio" name="q3" value="c"> yield x + y;</label><br><br>
+
+<button onclick="quiz()">Перевірити тест</button>
+<p id="quizResult"></p>
+</section>
+
+<section class="card">
+<h2>8. Підсумкова програма</h2>
+<p>Напишіть програму, яка містить функцію <code>int power(int base, int exp)</code> для обчислення ступеня числа (наприклад, $2^3 = 8$).</p>
+<details><summary>Рішення для вчителя</summary><pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int power(int base, int exp) {
+    int res = 1;
+    for (int i = 0; i &lt; exp; i++) {
+        res *= base;
+    }
+    return res;
+}
+
+int main() {
+    int a, b;
+    cout &lt;&lt; "Основа: "; 
+    cin &gt;&gt; a;
+    cout &lt;&lt; "Показник: "; 
+    cin &gt;&gt; b;
+    
+    cout &lt;&lt; "Результат: " &lt;&lt; power(a, b) &lt;&lt; endl;
+    return 0;
+}</code></pre>
+<p><b>Що перевіряємо:</b> функція з кількома параметрами, значення, що повертається через <code>return</code>, локальні змінні <code>res, i</code>, цикл <code>for</code> та виклик з <code>main()</code>.</p></details>
+</section>
+
+<section class="card">
+<h2>9. Що учень має знати після уроку <span class="pill">checklist</span></h2>
+<label><input type="checkbox"> як оголошувати функцію та повертати значення через <code>return</code></label><br>
+<label><input type="checkbox"> навіщо потрібен тип <code>void</code></label><br>
+<label><input type="checkbox"> як використовувати вбудовані математичні функції з <code>&lt;cmath&gt;</code></label><br>
+<label><input type="checkbox"> для чого потрібен амперсанд <code>&amp;</code> у параметрах (передача за посиланням)</label><br>
+<label><input type="checkbox"> різницю між локальними та глобальними змінними</label>
+</section>
+</main>
+
+<footer>Інтерактивний навчальний конспект • C++: урок «Функції»</footer>
+
+<script>
+function checkBuiltin(){
+ const v=document.getElementById('qbuiltin').value.trim();
+ const r=document.getElementById('builtinResult');
+ if(v==='9'){r.textContent='✓ Правильно! abs(-3) = 3, а pow(3, 2) = 9.';r.className='ok'}else{r.textContent='Спробуй ще. Підказка: спочатку abs(-3), потім pow(3, 2).';r.className='bad'}
+}
+function quiz(){
+ let s=0;
+ const a=document.querySelector('input[name=q1]:checked');
+ const b=document.querySelector('input[name=q2]:checked');
+ const c=document.querySelector('input[name=q3]:checked');
+ if(a&&a.value==='b')s++; if(b&&b.value==='b')s++; if(c&&c.value==='a')s++;
+ const r=document.getElementById('quizResult');
+ r.textContent='Результат: '+s+'/3'+(s===3?' — чудово!':' — переглянь теорію та спробуй ще раз.');
+ r.className=s===3?'ok':'bad';
+}
+</script>
+</body>
+</html>

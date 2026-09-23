@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C++ з нуля — інтерактивний урок: Введення та виведення (cin і cout)</title>
+<style>
+:root {
+  --bg: #f6f7fb;
+  --card: #fff;
+  --ink: #172033;
+  --muted: #667085;
+  --accent: #00599c;
+  --accent2: #008080;
+  --line: #e6e8ef;
+  --code: #151823;
+  --warn: #fff7df;
+  --success-bg: #e6fcf5;
+  --success-border: #087f5b;
+  --error-bg: #fff5f5;
+  --error-border: #c92a2a;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, Segoe UI, Arial, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.55; }
+
+header { background: linear-gradient(135deg, #00599c, #283593); color: #fff; padding: 46px 20px; }
+.wrap { max-width: 1100px; margin: auto; }
+.hero { display: grid; grid-template-columns: 1.4fr .6fr; gap: 28px; align-items: center; }
+h1 { font-size: clamp(30px, 4.5vw, 52px); line-height: 1.08; margin: 0 0 12px; }
+.lead { font-size: 19px; opacity: .95; margin-bottom: 0; }
+.badge { display: inline-block; background: #ffffff22; border: 1px solid #ffffff44; padding: 7px 12px; border-radius: 999px; margin: 4px; font-size: 14px; }
+
+nav { position: sticky; top: 0; background: #ffffffee; backdrop-filter: blur(8px); z-index: 10; border-bottom: 1px solid var(--line); }
+nav .wrap { display: flex; gap: 8px; overflow-x: auto; padding: 10px 16px; scrollbar-width: thin; }
+nav a { white-space: nowrap; text-decoration: none; color: var(--ink); padding: 8px 12px; border-radius: 10px; font-weight: 500; transition: background 0.2s; }
+nav a:hover { background: #eaf2f8; color: var(--accent); }
+
+main { padding: 28px 16px 60px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 24px; margin: 20px 0; box-shadow: 0 7px 24px #1720330b; }
+h2 { margin-top: 0; font-size: 28px; color: var(--accent); }
+h3 { margin-top: 20px; margin-bottom: 10px; font-size: 20px; color: #1e293b; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+
+.note { background: #eaf2f8; border-left: 5px solid var(--accent); padding: 14px 16px; border-radius: 10px; margin: 14px 0; }
+.teacher { background: var(--warn); border-left: 5px solid #f4b400; padding: 14px 16px; border-radius: 10px; margin: 14px 0; }
+.visual-box { background: #f0f4f8; border: 2px dashed #a0aec0; border-radius: 12px; padding: 16px; text-align: center; margin: 14px 0; }
+
+pre { background: var(--code); color: #f8f8f2; padding: 17px; border-radius: 13px; overflow-x: auto; font-size: 15px; line-height: 1.5; margin: 12px 0; }
+code { font-family: Consolas, Monaco, "Andale Mono", monospace; }
+p code, td code { background: #edf2f7; color: #c7254e; padding: 2px 6px; border-radius: 6px; font-size: 0.92em; }
+
+table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+th, td { border-bottom: 1px solid var(--line); padding: 11px; text-align: left; }
+th { background: #f8f8fc; font-weight: 600; }
+
+.task { border: 1px dashed #00599c88; border-radius: 14px; padding: 18px; margin: 16px 0; background: #fafbfc; }
+.task strong { color: var(--accent); }
+textarea, input[type=text] { width: 100%; border: 1px solid #ccd0dc; border-radius: 10px; padding: 12px; font: inherit; margin: 8px 0; transition: border-color 0.2s; }
+textarea:focus, input[type=text]:focus { border-color: var(--accent); outline: none; }
+
+button { border: 0; border-radius: 10px; padding: 10px 16px; font-weight: 700; cursor: pointer; background: var(--accent); color: white; transition: opacity 0.2s; margin-top: 4px; }
+button:hover { opacity: 0.9; }
+button.alt { background: var(--accent2); }
+button.ghost { background: #eef0f5; color: #273043; }
+
+.answer { display: none; margin-top: 12px; }
+.ok { color: #087f5b; font-weight: 700; }
+.bad { color: #c92a2a; font-weight: 700; }
+.result-msg { margin-top: 8px; font-size: 15px; }
+
+details { border: 1px solid var(--line); padding: 12px 14px; border-radius: 12px; margin: 10px 0; background: #fff; }
+summary { cursor: pointer; font-weight: 700; color: var(--accent); }
+.pill { font-size: 13px; background: #edf7f5; color: #087f5b; padding: 4px 9px; border-radius: 999px; }
+
+.quiz-q { margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.quiz-q:last-child { border-bottom: none; }
+.quiz-q p { font-weight: 600; margin-bottom: 8px; }
+.quiz-q label { display: block; margin: 6px 0; cursor: pointer; }
+
+footer { text-align: center; color: var(--muted); padding: 30px; font-size: 14px; }
+
+@media(max-width: 760px) {
+  .hero, .grid { grid-template-columns: 1fr; }
+  .card { padding: 18px; }
+  h1 { font-size: 32px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="wrap hero">
+  <div>
+    <h1>C++ з нуля — інтерактивний урок</h1>
+    <p class="lead">Введення та виведення даних: робота з потоками <code>cin</code> та <code>cout</code></p>
+    <div style="margin-top: 14px;">
+      <span class="badge">#cpp</span>
+      <span class="badge">#iostream</span>
+      <span class="badge">#cin_cout</span>
+      <span class="badge">#Beginner</span>
+    </div>
+  </div>
+</div>
+</header>
+
+<nav><div class="wrap">
+<a href="#about-cout">1. Виведення cout</a>
+<a href="#about-cin">2. Введення cin</a>
+<a href="#stream-operators">3. Пам'ятка стрілок</a>
+<a href="#format-getline">4. getline та форматування</a>
+<a href="#practice">5. Практика</a>
+<a href="#test">6. Міні-тест</a>
+<a href="#summary">7. Підсумок</a>
+</div></nav>
+
+<main class="wrap">
+
+<section class="card" id="about-cout">
+<h2>1. Робота з об'єктом cout (виведення даних)</h2>
+<p>Об'єкт <code>cout</code> (походить від <i>Console Output</i>) використовується для виведення інформації на екран консолі. Він працює в параграфі з бібліотекою <code>&lt;iostream&gt;</code>.</p>
+
+<h3>Ланцюжки виведення оператором <code>&lt;&lt;</code></h3>
+<p>Оператор <code>&lt;&lt;</code> можна використовувати багаторазово в одному рядку, об'єднуючи текст, змінні та вирази:</p>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int score = 100;
+    string player = "Alex";
+
+    // Ланцюжкове виведення
+    cout &lt;&lt; "Гравець " &lt;&lt; player &lt;&lt; " має " &lt;&lt; score &lt;&lt; " балів!" &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+
+<h3>Перехід на новий рядок: <code>endl</code> проти <code>"\n"</code></h3>
+<p>Для перенесення курсора на новий рядок є два шляхи:</p>
+<table>
+<tr><th>Спосіб</th><th>Приклад</th><th>Особливість</th></tr>
+<tr><td><code>endl</code></td><td><code>cout &lt;&lt; "Привіт" &lt;&lt; endl;</code></td><td>Переносить рядок та очищає буфер виводу (Flush).</td></tr>
+<tr><td><code>"\n"</code></td><td><code>cout &lt;&lt; "Привіт\n";</code></td><td>Працює швидше, просто вставляє символ нового рядка.</td></tr>
+</table>
+
+<div class="note"><b>Порада:</b> Для звичайних програм навчального рівня різниця непомітна, але у великих програмах <code>"\n"</code> працює дещо швидше за <code>endl</code>.</div>
+</section>
+
+<section class="card" id="about-cin">
+<h2>2. Робота з об'єктом cin (введення даних)</h2>
+<p>Об'єкт <code>cin</code> (походить від <i>Console Input</i>) зчитує дані, які користувач вводить з клавіатури, та записує їх у змінні.</p>
+
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int age;
+    cout &lt;&lt; "Введіть ваш вік: "; // Спочатку підказка
+    cin &gt;&gt; age;                 // Очікування введення
+
+    cout &lt;&lt; "Ваш вік: " &lt;&lt; age &lt;&lt; endl;
+    return 0;
+}</code></pre>
+
+<h3>Зчитування кількох змінних поспіль</h3>
+<p>Можна зчитувати кілька значень поспіль через один об'єкт <code>cin</code>. Значення у консолі можна розділяти пробілами або кнопкою <code>Enter</code>:</p>
+<pre><code>int x, y, z;
+cout &lt;&lt; "Введіть три числа: ";
+cin &gt;&gt; x &gt;&gt; y &gt;&gt; z; // Зчитує спочатку x, потім y, потім z</code></pre>
+
+<div class="teacher"><b>Важливо:</b> <code>cin &gt;&gt;</code> пропускає пробіли, табуляції та символи переходу на новий рядок під час пошуку наступного значення!</div>
+</section>
+
+<section class="card" id="stream-operators">
+<h2>3. Напрямок стрілок і правило пам'ятки</h2>
+<p>Початківці часто плутають <code>&lt;&lt;</code> та <code>&gt;&gt;</code>. Запам'ятати їхній напрямок дуже легко, якщо уявити потік даних як стрілочки:</p>
+
+<div class="visual-box">
+  <div style="font-size: 1.2em; font-weight: bold; margin-bottom: 8px;">
+    <code>cout &lt;&lt; data;</code> &nbsp;&nbsp;➔&nbsp;&nbsp; <span style="color:#00599c;">[ Змінна / Текст ] ➔ <code>&lt;&lt;</code> ➔ [ Екран ]</span>
+  </div>
+  <p style="margin: 0; color: var(--muted);">Дані рухаються <b>ВІД</b> вашої програми <b>ДО</b> екрану консолі.</p>
+  <hr style="margin: 15px 0; border: none; border-top: 1px solid var(--line);">
+  <div style="font-size: 1.2em; font-weight: bold; margin-bottom: 8px;">
+    <code>cin &gt;&gt; variable;</code> &nbsp;&nbsp;➔&nbsp;&nbsp; <span style="color:#008080;">[ Клавіатура ] ➔ <code>&gt;&gt;</code> ➔ [ Змінна ]</span>
+  </div>
+  <p style="margin: 0; color: var(--muted);">Дані рухаються <b>ВІД</b> клавіатури користувача <b>ВВСЕРЕДИНУ</b> змінної.</p>
+</div>
+
+<div class="task"><strong>Швидка перевірка.</strong> Який оператор потоку потрібно використати для зчитування значення у змінну <code>weight</code>?
+<input id="qArrow" type="text" placeholder="Напиши оператор (<< або >>)">
+<button class="alt" onclick="checkArrow()">Перевірити</button> 
+<span id="arrowResult" class="result-msg"></span>
+</div>
+</section>
+
+<section class="card" id="format-getline">
+<h2>4. Зчитування рядків (getline) та форматування чисел</h2>
+
+<h3>1. Проблема <code>cin &gt;&gt; string</code> та розв'язок <code>getline</code></h3>
+<p>Стандартний <code>cin &gt;&gt; str</code> читає рядок лише <b>до першого пробілу</b>. Якщо ввести <code>"Тарас Шевченко"</code>, у змінну потрапить тільки <code>"Тарас"</code>.</p>
+<p>Щоб зчитати весь рядок із пробілами, використовують функцію <code>getline(cin, variable)</code>:</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string fullName;
+    cout &lt;&lt; "Введіть ваше повне ім'я: ";
+    getline(cin, fullName); // Зчитує весь рядок разом із пробілами
+
+    cout &lt;&lt; "Вітаємо, " &lt;&lt; fullName &lt;&lt; "!" &lt;&lt; endl;
+    return 0;
+}</code></pre>
+
+<h3>2. Форматування дробових чисел (iomanip)</h3>
+<p>За замовчуванням C++ виводить дробові числа без зайвих нулів. Щоб встановити точну кількість знаків після коми, використовують прапорці <code>fixed</code> та <code>setprecision(n)</code> з бібліотеки <code>&lt;iomanip&gt;</code>.</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;iomanip&gt; // Обов'язково для setprecision
+using namespace std;
+
+int main() {
+    double pi = 3.14159265;
+
+    cout &lt;&lt; fixed &lt;&lt; setprecision(2);
+    cout &lt;&lt; "Число Pi з 2 знаками: " &lt;&lt; pi &lt;&lt; endl; // Виведе 3.14
+
+    return 0;
+}</code></pre>
+</section>
+
+<section class="card" id="practice">
+<h2>5. Практичні завдання</h2>
+
+<!-- Завдання 1 -->
+<div class="task">
+<strong>Завдання 1. Програма вітання.</strong><br>
+Користувач вводить ім'я (одне слово) та вік. Програма виводить картку у форматі: <code>"Name: [ім'я], Age: [вік]"</code>.
+<textarea id="task1_input" rows="4" placeholder="Напишіть відповідні команди cin та cout..."></textarea>
+<button onclick="show('ans1')">Показати підказку / рішення</button>
+<div class="answer" id="ans1">
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string name;
+    int age;
+
+    cout &lt;&lt; "Введіть ім'я та вік: ";
+    cin &gt;&gt; name &gt;&gt; age;
+
+    cout &lt;&lt; "Name: " &lt;&lt; name &lt;&lt; ", Age: " &lt;&lt; age &lt;&lt; endl;
+    return 0;
+}</code></pre>
+</div>
+</div>
+
+<!-- Завдання 2 -->
+<div class="task">
+<strong>Завдання 2. Середнє арифметичне 3 чисел.</strong><br>
+Зчитати 3 дробових числа (<code>double</code>) і вивести їхнє середнє арифметичне з точністю до 2 знаків після коми.
+<details>
+<summary>Розкрити розв'язок</summary>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+using namespace std;
+
+int main() {
+    double a, b, c;
+    cout &lt;&lt; "Введіть 3 числа: ";
+    cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+
+    double avg = (a + b + c) / 3.0;
+
+    cout &lt;&lt; fixed &lt;&lt; setprecision(2);
+    cout &lt;&lt; "Середнє арифметичне: " &lt;&lt; avg &lt;&lt; endl;
+    return 0;
+}</code></pre>
+</details>
+</div>
+
+<!-- Завдання 3 -->
+<div class="task">
+<strong>Завдання 3. Площа прямокутного трикутника.</strong><br>
+Користувач вводить довжини двох катетів <code>a</code> та <code>b</code>. Обчислити та вивести площу за формулою: <code>S = (a * b) / 2</code>.
+<details>
+<summary>Розкрити розв'язок</summary>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    double a, b;
+    cout &lt;&lt; "Введіть катети a та b: ";
+    cin &gt;&gt; a &gt;&gt; b;
+
+    double area = (a * b) / 2.0;
+
+    cout &lt;&lt; "Площа трикутника: " &lt;&lt; area &lt;&lt; endl;
+    return 0;
+}</code></pre>
+</details>
+</div>
+
+<!-- Завдання 4 -->
+<div class="task">
+<strong>Завдання 4. Повне ім'я через getline.</strong><br>
+Зчитайте за допомогою <code>getline</code> ПІБ користувача та виведіть привітання.
+<details>
+<summary>Розкрити розв'язок</summary>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string fullName;
+    cout &lt;&lt; "Введіть ПІБ: ";
+    getline(cin, fullName);
+
+    cout &lt;&lt; "Вітаємо у системі, " &lt;&lt; fullName &lt;&lt; "!" &lt;&lt; endl;
+    return 0;
+}</code></pre>
+</details>
+</div>
+</section>
+
+<section class="card" id="test">
+<h2>6. Міні-тест на перевірку знань</h2>
+
+<div class="quiz-q">
+  <p>1. Який оператор використовується разом з об'єктом cout для виведення даних?</p>
+  <label><input type="radio" name="q1" value="a"> &gt;&gt;</label>
+  <label><input type="radio" name="q1" value="b"> &lt;&lt;</label>
+  <label><input type="radio" name="q1" value="c"> ==</label>
+</div>
+
+<div class="quiz-q">
+  <p>2. Яка функція дозволяє зчитати рядок ТЕКСТУ РАЗОМ З ПРОБІЛАМИ?</p>
+  <label><input type="radio" name="q2" value="a"> cin &gt;&gt; str;</label>
+  <label><input type="radio" name="q2" value="b"> getline(cin, str);</label>
+  <label><input type="radio" name="q2" value="c"> read(cin, str);</label>
+</div>
+
+<div class="quiz-q">
+  <p>3. Яку бібліотеку потрібно підключити для використання setprecision?</p>
+  <label><input type="radio" name="q3" value="a"> &lt;iostream&gt;</label>
+  <label><input type="radio" name="q3" value="b"> &lt;string&gt;</label>
+  <label><input type="radio" name="q3" value="c"> &lt;iomanip&gt;</label>
+</div>
+
+<div class="quiz-q">
+  <p>4. Що відбудеться при виконанні коду: <code>cin &gt;&gt; a &gt;&gt; b;</code>?</p>
+  <label><input type="radio" name="q4" value="a"> Послідовно зчитаються два значення у змінні a та b</label>
+  <label><input type="radio" name="q4" value="b"> Виведеться значення a, а потім b</label>
+  <label><input type="radio" name="q4" value="c"> Код викликає помилку компіляції</label>
+</div>
+
+<button onclick="checkQuiz()">Перевірити тест</button>
+<div id="quizResult" class="result-msg" style="margin-top: 12px;"></div>
+</section>
+
+<section class="card" id="summary">
+<h2>7. Підсумкове завдання та Чекліст</h2>
+
+<div class="task">
+<strong>Підсумкове практичне завдання: «Чек покупки»</strong><br>
+Напишіть програму, яка запитує назву товару (з можливими пробілами), ціну за одиницю та кількість. Програма повинна вивести назву товару та загальну вартість із 2 знаками після коми.
+<details>
+<summary>Перевірити рішення підсумкового завдання</summary>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;iomanip&gt;
+using namespace std;
+
+int main() {
+    string productName;
+    double price;
+    int count;
+
+    cout &lt;&lt; "Введіть назву товару: ";
+    getline(cin, productName);
+
+    cout &lt;&lt; "Введіть ціну товару: ";
+    cin &gt;&gt; price;
+
+    cout &lt;&lt; "Введіть кількість: ";
+    cin &gt;&gt; count;
+
+    double total = price * count;
+
+    cout &lt;&lt; "\n--- ЧЕК ---" &lt;&lt; endl;
+    cout &lt;&lt; "Товар: " &lt;&lt; productName &lt;&lt; endl;
+    cout &lt;&lt; fixed &lt;&lt; setprecision(2);
+    cout &lt;&lt; "Разом до сплати: " &lt;&lt; total &lt;&lt; " грн" &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+</details>
+</div>
+
+<h3>Чекліст знань після уроку <span class="pill">Checklist</span></h3>
+<label><input type="checkbox"> Розумію різницю між об'єктами <code>cin</code> та <code>cout</code></label><br>
+<label><input type="checkbox"> Пам'ятаю напрямок операторів потоку (<code>&lt;&lt;</code> для cout, <code>&gt;&gt;</code> для cin)</label><br>
+<label><input type="checkbox"> Вмію зчитувати кілька змінних в один рядок <code>cin &gt;&gt; a &gt;&gt; b;</code></label><br>
+<label><input type="checkbox"> Знаю, коли використовувати <code>getline(cin, s)</code> замість <code>cin &gt;&gt; s</code></label><br>
+<label><input type="checkbox"> Умію форматувати дробові числа через <code>fixed</code> та <code>setprecision()</code></label>
+</section>
+
+</main>
+
+<footer>Інтерактивний навчальний конспект • C++: урок 2 (cin & cout)</footer>
+
+<script>
+function show(id) {
+  const el = document.getElementById(id);
+  if (el) el.style.display = 'block';
+}
+
+function checkArrow() {
+  const input = document.getElementById('qArrow').value.trim();
+  const res = document.getElementById('arrowResult');
+  if (input === '>>') {
+    res.textContent = '✓ Правильно! Оператор >> направляє дані ВІД вводу ДО змінної.';
+    res.className = 'result-msg ok';
+  } else {
+    res.textContent = 'Неправильно. Спробуй ще! Підказка: для cin використовується >>';
+    res.className = 'result-msg bad';
+  }
+}
+
+function checkQuiz() {
+  let score = 0;
+  const total = 4;
+  
+  const q1 = document.querySelector('input[name=q1]:checked');
+  const q2 = document.querySelector('input[name=q2]:checked');
+  const q3 = document.querySelector('input[name=q3]:checked');
+  const q4 = document.querySelector('input[name=q4]:checked');
+
+  if (q1 && q1.value === 'b') score++;
+  if (q2 && q2.value === 'b') score++;
+  if (q3 && q3.value === 'c') score++;
+  if (q4 && q4.value === 'a') score++;
+
+  const res = document.getElementById('quizResult');
+  if (score === total) {
+    res.textContent = `Чудово! Ваш результат: ${score}/${total}. Ви повністю засвоїли тему cin та cout!`;
+    res.className = 'result-msg ok';
+  } else {
+    res.textContent = `Ваш результат: ${score}/${total}. Повторіть матеріал уроку та спробуйте ще раз!`;
+    res.className = 'result-msg bad';
+  }
+}
+</script>
+</body>
+</html>

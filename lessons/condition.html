@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C++: Умовний оператор (if-else, switch) — інтерактивний урок</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#172033;--muted:#667085;--accent:#0059b2;--accent2:#00a896;--line:#e6e8ef;--code:#151823;--warn:#fff7df}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+header{background:linear-gradient(135deg,#0059b2,#0088fe);color:#fff;padding:46px 20px}
+.wrap{max-width:1100px;margin:auto}.hero{display:grid;grid-template-columns:1.4fr .6fr;gap:28px;align-items:center}
+h1{font-size:clamp(32px,5vw,58px);line-height:1.03;margin:0 0 12px}.lead{font-size:19px;opacity:.95}
+.badge{display:inline-block;background:#ffffff22;border:1px solid #ffffff44;padding:7px 12px;border-radius:999px;margin:4px}
+nav{position:sticky;top:0;background:#ffffffee;backdrop-filter:blur(8px);z-index:3;border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:8px;overflow:auto;padding:10px 16px} nav a{white-space:nowrap;text-decoration:none;color:var(--ink);padding:8px 12px;border-radius:10px}nav a:hover{background:#eef6ff}
+main{padding:28px 16px 60px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:18px 0;box-shadow:0 7px 24px #1720330b}
+h2{margin-top:0;font-size:28px}h3{margin-bottom:8px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.note{background:#eef6ff;border-left:5px solid var(--accent);padding:14px 16px;border-radius:10px}.teacher{background:var(--warn);border-left:5px solid #f4b400;padding:14px 16px;border-radius:10px}
+pre{background:var(--code);color:#f8f8f2;padding:17px;border-radius:13px;overflow:auto;font-size:15px;line-height:1.5}code{font-family:Consolas,monospace}
+table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid var(--line);padding:11px;text-align:left}th{background:#f8f8fc}
+.task{border:1px dashed #a2c4fd;border-radius:14px;padding:16px;margin:12px 0}.task strong{color:#0059b2}
+textarea,input[type=text]{width:100%;border:1px solid #ccd0dc;border-radius:10px;padding:12px;font:inherit;margin:7px 0}
+button{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;background:var(--accent);color:white}button.alt{background:var(--accent2)}button.ghost{background:#eef0f5;color:#273043}
+.answer{display:none;margin-top:10px}.ok{color:#087f5b;font-weight:700}.bad{color:#c92a2a;font-weight:700}
+details{border:1px solid var(--line);padding:12px 14px;border-radius:12px;margin:10px 0}summary{cursor:pointer;font-weight:700}
+.pill{font-size:13px;background:#edf7f5;color:#087f5b;padding:4px 9px;border-radius:999px}
+footer{text-align:center;color:var(--muted);padding:30px}
+@media(max-width:760px){.hero,.grid{grid-template-columns:1fr}.card{padding:18px}}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap hero">
+  <div>
+    <h1>Умови в C++</h1>
+    <p class="lead">Інтерактивний урок з вивчення умовних операторів if-else, switch, тернарного оператора та логічних виразів.</p>
+  </div>
+</div>
+</header>
+
+<nav><div class="wrap">
+<a href="#intro">Умовний оператор if</a><a href="#operators">Оператори порівняння</a><a href="#logical">Логічні &&, ||, !</a><a href="#switch">Оператор switch</a><a href="#practice">Практика</a><a href="#test">Міні-тест</a><a href="#checklist">Чек-лист</a>
+</div></nav>
+
+<main class="wrap">
+
+<section class="card" id="intro">
+<h2>1. Що таке умовний оператор?</h2>
+<p><b>Умовний оператор (галуження)</b> дозволяє програмі приймати рішення: виконувати один блок коду чи інший залежно від того, чи є умова істинною (<code>true</code>) або хибною (<code>false</code>).</p>
+
+<h3>Синтаксис повної форми</h3>
+<pre><code>if (умова) {
+    // код, якщо умова true
+} else {
+    // код, якщо умова false
+}</code></pre>
+
+<h3>Синтаксис неповної форми</h3>
+<pre><code>if (умова) {
+    // код, якщо умова true
+}</code></pre>
+
+<div class="teacher"><b>Головна помилка початківців C++:</b> Не плутайте оператор присвоєння <code>=</code> і перевірку на рівність <code>==</code>. Вираз <code>if (x = 5)</code> не перевіряє значення, а присвоює $x$ значення 5 і зазвичай повертає <code>true</code>!</div>
+
+<h3>Приклад повної форми</h3>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int age;
+    cout &lt;&lt; "Введіть ваш вік: ";
+    cin &gt;&gt; age;
+
+    if (age &gt;= 18) {
+        cout &lt;&lt; "Доступ дозволено" &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Доступ обмежено" &lt;&lt; endl;
+    }
+
+    return 0;
+}</code></pre>
+</section>
+
+<section class="card" id="operators">
+<h2>2. Оператори порівняння</h2>
+<p>Для формування умов використовуються операції порівняння, які повертають значення типу <code>bool</code> (<code>true</code> або <code>false</code>):</p>
+<table><tr><th>Операція</th><th>Знак у C++</th><th>Приклад</th><th>Результат</th></tr>
+<tr><td>Дорівнює</td><td><code>==</code></td><td><code>5 == 5</code></td><td><code>true</code></td></tr>
+<tr><td>Не дорівнює</td><td><code>!=</code></td><td><code>5 != 3</code></td><td><code>true</code></td></tr>
+<tr><td>Більше</td><td><code>&gt;</code></td><td><code>10 &gt; 20</code></td><td><code>false</code></td></tr>
+<tr><td>Менше</td><td><code>&lt;</code></td><td><code>4 &lt; 8</code></td><td><code>true</code></td></tr>
+<tr><td>Більше або дорівнює</td><td><code>&gt;=</code></td><td><code>7 &gt;= 7</code></td><td><code>true</code></td></tr>
+<tr><td>Менше або дорівнює</td><td><code>&lt;=</code></td><td><code>3 &lt;= 2</code></td><td><code>false</code></td></tr></table>
+
+<div class="note"><b>Порада:</b> Якщо після <code>if</code> або <code>else</code> виконується лише <b>одна</b> команда, фігурні дужки <code>{}</code> можна не ставити, але їх використання вважається гарним тоном.</div>
+
+<div class="task"><strong>Швидка перевірка.</strong> Запиши оператор «не дорівнює» у C++:
+<input id="qOp" type="text" placeholder="Введіть знак...">
+<button class="alt" onclick="checkOp()">Перевірити</button> <span id="opResult"></span></div>
+</section>
+
+<section class="card" id="logical">
+<h2>3. Логічні оператори: &&, ||, !</h2>
+<p>Якщо необхідно перевірити кілька умов одночасно, використовують логічні оператори:</p>
+<table><tr><th>Оператор</th><th>Назва</th><th>Опис</th><th>Приклад</th></tr>
+<tr><td><code>&amp;&amp;</code></td><td>Логічне І (AND)</td><td>Істинно, коли <b>обидві</b> умови істинні</td><td><code>(x &gt; 0) &amp;&amp; (x &lt; 10)</code></td></tr>
+<tr><td><code>||</code></td><td>Логічне АБО (OR)</td><td>Істинно, коли хоча б <b>одна</b> умова істинна</td><td><code>(age &lt; 6) || (age &gt; 65)</code></td></tr>
+<tr><td><code>!</code></td><td>Логічне НЕ (NOT)</td><td>Змінює значення на протилежне</td><td><code>!(x == 0)</code></td></tr></table>
+
+<div class="teacher"><b>Ліниві обчислення (Short-circuiting):</b> У C++ якщо у виразі <code>A &amp;&amp; B</code> перша умова <code>A</code> є <code>false</code>, друга умова <code>B</code> навіть не обчислюється. У виразі <code>A || B</code> якщо <code>A</code> є <code>true</code>, <code>B</code> також ігнорується.</div>
+
+<div class="task"><strong>Швидка практика.</strong> Напишіть умову для перевірки, чи знаходиться число $x$ у діапазоні від 10 до 50 включно.
+<textarea id="t1" rows="3" placeholder="if (...)"></textarea>
+<button onclick="show('a1')">Показати відповідь</button>
+<div class="answer" id="a1"><pre><code>if (x &gt;= 10 &amp;&amp; x &lt;= 50) {
+    cout &lt;&lt; "Число в діапазоні";
+}</code></pre></div></div>
+</section>
+
+<section class="card" id="switch">
+<h2>4. Перемикач switch та тернарний оператор</h2>
+<p>Коли потрібно перевірити одну змінну на збіг з багатьма конкретними значеннями, зручно використовувати <code>switch</code>.</p>
+
+<pre><code>int day = 3;
+
+switch (day) {
+    case 1:
+        cout &lt;&lt; "Понеділок";
+        break;
+    case 2:
+        cout &lt;&lt; "Вівторок";
+        break;
+    case 3:
+        cout &lt;&lt; "Середа";
+        break;
+    default:
+        cout &lt;&lt; "Некоректний день";
+}</code></pre>
+
+<div class="note"><b>Увага!</b> Обов'язково ставте <code>break;</code> у кінці кожного блоку <code>case</code>, інакше програма продовжить виконувати код наступних варіантів!</div>
+
+<h3>Тернарний оператор (скорочений if-else)</h3>
+<pre><code>// Синтаксис: умова ? вираз_1 : вираз_2;
+int max = (a &gt; b) ? a : b;</code></pre>
+</section>
+
+<section class="card" id="practice">
+<h2>5. Практика — пишемо самі</h2>
+
+<div class="task"><strong>Завдання 1. Парне чи непарне.</strong> Користувач вводить ціле число. Програма визначає, чи є воно парним.
+<details><summary>Код та розбір</summary><pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int num;
+    cout &lt;&lt; "Введіть число: ";
+    cin &gt;&gt; num;
+
+    if (num % 2 == 0) {
+        cout &lt;&lt; "Число парне" &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Число непарне" &lt;&lt; endl;
+    }
+
+    return 0;
+}</code></pre>
+<p><b>Пояснення:</b> Оператор <code>%</code> повертає остачу від ділення. Якщо остача від ділення на 2 дорівнює 0 — число парне.</p></details></div>
+
+<div class="task"><strong>Завдання 2. Пошук максимуму з двох чисел.</strong> Ввести два числа та вивести більше з них.
+<details><summary>Код рішення</summary><pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int a, b;
+    cout &lt;&lt; "Введіть два числа: ";
+    cin &gt;&gt; a &gt;&gt; b;
+
+    if (a &gt; b) {
+        cout &lt;&lt; "Максимум: " &lt;&lt; a &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Максимум: " &lt;&lt; b &lt;&lt; endl;
+    }
+
+    return 0;
+}</code></pre></details></div>
+
+<div class="task"><strong>Завдання 3. Оцінка за балами.</strong> Ввести бал учня (1-12). Якщо бал $\ge 10$, вивести «Відмінно», якщо $\ge 7$ — «Добре», інакше — «Потрібно попрацювати».
+<details><summary>Код з else if</summary><pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int score;
+    cout &lt;&lt; "Введіть ваш бал (1-12): ";
+    cin &gt;&gt; score;
+
+    if (score &gt;= 10) {
+        cout &lt;&lt; "Відмінно" &lt;&lt; endl;
+    } else if (score &gt;= 7) {
+        cout &lt;&lt; "Добре" &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Потрібно попрацювати" &lt;&lt; endl;
+    }
+
+    return 0;
+}</code></pre></details></div>
+
+<div class="task"><strong>Завдання 4. Знижка на покупку.</strong> Ввести суму покупки. Якщо сума перевищує 1000 грн, надати знижку 10% та вивести кінцеву суму.
+<details><summary>Рішення</summary><pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    double sum, total;
+    cout &lt;&lt; "Введіть суму покупки: ";
+    cin &gt;&gt; sum;
+
+    if (sum &gt; 1000) {
+        total = sum * 0.9;
+        cout &lt;&lt; "Вам надано знижку 10%!" &lt;&lt; endl;
+    } else {
+        total = sum;
+    }
+
+    cout &lt;&lt; "До сплати: " &lt;&lt; total &lt;&lt; " грн" &lt;&lt; endl;
+    return 0;
+}</code></pre></details></div>
+
+<div class="task"><strong>Завдання 5. Існування трикутника.</strong> Дано три сторони $a, b, c$. Перевірити, чи існує трикутник з такими сторонами (кожна сторона має бути меншою за суму двох інших).
+<details><summary>Рішення</summary><pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    double a, b, c;
+    cout &lt;&lt; "Введіть 3 сторони: ";
+    cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+
+    if ((a + b &gt; c) &amp;&amp; (a + c &gt; b) &amp;&amp; (b + c &gt; a)) {
+        cout &lt;&lt; "Трикутник існує" &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Трикутник НЕ існує" &lt;&lt; endl;
+    }
+
+    return 0;
+}</code></pre></details></div>
+</section>
+
+<section class="card" id="test">
+<h2>6. Міні-тест</h2>
+<p>1. Що буде результатом виконання коду: <code>int x = 5; if (x = 0) cout &lt;&lt; "A"; else cout &lt;&lt; "B";</code>?</p>
+<label><input type="radio" name="q1" value="a"> Виведе "A"</label><br>
+<label><input type="radio" name="q1" value="b"> Виведе "B"</label><br>
+<label><input type="radio" name="q1" value="c"> Помилка компіляції</label>
+
+<p>2. Як правильно записати умову: «x лежить поза проміжком від 1 до 10» у C++?</p>
+<label><input type="radio" name="q12" value="a"> <code>(x &lt; 1) || (x &gt; 10)</code></label><br>
+<label><input type="radio" name="q12" value="b"> <code>(x &lt; 1) &amp;&amp; (x &gt; 10)</code></label><br>
+<label><input type="radio" name="q12" value="c"> <code>1 &lt; x &gt; 10</code></label>
+
+<p>3. Навіщо потрібен оператор <code>break</code> у конструкції <code>switch</code>?</p>
+<label><input type="radio" name="q3" value="a"> Для прискорення роботи програми</label><br>
+<label><input type="radio" name="q3" value="b"> Щоб зупинити виконання та вийти з блоку switch після знайденого case</label><br>
+<label><input type="radio" name="q3" value="c"> Це обов'язкова вимога C++ для будь-якого закриття фігурних дужок</label><br><br>
+
+<button onclick="quiz()">Перевірити тест</button>
+<p id="quizResult"></p>
+</section>
+
+<section class="card" id="checklist">
+<h2>7. Фінальний чек-лист знань <span class="pill">checklist</span></h2>
+<label><input type="checkbox"> Розумію різницю між <code>==</code> (порівняння) та <code>=</code> (присвоєння)</label><br>
+<label><input type="checkbox"> Знаю синтаксис <code>if</code>, <code>else if</code> та <code>else</code> з використанням `{}`</label><br>
+<label><input type="checkbox"> Вмію використовувати оператори порівняння (<code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>)</label><br>
+<label><input type="checkbox"> Знаю, як працюють логічні <code>&amp;&amp;</code>, <code>||</code>, <code>!</code></label><br>
+<label><input type="checkbox"> Розумію принципи роботи <code>switch</code> та роль оператора <code>break</code></label><br>
+<label><input type="checkbox"> Умію використовувати тернарний оператор <code>? :</code> для простих умов</label>
+</section>
+</main>
+
+<footer>Інтерактивний навчальний конспект • C++: Умовні оператори</footer>
+
+<script>
+function show(id){document.getElementById(id).style.display='block'}
+
+function checkOp(){
+  const v = document.getElementById('qOp').value.trim();
+  const r = document.getElementById('opResult');
+  if(v === '!='){
+    r.textContent = '✓ Правильно!';
+    r.className = 'ok';
+  } else {
+    r.textContent = 'Спробуй ще. Підказка: це знак знак оклику та дорівнює.';
+    r.className = 'bad';
+  }
+}
+
+function quiz(){
+  let s = 0;
+  const a = document.querySelector('input[name=q1]:checked');
+  const b = document.querySelector('input[name=q12]:checked');
+  const c = document.querySelector('input[name=q3]:checked');
+
+  if(a && a.value === 'b') s++;
+  if(b && b.value === 'a') s++;
+  if(c && c.value === 'b') s++;
+
+  const r = document.getElementById('quizResult');
+  r.textContent = 'Результат: ' + s + '/3' + (s === 3 ? ' — чудовий результат! Ти повністю засвоїв умови в C++.' : ' — десь є помилка, переглянь теорію і спробуй ще раз.');
+  r.className = s === 3 ? 'ok' : 'bad';
+}
+</script>
+</body>
+</html>

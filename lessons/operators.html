@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C++ з нуля — інтерактивний урок: Оператори</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#172033;--muted:#667085;--accent:#00599c;--accent2:#008080;--line:#e6e8ef;--code:#151823;--warn:#fff7df}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+header{background:linear-gradient(135deg,#00599c,#283593);color:#fff;padding:46px 20px}
+.wrap{max-width:1100px;margin:auto}.hero{display:grid;grid-template-columns:1.4fr .6fr;gap:28px;align-items:center}
+h1{font-size:clamp(32px,5vw,58px);line-height:1.03;margin:0 0 12px}.lead{font-size:19px;opacity:.95}
+.badge{display:inline-block;background:#ffffff22;border:1px solid #ffffff44;padding:7px 12px;border-radius:999px;margin:4px}
+nav{position:sticky;top:0;background:#ffffffee;backdrop-filter:blur(8px);z-index:3;border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:8px;overflow:auto;padding:10px 16px} nav a{white-space:nowrap;text-decoration:none;color:var(--ink);padding:8px 12px;border-radius:10px}nav a:hover{background:#eaf2f8}
+main{padding:28px 16px 60px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:18px 0;box-shadow:0 7px 24px #1720330b}
+h2{margin-top:0;font-size:28px}h3{margin-bottom:8px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.note{background:#eaf2f8;border-left:5px solid var(--accent);padding:14px 16px;border-radius:10px}.teacher{background:var(--warn);border-left:5px solid #f4b400;padding:14px 16px;border-radius:10px}
+pre{background:var(--code);color:#f8f8f2;padding:17px;border-radius:13px;overflow:auto;font-size:15px;line-height:1.5}code{font-family:Consolas,monospace}
+table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid var(--line);padding:11px;text-align:left}th{background:#f8f8fc}
+.task{border:1px dashed #00599c88;border-radius:14px;padding:16px;margin:12px 0}.task strong{color:#00599c}
+textarea,input[type=text]{width:100%;border:1px solid #ccd0dc;border-radius:10px;padding:12px;font:inherit;margin:7px 0}
+button{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;background:var(--accent);color:white}button.alt{background:var(--accent2)}button.ghost{background:#eef0f5;color:#273043}
+.answer{display:none;margin-top:10px}.ok{color:#087f5b;font-weight:700}.bad{color:#c92a2a;font-weight:700}
+details{border:1px solid var(--line);padding:12px 14px;border-radius:12px;margin:10px 0}summary{cursor:pointer;font-weight:700}
+.pill{font-size:13px;background:#edf7f5;color:#087f5b;padding:4px 9px;border-radius:999px}
+footer{text-align:center;color:var(--muted);padding:30px}
+@media(max-width:760px){.hero,.grid{grid-template-columns:1fr}.card{padding:18px}}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap hero">
+  <div>
+    <h1>Основи C++</h1>
+    <p class="lead">Інтерактивний урок з вивчення операторів мови C++: арифметичних, присвоєння, порівняння, логічних та інкременту/декременту.</p>
+  </div>
+</div>
+</header>
+
+<nav><div class="wrap">
+<a href="#arithmetic">Арифметичні</a><a href="#compound">Комбіновані</a><a href="#incdec">Інкремент/Декремент</a><a href="#relational">Порівняння</a><a href="#logical">Логічні</a><a href="#precedence">Пріоритет</a><a href="#practice">Практика</a><a href="#test">Міні-тест</a>
+</div></nav>
+
+<main class="wrap">
+
+<section class="card" id="arithmetic">
+<h2>1. Арифметичні оператори</h2>
+<p>Арифметичні оператори виконують математичні обчислення над значеннями (операндами).</p>
+<table><tr><th>Оператор</th><th>Назва</th><th>Приклад</th><th>Результат (якщо a = 10, b = 3)</th></tr>
+<tr><td><code>+</code></td><td>Додавання</td><td><code>a + b</code></td><td>13</td></tr>
+<tr><td><code>-</code></td><td>Віднімання</td><td><code>a - b</code></td><td>7</td></tr>
+<tr><td><code>*</code></td><td>Множення</td><td><code>a * b</code></td><td>30</td></tr>
+<tr><td><code>/</code></td><td>Ділення</td><td><code>a / b</code></td><td>3 <i>(цілочисельне ділення)</i></td></tr>
+<tr><td><code>%</code></td><td>Остача від ділення</td><td><code>a % b</code></td><td>1 <i>(10 = 3 * 3 + 1)</i></td></tr></table>
+<div class="teacher"><b>Зверніть увагу!</b> Оператор остачі від ділення (<code>%</code>) працює <b>тільки з цілими числами</b> (<code>int</code>, <code>short</code>, <code>long</code>). Якщо використати його з <code>double</code>, виникне помилка компіляції.</div>
+<div class="task"><strong>Швидка практика.</strong> Яким буде результат виразу <code>17 % 5</code> у C++?
+<input id="qmod" type="text" placeholder="Введіть число...">
+<button class="alt" onclick="checkMod()">Перевірити</button> <span id="modResult"></span></div>
+</section>
+
+<section class="card" id="compound">
+<h2>2. Оператори присвоєння та комбіновані оператори</h2>
+<p>Базовий оператор присвоєння — це <code>=</code>. Він копіює значення з правої частини у змінну ліворуч.</p>
+<p>Для скорочення запису стандартних операцій використовуються <b>комбіновані оператори</b>:</p>
+<table><tr><th>Скорочений запис</th><th>Повний еквівалент</th><th>Опис</th></tr>
+<tr><td><code>x += 5;</code></td><td><code>x = x + 5;</code></td><td>Збільшити x на 5</td></tr>
+<tr><td><code>x -= 3;</code></td><td><code>x = x - 3;</code></td><td>Зменшити x на 3</td></tr>
+<tr><td><code>x *= 2;</code></td><td><code>x = x * 2;</code></td><td>Помножити x на 2</td></tr>
+<tr><td><code>x /= 4;</code></td><td><code>x = x / 4;</code></td><td>Поділити x на 4</td></tr>
+<tr><td><code>x %= 10;</code></td><td><code>x = x % 10;</code></td><td>Отримати остачу від ділення x на 10</td></tr></table>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int score = 100;
+    score += 50;  // score тепер 150
+    score *= 2;   // score тепер 300
+    cout &lt;&lt; "Score: " &lt;&lt; score &lt;&lt; endl;
+    return 0;
+}</code></pre>
+</section>
+
+<section class="card" id="incdec">
+<h2>3. Інкремент (++) та Декремент (--)</h2>
+<p>Оператори інкременту (<code>++</code>) та декременту (<code>--</code>) збільшують або зменшують значення змінної на 1.</p>
+<div class="grid">
+<div><h3>Префіксна форма (++x)</h3><p>Спочатку змінює значення змінної, а потім використовує нове значення у виразі.</p>
+<pre><code>int a = 5;
+int b = ++a; // a = 6, b = 6</code></pre></div>
+<div><h3>Постфіксна форма (x++)</h3><p>Спочатку використовує поточне значення у виразі, а потім змінює значення змінної.</p>
+<pre><code>int a = 5;
+int b = a++; // b = 5, a = 6</code></pre></div>
+</div>
+<div class="note"><b>Запам'ятай:</b> Якщо операція виконується окремим рядком (наприклад, <code>count++;</code>), різниці між <code>++count</code> та <code>count++</code> немає.</div>
+</section>
+
+<section class="card" id="relational">
+<h2>4. Оператори порівняння (відношення)</h2>
+<p>Використовуються для порівняння двох значень. Результатом завжди є логічне значення: <code>true</code> (1) або <code>false</code> (0).</p>
+<table><tr><th>Оператор</th><th>Значення</th><th>Приклад</th><th>Результат (якщо x = 5)</th></tr>
+<tr><td><code>==</code></td><td>Рівно</td><td><code>x == 5</code></td><td><code>true</code></td></tr>
+<tr><td><code>!=</code></td><td>Не дорівнює</td><td><code>x != 5</code></td><td><code>false</code></td></tr>
+<tr><td><code>&gt;</code></td><td>Більше</td><td><code>x &gt; 3</code></td><td><code>true</code></td></tr>
+<tr><td><code>&lt;</code></td><td>Менше</td><td><code>x &lt; 10</code></td><td><code>true</code></td></tr>
+<tr><td><code>&gt;=</code></td><td>Більше або дорівнює</td><td><code>x &gt;= 5</code></td><td><code>true</code></td></tr>
+<tr><td><code>&lt;=</code></td><td>Менше або дорівнює</td><td><code>x &lt;= 4</code></td><td><code>false</code></td></tr></table>
+<div class="teacher"><b>Типова помилка початківців:</b> Плутанина між <code>=</code> (присвоєння) та <code>==</code> (перевірка на рівність). Запис <code>if (a = 5)</code> присвоїть змінній значення 5 і завжди поверне <code>true</code>!</div>
+</section>
+
+<section class="card" id="logical">
+<h2>5. Логічні оператори</h2>
+<p>Використовуються для поєднання декількох умов.</p>
+<table><tr><th>Оператор</th><th>Назва</th><th>Опис</th><th>Приклад</th></tr>
+<tr><td><code>&&</code></td><td>Логічне І (AND)</td><td>Повертає <code>true</code>, тільки якщо <b>обидва</b> операнди є <code>true</code></td><td><code>(age &gt;= 18 && age &lt;= 65)</code></td></tr>
+<tr><td><code>||</code></td><td>Логічне АБО (OR)</td><td>Повертає <code>true</code>, якщо <b>хоча б один</b> з операндів є <code>true</code></td><td><code>(isWeekend || isHoliday)</code></td></tr>
+<tr><td><code>!</code></td><td>Логічне НЕ (NOT)</td><td>Змінює значення на протилежне (інверсія)</td><td><code>!(x &gt; 5)</code></td></tr></table>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int age = 20;
+    bool hasLicense = true;
+
+    if (age &gt;= 18 && hasLicense) {
+        cout &lt;&lt; "You can drive a car!" &lt;&lt; endl;
+    }
+
+    return 0;
+}</code></pre>
+</section>
+
+<section class="card" id="precedence">
+<h2>6. Пріоритет операторів</h2>
+<p>Оператори виконуються у певному порядку від найвищого пріоритету до найнижчого:</p>
+<table><tr><th>Пріоритет</th><th>Оператори</th><th>Опис</th></tr>
+<tr><td>1 (найвищий)</td><td><code>()</code>, <code>++</code> (постфікс), <code>--</code> (постфікс)</td><td>Дужки та постфіксні оператори</td></tr>
+<tr><td>2</td><td><code>!</code>, <code>++</code> (префікс), <code>--</code> (префікс), унарний <code>-</code></td><td>Унарні оператори та логічне НЕ</td></tr>
+<tr><td>3</td><td><code>*</code>, <code>/</code>, <code>%</code></td><td>Множення, ділення, остача</td></tr>
+<tr><td>4</td><td><code>+</code>, <code>-</code></td><td>Додавання та віднімання</td></tr>
+<tr><td>5</td><td><code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code></td><td>Оператори порівняння</td></tr>
+<tr><td>6</td><td><code>==</code>, <code>!=</code></td><td>Оператори рівності</td></tr>
+<tr><td>7</td><td><code>&&</code></td><td>Логічне І</td></tr>
+<tr><td>8</td><td><code>||</code></td><td>Логічне АБО</td></tr>
+<tr><td>9 (найнижчий)</td><td><code>=</code>, <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code></td><td>Оператори присвоєння</td></tr></table>
+</section>
+
+<section class="card" id="practice">
+<h2>7. Практика — пишемо самі</h2>
+
+<div class="task"><strong>Завдання 1. Парне чи непарне.</strong> Ввести ціле число та перевірити, чи є воно парним (використати оператор <code>%</code>).
+<details><summary>Код для вчителя</summary><pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int number;
+    cout &lt;&lt; "Enter a number: ";
+    cin &gt;&gt; number;
+
+    if (number % 2 == 0) {
+        cout &lt;&lt; number &lt;&lt; " is even." &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; number &lt;&lt; " is odd." &lt;&lt; endl;
+    }
+
+    return 0;
+}</code></pre></details></div>
+
+<div class="task"><strong>Завдання 2. Калькулятор остачі та ділення.</strong> Користувач вводить два числа. Програма виводить результат цілочисельного ділення та остачу.
+<details><summary>Код для вчителя</summary><pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int a, b;
+    cout &lt;&lt; "a = ";
+    cin &gt;&gt; a;
+    cout &lt;&lt; "b = ";
+    cin &gt;&gt; b;
+
+    cout &lt;&lt; "Quotient: " &lt;&lt; a / b &lt;&lt; endl;
+    cout &lt;&lt; "Remainder: " &lt;&lt; a % b &lt;&lt; endl;
+
+    return 0;
+}</code></pre></details></div>
+
+<div class="task"><strong>Завдання 3. Перевірка діапазону.</strong> Ввести число і перевірити, чи належить воно відрізку від 10 до 50 включно.
+<details><summary>Код для вчителя</summary><pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int x;
+    cout &lt;&lt; "Enter x: ";
+    cin &gt;&gt; x;
+
+    if (x &gt;= 10 && x &lt;= 50) {
+        cout &lt;&lt; "In range!" &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Out of range!" &lt;&lt; endl;
+    }
+
+    return 0;
+}</code></pre></details></div>
+
+<div class="task"><strong>Завдання 4. Розділення трьохзначного числа на цифри.</strong> Ввести тризначне число (наприклад, 357) і вивести суму його цифр.
+<details><summary>Рішення</summary><pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int n;
+    cout &lt;&lt; "Enter 3-digit number: ";
+    cin &gt;&gt; n;
+
+    int d1 = n / 100;       // Перша цифра (сотні)
+    int d2 = (n / 10) % 10; // Друга цифра (десятки)
+    int d3 = n % 10;        // Третя цифра (одиниці)
+
+    int sum = d1 + d2 + d3;
+    cout &lt;&lt; "Sum of digits: " &lt;&lt; sum &lt;&lt; endl;
+
+    return 0;
+}</code></pre></details></div>
+</section>
+
+<section class="card" id="test">
+<h2>8. Міні-тест</h2>
+<p>1. Яким буде значення змінної <code>x</code> після виконання коду: <code>int x = 5; x += 3 * 2;</code>?</p>
+<label><input type="radio" name="q1" value="a"> 16</label><br>
+<label><input type="radio" name="q1" value="b"> 11</label><br>
+<label><input type="radio" name="q1" value="c"> 10</label>
+
+<p>2. Який оператор використовується для перевірки на рівність у C++?</p>
+<label><input type="radio" name="q2" value="a"> =</label><br>
+<label><input type="radio" name="q2" value="b"> ==</label><br>
+<label><input type="radio" name="q2" value="c"> !=</label>
+
+<p>3. Що поверне вираз <code>(5 &gt; 3 && 2 &gt; 8)</code>?</p>
+<label><input type="radio" name="q3" value="a"> true</label><br>
+<label><input type="radio" name="q3" value="b"> false</label><br>
+<label><input type="radio" name="q3" value="c"> Помилка компіляції</label><br><br>
+
+<button onclick="quiz()">Перевірити тест</button>
+<p id="quizResult"></p>
+</section>
+
+<section class="card">
+<h2>9. Підсумкова програма</h2>
+<p>Напишіть програму «Аналіз часу»: користувач вводить кількість секунд. Програма переводить їх у години, хвилини та залишок секунд за допомогою цілочисельного ділення та остачі від ділення.</p>
+<details><summary>Рішення для вчителя</summary><pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int totalSeconds;
+    cout &lt;&lt; "Enter total seconds: ";
+    cin &gt;&gt; totalSeconds;
+
+    int hours = totalSeconds / 3600;
+    int minutes = (totalSeconds % 3600) / 60;
+    int seconds = totalSeconds % 60;
+
+    cout &lt;&lt; hours &lt;&lt; "h " &lt;&lt; minutes &lt;&lt; "m " &lt;&lt; seconds &lt;&lt; "s" &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+<p><b>Що перевіряємо:</b> оператори <code>/</code>, <code>%</code>, змінні, форматований вивід через <code>cout</code>.</p></details>
+</section>
+
+<section class="card">
+<h2>10. Що учень має знати після уроку <span class="pill">checklist</span></h2>
+<label><input type="checkbox"> як працюють арифметичні оператори (зокрема цілочисельне <code>/</code> та остача <code>%</code>)</label><br>
+<label><input type="checkbox"> як скорочувати код за допомогою комбінованих операторів (<code>+=</code>, <code>-=</code>, <code>*=</code> тощо)</label><br>
+<label><input type="checkbox"> різницю між префіксним (<code>++x</code>) та постфіксним (<code>x++</code>) інкрементом</label><br>
+<label><input type="checkbox"> різницю між оператором присвоєння <code>=</code> та оператором порівняння <code>==</code></label><br>
+<label><input type="checkbox"> як працюють логічні оператори <code>&&</code> (І), <code>||</code> (АБО), <code>!</code> (НЕ)</label><br>
+<label><input type="checkbox"> пріоритет виконання базових операторів у виразах</label>
+</section>
+</main>
+
+<footer>Інтерактивний навчальний конспект • C++: урок 2 (Оператори)</footer>
+<script>
+function show(id){document.getElementById(id).style.display='block'}
+function checkMod(){
+ const v=document.getElementById('qmod').value.trim();
+ const r=document.getElementById('modResult');
+ if(v==='2'){r.textContent='✓ Правильно! 17 = 5 * 3 + 2.';r.className='ok'}else{r.textContent='Спробуй ще. Підказка: скільки залишиться від 17 після ділення на 5?';r.className='bad'}
+}
+function quiz(){
+ let s=0;
+ const a=document.querySelector('input[name=q1]:checked');
+ const b=document.querySelector('input[name=q2]:checked');
+ const c=document.querySelector('input[name=q3]:checked');
+ if(a&&a.value==='b')s++; if(b&&b.value==='b')s++; if(c&&c.value==='b')s++;
+ const r=document.getElementById('quizResult');
+ r.textContent='Результат: '+s+'/3'+(s===3?' — чудово!':' — переглянь теорію та спробуй ще раз.');
+ r.className=s===3?'ok':'bad';
+}
+</script>
+</body>
+</html>

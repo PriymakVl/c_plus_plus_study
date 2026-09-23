@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C++ з нуля — інтерактивний урок: Змінні</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#172033;--muted:#667085;--accent:#00599c;--accent2:#008080;--line:#e6e8ef;--code:#151823;--warn:#fff7df}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+header{background:linear-gradient(135deg,#00599c,#283593);color:#fff;padding:46px 20px}
+.wrap{max-width:1100px;margin:auto}.hero{display:grid;grid-template-columns:1.4fr .6fr;gap:28px;align-items:center}
+h1{font-size:clamp(32px,5vw,58px);line-height:1.03;margin:0 0 12px}.lead{font-size:19px;opacity:.95}
+.badge{display:inline-block;background:#ffffff22;border:1px solid #ffffff44;padding:7px 12px;border-radius:999px;margin:4px}
+nav{position:sticky;top:0;background:#ffffffee;backdrop-filter:blur(8px);z-index:3;border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:8px;overflow:auto;padding:10px 16px} nav a{white-space:nowrap;text-decoration:none;color:var(--ink);padding:8px 12px;border-radius:10px}nav a:hover{background:#eaf2f8}
+main{padding:28px 16px 60px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:18px 0;box-shadow:0 7px 24px #1720330b}
+h2{margin-top:0;font-size:28px}h3{margin-bottom:8px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.note{background:#eaf2f8;border-left:5px solid var(--accent);padding:14px 16px;border-radius:10px}.teacher{background:var(--warn);border-left:5px solid #f4b400;padding:14px 16px;border-radius:10px}
+pre{background:var(--code);color:#f8f8f2;padding:17px;border-radius:13px;overflow:auto;font-size:15px;line-height:1.5}code{font-family:Consolas,monospace}
+table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid var(--line);padding:11px;text-align:left}th{background:#f8f8fc}
+.task{border:1px dashed #00599c88;border-radius:14px;padding:16px;margin:12px 0}.task strong{color:#00599c}
+textarea,input[type=text]{width:100%;border:1px solid #ccd0dc;border-radius:10px;padding:12px;font:inherit;margin:7px 0}
+button{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;background:var(--accent);color:white}button.alt{background:var(--accent2)}button.ghost{background:#eef0f5;color:#273043}
+.answer{display:none;margin-top:10px}.ok{color:#087f5b;font-weight:700}.bad{color:#c92a2a;font-weight:700}
+details{border:1px solid var(--line);padding:12px 14px;border-radius:12px;margin:10px 0}summary{cursor:pointer;font-weight:700}
+.pill{font-size:13px;background:#edf7f5;color:#087f5b;padding:4px 9px;border-radius:999px}
+footer{text-align:center;color:var(--muted);padding:30px}
+@media(max-width:760px){.hero,.grid{grid-template-columns:1fr}.card{padding:18px}}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap hero">
+  <div>
+    <h1>Основи C++</h1>
+    <p class="lead">Інтерактивний урок з вивчення змінних та базового синтаксису мови C++.</p>
+  </div>
+</div>
+</header>
+
+<nav><div class="wrap">
+<a href="#structure">Структура</a><a href="#variables">Змінні</a><a href="#types">Типи</a><a href="#io">Ввід/вивід</a><a href="#math">Обчислення</a><a href="#practice">Практика</a><a href="#test">Міні-тест</a>
+</div></nav>
+
+<main class="wrap">
+
+<section class="card" id="structure">
+<h2>1. Будова програми</h2>
+<pre><code>#include &lt;iostream&gt;  // Бібліотека для введення та виведення
+
+using namespace std;
+
+int main() {         // Головна функція, з якої починається виконання
+    int age = 14;    // Оголошення та ініціалізація змінної
+    
+    cout &lt;&lt; "Age: " &lt;&lt; age &lt;&lt; endl;
+    
+    return 0;        // Успішне завершення програми
+}</code></pre>
+<table><tr><th>Елемент</th><th>Що означає</th></tr>
+<tr><td><code>#include &lt;iostream&gt;</code></td><td>підключення бібліотеки для роботи з потоками <code>cin</code> та <code>cout</code></td></tr>
+<tr><td><code>using namespace std;</code></td><td>дозволяє використовувати <code>cout</code> замість <code>std::cout</code></td></tr>
+<tr><td><code>int main() { ... }</code></td><td>головна функція програми, весь основний код пишеться всередині</td></tr>
+<tr><td><code>return 0;</code></td><td>сигнал системі про те, що програма завершилася без помилок</td></tr>
+<tr><td><code>;</code></td><td>крапка з комою завершує кожну інструкцію (команду)</td></tr></table>
+<p class="note"><b>Запам'ятай:</b> C++ чутливий до регістру! Символи <code>main</code>, <code>int</code> та <code>INT</code> для нього є абсолютно різними речами.</p>
+</section>
+
+<section class="card" id="variables">
+<h2>2. Змінні</h2>
+<p><b>Змінна</b> — це іменована область пам'яті для збереження даних. Синтаксис оголошення:</p>
+<pre><code>тип ім'я_змінної;</code></pre>
+<p>Кілька змінних одного типу можна оголосити через кому, а також одразу надати їм значення (ініціалізувати):</p>
+<pre><code>int a = 10, b = 20, sum;
+string name = "Max";</code></pre>
+<h3>Присвоєння значення</h3>
+<pre><code>a = 15;
+name = "Alex";</code></pre>
+<div class="teacher"><b>Пояснення синтаксису.</b> У C++ спочатку вказується <b>тип</b>, а потім <b>ім'я</b>. Оператор <code>=</code> означає «присвоїти значення» (записати те, що праворуч, у змінну ліворуч). Наприклад, <code>int age = 14;</code> створює цілочисельну змінну <code>age</code> зі значенням 14.</div>
+<div class="task"><strong>Швидка практика.</strong> Оголоси змінні <code>studentName</code>, <code>age</code> і <code>height</code> для імені, віку та зросту в C++.
+<textarea id="t1" rows="5" placeholder="string studentName;&#10;..."></textarea>
+<button onclick="show('a1')">Показати приклад</button>
+<div class="answer" id="a1"><pre><code>string studentName = "John";
+int age = 15;
+double height = 1.75;</code></pre></div></div>
+</section>
+
+<section class="card" id="types">
+<h2>3. Основні типи даних</h2>
+<table><tr><th>C++</th><th>Для чого</th><th>Приклад</th></tr>
+<tr><td><code>int</code></td><td>цілі числа</td><td>5, -12, 100</td></tr>
+<tr><td><code>double</code> / <code>float</code></td><td>дробові числа (з плаваючою крапкою)</td><td>3.14, 1.5</td></tr>
+<tr><td><code>string</code></td><td>рядок / текст (потребує <code>#include &lt;string&gt;</code>)</td><td>"Hello"</td></tr>
+<tr><td><code>char</code></td><td>один символ (у поодиноких лапках)</td><td>'A', '+'</td></tr>
+<tr><td><code>bool</code></td><td>логічне значення</td><td>true, false</td></tr></table>
+<div class="task"><strong>Обери тип.</strong> Який тип краще використати для кількості учнів у класі?
+<input id="qtype" type="text" placeholder="Напиши тип...">
+<button class="alt" onclick="checkType()">Перевірити</button> <span id="typeResult"></span></div>
+</section>
+
+<section class="card" id="io">
+<h2>4. Виведення та введення</h2>
+<div class="grid">
+<div><h3>Виведення (cout)</h3><pre><code>cout &lt;&lt; "Hello";
+cout &lt;&lt; "Hello" &lt;&lt; endl;</code></pre><p><code>cout</code> відповідає за виведення. <code>endl</code> (або <code>"\n"</code>) виконує перехід на новий рядок.</p></div>
+<div><h3>Введення (cin)</h3><pre><code>cin &gt;&gt; age;</code></pre><p><code>cin</code> чекає, поки користувач введе значення з клавіатури, і зберігає його у змінну.</p></div>
+</div>
+<h3>Повна програма</h3>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string name;
+    int age;
+
+    cout &lt;&lt; "Enter your name: ";
+    cin &gt;&gt; name;
+
+    cout &lt;&lt; "Enter your age: ";
+    cin &gt;&gt; age;
+
+    cout &lt;&lt; "Hello, " &lt;&lt; name &lt;&lt; "!" &lt;&lt; endl;
+    cout &lt;&lt; "You are " &lt;&lt; age &lt;&lt; " years old." &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+<div class="teacher"><b>Для вчителя.</b> Зверніть увагу учнів на напрямок стрілок: у <code>cout</code> стрілки спрямовані ВІД даних ДО виводу (<code>&lt;&lt;</code>), а у <code>cin</code> — ВІД вводу ДО змінної (<code>&gt;&gt;</code>).</div>
+</section>
+
+<section class="card" id="math">
+<h2>5. Арифметика</h2>
+<table><tr><th>Операція</th><th>C++</th><th>Приклад</th></tr>
+<tr><td>додавання</td><td><code>+</code></td><td><code>a + b</code></td></tr>
+<tr><td>віднімання</td><td><code>-</code></td><td><code>a - b</code></td></tr>
+<tr><td>множення</td><td><code>*</code></td><td><code>a * b</code></td></tr>
+<tr><td>ділення</td><td><code>/</code></td><td><code>7 / 2</code> <i>(для int поверне 3!)</i></td></tr>
+<tr><td>остача від ділення</td><td><code>%</code></td><td><code>7 % 2 = 1</code> <i>(тільки для цілих)</i></td></tr></table>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int a, b;
+
+    cout &lt;&lt; "a = ";
+    cin &gt;&gt; a;
+    cout &lt;&lt; "b = ";
+    cin &gt;&gt; b;
+
+    cout &lt;&lt; "Sum = " &lt;&lt; a + b &lt;&lt; endl;
+    cout &lt;&lt; "Difference = " &lt;&lt; a - b &lt;&lt; endl;
+    cout &lt;&lt; "Product = " &lt;&lt; a * b &lt;&lt; endl;
+    cout &lt;&lt; "Integer division = " &lt;&lt; a / b &lt;&lt; endl;
+    cout &lt;&lt; "Remainder = " &lt;&lt; a % b &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+<p class="note"><b>Особливість ділення:</b> Якщо обидва операнди є <code>int</code>, операція <code>/</code> робить цілочисельне ділення (дробова частина відкидається). Щоб отримати точний результат, хоча б одна змінна має бути <code>double</code>.</p>
+</section>
+
+<section class="card">
+<h2>6. Форматування дробових чисел</h2>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;iomanip&gt; // Потрібно для setprecision
+using namespace std;
+
+int main() {
+    double price = 12.34567;
+    
+    cout &lt;&lt; fixed &lt;&lt; setprecision(2);
+    cout &lt;&lt; price &lt;&lt; endl; // Виведе: 12.35
+    
+    return 0;
+}</code></pre>
+<p><code>fixed</code> разом із <code>setprecision(2)</code> означає: виводити число з <b>2 цифрами після десяткової крапки</b>.</p>
+</section>
+
+<section class="card" id="practice">
+<h2>7. Практика — пишемо самі</h2>
+<div class="task"><strong>Завдання 1. Візитівка.</strong> Користувач вводить ім'я та вік. Програма вітається і показує дані.
+<details><summary>Код для вчителя</summary><pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string name;
+    int age;
+
+    cout &lt;&lt; "Name: ";
+    cin &gt;&gt; name;
+    cout &lt;&lt; "Age: ";
+    cin &gt;&gt; age;
+
+    cout &lt;&lt; "Hello, " &lt;&lt; name &lt;&lt; "!" &lt;&lt; endl;
+    cout &lt;&lt; "Age: " &lt;&lt; age &lt;&lt; endl;
+
+    return 0;
+}</code></pre></details></div>
+
+<div class="task"><strong>Завдання 2. Сума двох чисел.</strong> Ввести два цілі числа та знайти їх суму.
+<details><summary>Код для вчителя + пояснення</summary><pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int a, b, result;
+
+    cin &gt;&gt; a &gt;&gt; b;
+    result = a + b;
+    
+    cout &lt;&lt; "Result = " &lt;&lt; result &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+<p><code>result = a + b;</code> — спочатку C++ обчислює вираз праворуч від <code>=</code>, а потім зберігає значення у <code>result</code>.</p></details></div>
+
+<div class="task"><strong>Завдання 3. Прямокутник.</strong> Ввести довжину і ширину. Обчислити площу та периметр.
+<details><summary>Код для вчителя</summary><pre><code>#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+using namespace std;
+
+int main() {
+    double a, b, area, perimeter;
+
+    cout &lt;&lt; "Length: ";
+    cin &gt;&gt; a;
+    cout &lt;&lt; "Width: ";
+    cin &gt;&gt; b;
+
+    area = a * b;
+    perimeter = 2 * (a + b);
+
+    cout &lt;&lt; fixed &lt;&lt; setprecision(2);
+    cout &lt;&lt; "Area = " &lt;&lt; area &lt;&lt; endl;
+    cout &lt;&lt; "Perimeter = " &lt;&lt; perimeter &lt;&lt; endl;
+
+    return 0;
+}</code></pre></details></div>
+
+<div class="task"><strong>Завдання 4. Вік наступного року.</strong> Учень вводить свій вік. Програма показує, скільки років йому буде наступного року.
+<details><summary>Рішення</summary><pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int age;
+
+    cout &lt;&lt; "Your age: ";
+    cin &gt;&gt; age;
+    
+    cout &lt;&lt; "Next year you will be " &lt;&lt; age + 1 &lt;&lt; endl;
+
+    return 0;
+}</code></pre></details></div>
+
+<div class="task"><strong>Завдання 5. Секунди.</strong> Ввести кількість хвилин та перевести її в секунди.
+<details><summary>Рішення</summary><pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int minutes, seconds;
+
+    cout &lt;&lt; "Minutes: ";
+    cin &gt;&gt; minutes;
+    
+    seconds = minutes * 60;
+    cout &lt;&lt; "Seconds = " &lt;&lt; seconds &lt;&lt; endl;
+
+    return 0;
+}</code></pre></details></div>
+</section>
+
+<section class="card" id="test">
+<h2>8. Міні-тест</h2>
+<p>1. Який оператор використовується для присвоєння значення змінній у C++?</p>
+<label><input type="radio" name="q1" value="a"> =</label><br>
+<label><input type="radio" name="q1" value="b"> :=</label><br>
+<label><input type="radio" name="q1" value="c"> ==</label>
+<p>2. Який тип найкраще підходить для значення <code>15.75</code>?</p>
+<label><input type="radio" name="q2" value="a"> int</label><br>
+<label><input type="radio" name="q2" value="b"> double</label><br>
+<label><input type="radio" name="q2" value="c"> bool</label>
+<p>3. Який об'єкт використовується для зчитування даних з клавіатури?</p>
+<label><input type="radio" name="q3" value="a"> cout</label><br>
+<label><input type="radio" name="q3" value="b"> print</label><br>
+<label><input type="radio" name="q3" value="c"> cin</label><br><br>
+<button onclick="quiz()">Перевірити тест</button>
+<p id="quizResult"></p>
+</section>
+
+<section class="card">
+<h2>9. Підсумкова програма</h2>
+<p>Напишіть мініпрограму «Покупка»: користувач вводить назву товару, ціну та кількість. Програма обчислює загальну вартість.</p>
+<details><summary>Рішення для вчителя</summary><pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;iomanip&gt;
+using namespace std;
+
+int main() {
+    string productName;
+    double price, total;
+    int quantity;
+
+    cout &lt;&lt; "Product: ";
+    cin &gt;&gt; productName;
+
+    cout &lt;&lt; "Price: ";
+    cin &gt;&gt; price;
+
+    cout &lt;&lt; "Quantity: ";
+    cin &gt;&gt; quantity;
+
+    total = price * quantity;
+
+    cout &lt;&lt; fixed &lt;&lt; setprecision(2);
+    cout &lt;&lt; "Product: " &lt;&lt; productName &lt;&lt; endl;
+    cout &lt;&lt; "Total: " &lt;&lt; total &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+<p><b>Що перевіряємо:</b> string, int, double, <code>cin</code>, <code>cout</code>, присвоєння, множення та форматування виводу.</p></details>
+</section>
+
+<section class="card">
+<h2>10. Що учень має знати після уроку <span class="pill">checklist</span></h2>
+<label><input type="checkbox"> як створювати (оголошувати) змінні різного типу</label><br>
+<label><input type="checkbox"> різницю між <code>int</code>, <code>double</code>, <code>string</code>, <code>char</code>, <code>bool</code></label><br>
+<label><input type="checkbox"> різницю між операторами присвоєння <code>=</code> та порівняння <code>==</code></label><br>
+<label><input type="checkbox"> як працюють потоки <code>cin</code> та <code>cout</code></label><br>
+<label><input type="checkbox"> особливості цілочисельного ділення <code>/</code> та остачі <code>%</code></label><br>
+<label><input type="checkbox"> базову структуру функції <code>int main() { ... }</code></label>
+</section>
+</main>
+
+<footer>Інтерактивний навчальний конспект • C++: урок 1</footer>
+<script>
+function show(id){document.getElementById(id).style.display='block'}
+function checkType(){
+ const v=document.getElementById('qtype').value.trim().toLowerCase();
+ const r=document.getElementById('typeResult');
+ if(v==='int' || v==='integer'){r.textContent='✓ Правильно!';r.className='ok'}else{r.textContent='Спробуй ще. Підказка: це ціле число (int).';r.className='bad'}
+}
+function quiz(){
+ let s=0;
+ const a=document.querySelector('input[name=q1]:checked');
+ const b=document.querySelector('input[name=q2]:checked');
+ const c=document.querySelector('input[name=q3]:checked');
+ if(a&&a.value==='a')s++; if(b&&b.value==='b')s++; if(c&&c.value==='c')s++;
+ const r=document.getElementById('quizResult');
+ r.textContent='Результат: '+s+'/3'+(s===3?' — чудово!':' — переглянь теорію та спробуй ще раз.');
+ r.className=s===3?'ok':'bad';
+}
+</script>
+</body>
+</html>
