@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Оголошення та ініціалізація змінної</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>Змінні у C++ — Оголошення та ініціалізація</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <section class="card" id="definition">
+            <h2>1. Оголошення та ініціалізація змінної</h2>
+            <p><b>Змінна</b> — це іменована область пам'яті для збереження даних. У C++ обов'язково спочатку вказується
+                <b>тип</b>, а потім <b>ім'я</b>.</p>
+            
+            <pre><code class="language-cpp">// Створення (оголошення)
+int age;
+
+// Присвоєння значення (ініціалізація)
+age = 15;
+
+// Створення та надання значення в один рядок:
+double price = 99.99;
+string name = "Олексій";</code></pre>
+
+            <div class="teacher"><b>Пояснення:</b> Оператор <code>=</code> — це не рівність, а <i>присвоєння</i>. Обчислюється
+                вираз праворуч і записується у змінну ліворуч.</div>
+        </section>
+    </main>
+
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

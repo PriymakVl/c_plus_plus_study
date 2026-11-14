@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Як вставити змінну в рядок</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>Змінні у C++ — Як вставити змінну в рядок</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <section class="card" id="embed">
+            <h2>4. Як вставити змінну в рядок</h2>
+            <p>У C++ є кілька основних способів виведення змінних разом із текстом та поєднання їх у єдиний рядок.</p>
+
+            <h3>Спосіб 1: Потік <code>std::cout</code> (Найпростіший та найуживаніший)</h3>
+            <p>Оператор <code>&lt;&lt;</code> дозволяє «зліплювати» текст у подвійних лапках і змінні послідовно:</p>
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string name = "Анна";
+    int age = 16;
+    double score = 98.5;
+
+    // Вставка кількох змінних у текст
+    cout &lt;&lt; "Привіт, мене звати " &lt;&lt; name &lt;&lt; ", мені " &lt;&lt; age &lt;&lt; " років!" &lt;&lt; endl;
+    cout &lt;&lt; "Мій бал: " &lt;&lt; score &lt;&lt; " зі 100." &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+
+            <h3>Спосіб 2: Конкатенація рядків через <code>+</code> (тільки для <code>string</code>)</h3>
+            <p>Якщо потрібно створити новий рядок у пам'яті, з'єднавши текст та інші змінні:</p>
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string name = "Іван";
+    int level = 5;
+
+    // Щоб додати число до string, його треба перетворити за допомогою to_string()
+    string message = "Гравець " + name + " досяг рівня " + to_string(level) + "!";
+    
+    cout &lt;&lt; message &lt;&lt; endl;
+    return 0;
+}</code></pre>
+            <div class="note"><b>Зверніть увагу:</b> Числові змінні (<code>int</code>, <code>double</code>) не можна просто так додавати до <code>string</code> через <code>+</code>. Потрібно обов'язково використовувати <code>to_string(variable)</code>!</div>
+
+            <h3>Спосіб 3: Сучасне форматування <code>std::format</code> (C++20)</h3>
+            <p>У сучасній мові C++20 додано аналог f-string з Python чи string.Format з C#:</p>
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;format&gt; // Потрібен стандарт C++20
+using namespace std;
+
+int main() {
+    string item = "Яблуко";
+    int count = 3;
+    
+    // Вставка змінних у місця фігурних дужок {}
+    string text = format("Ви купили {} шт. товару: {}.", count, item);
+    cout &lt;&lt; text &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+        </section>
+    </main>
+
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

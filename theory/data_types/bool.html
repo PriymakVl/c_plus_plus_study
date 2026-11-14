@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Логічний тип (bool)</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Логічний тип (bool)</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="booleans">
+            <h2>Логічний тип (bool)</h2>
+            <p>Тип <code>bool</code> може мати лише два значення: <code>true</code> (істина) або <code>false</code> (хибність).</p>
+            
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    bool isStudent = true;
+    bool hasGraduated = false;
+
+    cout &lt;&lt; "isStudent: " &lt;&lt; isStudent &lt;&lt; endl; // Виведе 1
+    
+    // Вивід слів true/false замість 1/0:
+    cout &lt;&lt; boolalpha;
+    cout &lt;&lt; "hasGraduated: " &lt;&lt; hasGraduated &lt;&lt; endl; // Виведе false
+
+    return 0;
+}</code></pre>
+        </section>
+
+    </main>
+
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

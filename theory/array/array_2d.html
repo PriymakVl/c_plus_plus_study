@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C++: Двовимірні масиви</title>
+<link rel="stylesheet" href="../../css/theory.css">
+</head>
+<body>
+<header>
+<div class="wrap hero">
+  <div>
+    <h1>Основи C++: Двовимірні масиви</h1>
+    <p class="lead">Інтерактивний урок з вивчення двовимірних масивів (матриць) у мові C++: синтаксис, робота з вкладеними циклами та адресація елементів.</p>
+  </div>
+</div>
+</header>
+
+<nav><div class="wrap">
+<a href="#intro">Що таке двовимірний масив</a><a href="#init">Оголошення та ініціалізація</a><a href="#loops">Вкладені цикли</a><a href="#checklist">Чеклист</a><a href="#test">Міні-тест</a>
+</div></nav>
+
+<main class="wrap">
+
+<section class="card" id="intro">
+<h2>1. Що таке двовимірний масив</h2>
+<p><b>Двовимірний масив</b> можна уявити як таблицю чи матрицю, яка складається з рядків та стовпчиків. Кожен елемент має два індекси: номер рядка та номер стовпчика.</p>
+<p>Синтаксис оголошення:</p>
+<pre><code>тип_даних ім_я_масиву[кількість_рядків][кількість_стовпчиків];</code></pre>
+<table>
+<tr><th>Приклад</th><th>Опис</th></tr>
+<tr><td><code>int matrix[3][4];</code></td><td>Таблиця з 3 рядків та 4 стовпчиків (усього 12 елементів)</td></tr>
+<tr><td><code>char board[8][8];</code></td><td>Шахівниця 8x8 з символів</td></tr>
+</table>
+</section>
+
+<section class="card" id="init">
+<h2>2. Ініціалізація та доступ за індексами</h2>
+<p>При ініціалізації значення зазвичай групують у фігурні дужки за рядками:</p>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int matrix[2][3] = {
+        {10, 20, 30}, // Рядок 0
+        {40, 50, 60}  // Рядок 1
+    };
+
+    // Доступ до елемента у 2-му рядку (індекс 1) та 3-му стовпчику (індекс 2)
+    cout &lt;&lt; "Елемент: " &lt;&lt; matrix[1][2] &lt;&lt; endl; // 60
+
+    matrix[0][0] = 99; // Зміна першого елемента першого рядка
+    return 0;
+}</code></pre>
+<div class="teacher"><b>Пам'ятай:</b> Перший індекс завжди вказує на <b>рядок</b>, а другий — на <b>стовпчик</b>: <code>arr[row][col]</code>.</div>
+</section>
+
+<section class="card" id="loops">
+<h2>3. Обхід двовимірного масиву (Вкладені цикли)</h2>
+<p>Для обробки всіх елементів двовимірного масиву використовують два вкладені цикли <code>for</code>: зовнішній — по рядках, внутрішній — по стовпчиках.</p>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    const int ROWS = 3;
+    const int COLS = 3;
+    int grid[ROWS][COLS] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+
+    // Вивід матриці у вигляді таблиці
+    for (int i = 0; i &lt; ROWS; i++) {
+        for (int j = 0; j &lt; COLS; j++) {
+            cout &lt;&lt; grid[i][j] &lt;&lt; "\t";
+        }
+        cout &lt;&lt; endl; // Перехід на новий рядок після кожного рядка матриці
+    }
+
+    return 0;
+}</code></pre>
+</section>
+
+<section class="card" id="checklist">
+<h2>4. Що учень має знати після уроку <span class="pill">checklist</span></h2>
+<label><input type="checkbox"> що таке двовимірний масив та як його оголосити</label><br>
+<label><input type="checkbox"> який індекс відповідає за рядок, а який за стовпчик</label><br>
+<label><input type="checkbox"> як ініціалізувати матрицю списком значень</label><br>
+<label><input type="checkbox"> як використовувати вкладені цикли для обходу елементів</label>
+</section>
+
+<section class="card" id="test">
+<h2>5. Міні-тест</h2>
+<p>1. Що означають числа в оголошенні <code>int arr[3][5];</code>?</p>
+<label><input type="radio" name="q1" value="a"> 3 стовпчики та 5 рядків</label><br>
+<label><input type="radio" name="q1" value="b"> 3 рядки та 5 стовпчиків</label><br>
+<label><input type="radio" name="q1" value="c"> 35 елементів в один рядок</label>
+
+<p>2. Який вираз звертається до елемента у 1-му рядку та 2-му стовпчику (з урахуванням нульової індексації)?</p>
+<label><input type="radio" name="q2" value="a"> matrix[1][2]</label><br>
+<label><input type="radio" name="q2" value="b"> matrix[0][1]</label><br>
+<label><input type="radio" name="q2" value="c"> matrix[2][1]</label>
+
+<p>3. Скільки всього елементів містить масив <code>double data[4][4];</code>?</p>
+<label><input type="radio" name="q3" value="a"> 8</label><br>
+<label><input type="radio" name="q3" value="b"> 16</label><br>
+<label><input type="radio" name="q3" value="c"> 4</label><br><br>
+
+<button onclick="quiz()">Перевірити тест</button>
+<p id="quizResult"></p>
+</section>
+
+</main>
+
+<footer>Інтерактивний навчальний конспект • C++: Двовимірні масиви</footer>
+<script>
+function quiz(){
+ let s=0;
+ const a=document.querySelector('input[name=q1]:checked');
+ const b=document.querySelector('input[name=q2]:checked');
+ const c=document.querySelector('input[name=q3]:checked');
+ if(a&&a.value==='b')s++; if(b&&b.value==='b')s++; if(c&&c.value==='b')s++;
+ const r=document.getElementById('quizResult');
+ r.textContent='Результат: '+s+'/3'+(s===3?' — чудово!':' — переглянь теорію та спробуй ще раз.');
+ r.className=s===3?'ok':'bad';
+}
+</script>
+</body>
+</html>

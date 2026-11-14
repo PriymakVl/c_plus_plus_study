@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Правила в назві змінної</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <style>
+        .bad {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>Змінні у C++ — Правила іменування</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <section class="card" id="naming">
+            <h2>2. Символи та правила в назві змінної</h2>
+            <p>Ім'я змінної (ідентифікатор) підпорядковується чітким правилам мови C++:</p>
+            <table>
+                <tr>
+                    <th>Що можна використовувати</th>
+                    <th>Приклади дозволених імен</th>
+                </tr>
+                <tr>
+                    <td>
+                        <ul>
+                            <li>Латинські літери: <code>a-z</code>, <code>A-Z</code></li>
+                            <li>Цифри: <code>0-9</code> (але <b>НЕ</b> на початку!)</li>
+                            <li>Знак підкреслення: <code>_</code></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <code>user_age</code>, <code>score2</code>, <code>_total</code>, <code>playerHealth</code>
+                    </td>
+                </tr>
+            </table>
+
+            <h3 style="margin-top:20px;">Критичні правила та обмеження:</h3>
+            <ol>
+                <li><b>Не можна починати з цифри:</b> <code>1player</code> — <span class="bad">ПОМИЛКА</span>! (Правильно:
+                    <code>player1</code>).</li>
+                <li><b>Спеціальні символи заборонені:</b> Пробіли, дефіси, розділові знаки, знаки <code>$</code>,
+                    <code>%</code>, <code>@</code>, <code>#</code>, <code>!</code> — <span class="bad">НЕ МОЖНА</span>.
+                    (<code>user-age</code> — помилка, використовуйте <code>user_age</code>).</li>
+                <li><b>Кирилиця та інші алфавіти:</b> Використовувати не бажано (і в багатьох стандартах заборонено). Називайте
+                    змінні англійською.</li>
+                <li><b>Чутливість до регістру:</b> <code>speed</code>, <code>Speed</code> та <code>SPEED</code> — це три
+                    <b>різні</b> змінні!</li>
+                <li><b>Ключові (зарезервовані) слова:</b> Не можна називати змінну <code>int</code>, <code>double</code>,
+                    <code>class</code>, <code>return</code>, <code>using</code> тощо.</li>
+            </ol>
+        </section>
+    </main>
+
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

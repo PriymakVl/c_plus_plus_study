@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Вбудовані Функції в C++</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Подключение стилей Prism.js для подсветки синтаксиса -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap">
+            <h1>Вбудовані функції в C++</h1>
+        </div>
+    </header>
+    
+    <main class="wrap">
+        <section class="card">
+            <h2>1. Вбудовані математичні функції (&lt;cmath&gt;)</h2>
+            <p>Для використання математичних функцій у C++ підключають бібліотеку
+                <code>#include &lt;cmath&gt;</code></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Функція</th>
+                        <th>Що робить</th>
+                        <th>Приклад</th>
+                        <th>Результат</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>pow(x, y)</code></td>
+                        <td>Підношення до степеня (x<sup>y</sup>)</td>
+                        <td><code>pow(5, 2)</code></td>
+                        <td>25.0 (тип double)</td>
+                    </tr>
+                    <tr>
+                        <td><code>sqrt(x)</code></td>
+                        <td>Квадратний корінь (&radic;x)</td>
+                        <td><code>sqrt(16.0)</code></td>
+                        <td>4.0 (тип double)</td>
+                    </tr>
+                    <tr>
+                        <td><code>abs(x) / fabs(x)</code></td>
+                        <td>Модуль числа (|x|)</td>
+                        <td><code>abs(-7)</code></td>
+                        <td>7</td>
+                    </tr>
+                    <tr>
+                        <td><code>round(x)</code></td>
+                        <td>Округлення до найближчого цілого</td>
+                        <td><code>round(3.7)</code></td>
+                        <td>4.0</td>
+                    </tr>
+                    <tr>
+                        <td><code>floor(x) / ceil(x)</code></td>
+                        <td>Округлення вниз / вгору</td>
+                        <td><code>floor(3.7)</code> / <code>ceil(3.1)</code></td>
+                        <td>3.0 / 4.0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    
+        <section class="card">
+            <h2>Приклад використання функції pow()</h2>
+            <p>Нижче наведено робочий приклад програми C++, яка підключає бібліотеку <code>&lt;cmath&gt;</code> та обчислює значення x<sup>y</sup>:</p>
+            
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cmath&gt; // Підключення бібліотеки математичних функцій
+
+int main() {
+    double base = 5.0;
+    double exponent = 3.0;
+    
+    // Використання функції pow()
+    double result = std::pow(base, exponent);
+    
+    std::cout &lt;&lt; base &lt;&lt; " у степені " &lt;&lt; exponent &lt;&lt; " дорівнює " &lt;&lt; result &lt;&lt; std::endl;
+    
+    return 0;
+}</code></pre>
+        </section>
+    </main>
+    
+    <!-- Подключение скриптов Prism.js -->
+    <!-- Основное ядро Prism.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    
+    <!-- Autoloader (автоматически подгрузит C, C++ и любые другие языки) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script> -->
+
+</body>
+
+</html>

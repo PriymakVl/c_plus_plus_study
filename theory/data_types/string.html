@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Символи та рядки</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Символи та рядки</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="chars">
+            <h2>1. Символьний тип (char)</h2>
+            <ul>
+                <li>Тип <code>char</code> зберігає один символ і записується в <b>одинарних лапках</b>.</li>
+                <li>Кожен символ всередині комп'ютера зберігається як числовий код ASCII.</li>
+            </ul>
+            
+            <pre><code class="language-cpp">char letter = 'A';
+char symbol = '$';
+
+cout &lt;&lt; letter &lt;&lt; " має код " &lt;&lt; int(letter) &lt;&lt; endl; // Виведе: A має код 65</code></pre>
+        </section>
+
+        <section class="card" id="strings">
+            <h2>2. Рядки (string)</h2>
+            <ul>
+                <li>Для роботи з текстом використовується клас <code>string</code> із бібліотеки <code>&lt;string&gt;</code>.</li>
+                <li>Текст завжди береться у <b>подвійні лапки</b>.</li>
+            </ul>
+            
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string greeting = "Hello, World!";
+    cout &lt;&lt; greeting &lt;&lt; endl;
+    return 0;
+}</code></pre>
+        </section>
+
+    </main>
+
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

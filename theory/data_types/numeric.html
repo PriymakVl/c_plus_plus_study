@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Цілочисельні та дійсні типи даних</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Цілочисельні та дійсні типи даних</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="integers">
+            <h2>1. Цілочисельні типи та модифікатори</h2>
+            <p>Для роботи з цілими числами використовуються різні типи залежно від необхідного діапазону значень:</p>
+            <table>
+                <tr>
+                    <th>Тип</th>
+                    <th>Приблизний розмір</th>
+                    <th>Діапазон (signed)</th>
+                </tr>
+                <tr>
+                    <td><code>short</code></td>
+                    <td>2 байти</td>
+                    <td>від -32 768 до 32 767</td>
+                </tr>
+                <tr>
+                    <td><code>int</code></td>
+                    <td>4 байти</td>
+                    <td>від -2 147 483 648 до 2 147 483 647</td>
+                </tr>
+                <tr>
+                    <td><code>long long</code></td>
+                    <td>8 байтів</td>
+                    <td>від -9*10<sup>18</sup> до 9*10<sup>18</sup></td>
+                </tr>
+            </table>
+
+            <h3>Модифікатори знаку</h3>
+            <ul>
+                <li><code>signed</code> — за замовчуванням. Зберігає від'ємні та додатні числа.</li>
+                <li><code>unsigned</code> — зберігає <b>тільки додатні</b> числа і нуль, за рахунок чого подвоює верхню межу!</li>
+            </ul>
+            
+            <!-- Додано клас language-cpp для підсвічування C++ -->
+            <pre><code class="language-cpp">unsigned int studentsCount = 30; // Не може бути від'ємним!
+unsigned char age = 15;          // Від 0 до 255</code></pre>
+            
+            <div class="teacher"><b>Зауваження:</b> Якщо записати в <code>unsigned</code> від'ємне число, станеться переповнення, і змінна отримає величезне додатне значення!</div>
+        </section>
+
+        <section class="card" id="floats">
+            <h2>2. Дійсні числа (плаваюча крапка)</h2>
+            <p>Для збереження дробових чисел використовують <code>float</code> та <code>double</code>.</p>
+            <table>
+                <tr>
+                    <th>Тип</th>
+                    <th>Розмір</th>
+                    <th>Точність</th>
+                    <th>Приклад</th>
+                </tr>
+                <tr>
+                    <td><code>float</code></td>
+                    <td>4 байти</td>
+                    <td>~6-7 знаків після крапки</td>
+                    <td><code>3.14159f</code></td>
+                </tr>
+                <tr>
+                    <td><code>double</code></td>
+                    <td>8 байтів</td>
+                    <td>~15-17 знаків після крапки</td>
+                    <td><code>3.141592653589793</code></td>
+                </tr>
+            </table>
+
+            <p class="note"><b>Порада:</b> В реальних проєктах та задачах за замовчуванням слід використовувати <code>double</code>, оскільки він надає достатню точність для обчислень.</p>
+        </section>
+
+    </main>
+
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

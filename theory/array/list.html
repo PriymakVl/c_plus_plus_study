@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C++: Двозв'язні списки (std::list)</title>
+<link rel="stylesheet" href="../../css/theory.css">
+<!-- Тема Prism.js для підсвічування синтаксису -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+<header>
+<div class="wrap hero">
+  <div>
+    <h1>Основи C++: Двозв'язні списки (std::list)</h1>
+    <p class="lead">Інтерактивний урок з вивчення контейнера std::list у мові C++: підключення, створення, додавання елементів та основні методи.</p>
+  </div>
+</div>
+</header>
+
+<nav><div class="wrap">
+<a href="#intro">Що таке list</a><a href="#init">Оголошення та ініціалізація</a><a href="#methods">Основні методи</a><a href="#checklist">Чеклист</a><a href="#test">Міні-тест</a>
+</div></nav>
+
+<main class="wrap">
+
+<section class="card" id="intro">
+<h2>1. Що таке std::list та як його оголосити</h2>
+<p><b>std::list</b> — це контейнер із бібліотеки C++ Standard Template Library (STL), який реалізує двозв'язний список.</p>
+<p>Для використання списку необхідно підключити заголовочний файл <code>&lt;list&gt;</code>.</p>
+<p>Синтаксис оголошення списку:</p>
+<pre><code class="language-cpp">#include &lt;list&gt;
+
+std::list&lt;тип_даних&gt; ім_я_списку;</code></pre>
+<table>
+<tr><th>Приклад</th><th>Опис</th></tr>
+<tr><td><code>list&lt;int&gt; numbers;</code></td><td>Порожній список для цілих чисел</td></tr>
+<tr><td><code>list&lt;double&gt; temp(5);</code></td><td>Список з 5 дробових чисел (заповнений нулями)</td></tr>
+<tr><td><code>list&lt;string&gt; words;</code></td><td>Порожній список для текстових рядків</td></tr>
+</table>
+<div class="teacher"><b>Важливо!</b> На відміну від <code>std::vector</code>, елементи <code>std::list</code> розміщуються в пам'яті не послідовно, тому він підтримує швидку вставку та видалення елементів з обох кінців і з середини, але не підтримує доступ за індексом через <code>[]</code>.</div>
+</section>
+
+<section class="card" id="init">
+<h2>2. Ініціалізація та додавання елементів</h2>
+<p>Створювати список та додавати до нього нові значення можна різними способами (як на початок, так і в кінець):</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;list&gt;
+using namespace std;
+
+int main() {
+    // Ініціалізація списком
+    list&lt;int&gt; numbers = {10, 20, 30};
+
+    // Додавання елементів у кінець списку
+    numbers.push_back(40); // Список тепер містить {10, 20, 30, 40}
+
+    // Додавання елементів на початок списку
+    numbers.push_front(5); // Список тепер містить {5, 10, 20, 30, 40}
+
+    // Створення списку з 4 однакових елементів (значення 7)
+    list&lt;int&gt; sameValues(4, 7); // {7, 7, 7, 7}
+
+    return 0;
+}</code></pre>
+</section>
+
+<section class="card" id="methods">
+<h2>3. Доступ до елементів та основні методи</h2>
+<p>Оскільки <code>std::list</code> не підтримує доступ за індексом, для роботи з першим та останнім елементами використовуються спеціальні методи:</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;list&gt;
+using namespace std;
+
+int main() {
+    list&lt;int&gt; lst = {10, 20, 30};
+
+    cout &lt;&lt; "Перший елемент: " &lt;&lt; lst.front() &lt;&lt; endl; // 10
+    cout &lt;&lt; "Останній елемент: " &lt;&lt; lst.back() &lt;&lt; endl; // 30
+    cout &lt;&lt; "Кількість елементів: " &lt;&lt; lst.size() &lt;&lt; endl; // 3
+
+    lst.pop_front(); // Видаляє перший елемент (10)
+    lst.pop_back();  // Видаляє останній елемент (30)
+
+    cout &lt;&lt; "Новий розмір: " &lt;&lt; lst.size() &lt;&lt; endl; // 1
+    cout &lt;&lt; "Єдиний елемент: " &lt;&lt; lst.front() &lt;&lt; endl; // 20
+
+    return 0;
+}</code></pre>
+<div class="note"><b>Запам'ятай:</b> Для обходу елементів <code>std::list</code> використовується діапазонний цикл <code>for (int x : lst)</code> або ітератори, оскільки виклики на зразок <code>lst[0]</code> викличуть помилку компіляції.</div>
+</section>
+
+<section class="card" id="checklist">
+<h2>4. Що учень має знати після уроку <span class="pill">checklist</span></h2>
+<label><input type="checkbox"> який заголовочний файл потрібен для роботи з <code>std::list</code></label><br>
+<label><input type="checkbox"> чим <code>std::list</code> відрізняється від <code>std::vector</code></label><br>
+<label><input type="checkbox"> як додавати елементи за допомогою <code>push_back()</code> та <code>push_front()</code></label><br>
+<label><input type="checkbox"> як дізнатися поточний розмір списку через метод <code>size()</code></label><br>
+<label><input type="checkbox"> як отримувати доступ до першого та останнього елемента через <code>front()</code> і <code>back()</code></label>
+</section>
+
+<section class="card" id="test">
+<h2>5. Міні-тест</h2>
+<p>1. Який заголовочний файл необхідно підключити для використання std::list?</p>
+<label><input type="radio" name="q1" value="a"> &lt;array&gt;</label><br>
+<label><input type="radio" name="q1" value="b"> &lt;list&gt;</label><br>
+<label><input type="radio" name="q1" value="c"> &lt;vector&gt;</label>
+
+<p>2. Який метод використовується для додавання елемента на початок списку?</p>
+<label><input type="radio" name="q2" value="a"> push_front()</label><br>
+<label><input type="radio" name="q2" value="b"> push_back()</label><br>
+<label><input type="radio" name="q2" value="c"> add_first()</label>
+
+<p>3. Чи можна отримати доступ до елемента std::list за допомогою квадратних дужок [ ]?</p>
+<label><input type="radio" name="q3" value="a"> Так, як і у звичайному масиві</label><br>
+<label><input type="radio" name="q3" value="b"> Так, але тільки через метод at()</label><br>
+<label><input type="radio" name="q3" value="c"> Ні, доступ за індексом через [] не підтримується</label><br><br>
+
+<button onclick="quiz()">Перевірити тест</button>
+<p id="quizResult"></p>
+</section>
+
+</main>
+
+<footer>Інтерактивний навчальний конспект • C++: Двозв'язні списки (std::list)</footer>
+
+<script>
+function quiz(){
+ let s=0;
+ const a=document.querySelector('input[name=q1]:checked');
+ const b=document.querySelector('input[name=q2]:checked');
+ const c=document.querySelector('input[name=q3]:checked');
+ if(a&&a.value==='b')s++; if(b&&b.value==='a')s++; if(c&&c.value==='c')s++;
+ const r=document.getElementById('quizResult');
+ r.textContent='Результат: '+s+'/3'+(s===3?' — чудово!':' — переглянь теорію та спробуй ще раз.');
+ r.className=s===3?'ok':'bad';
+}
+</script>
+
+<!-- Скрипти Prism.js для підсвічування C++ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+</html>

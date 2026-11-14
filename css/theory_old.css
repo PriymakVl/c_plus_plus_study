@@ -1,0 +1,278 @@
+:root {
+  --bg: #f6f7fb;
+  --card: #fff;
+  --ink: #172033;
+  --muted: #667085;
+  --accent: #00599c;
+  --accent2: #008080;
+  --line: #e6e8ef;
+  --code: #151823;
+  --warn: #fff7df;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, Segoe UI, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.55;
+}
+
+header {
+  background: linear-gradient(135deg, #00599c, #283593);
+  color: #fff;
+  padding: 20px;
+}
+
+.wrap {
+  max-width: 1100px;
+  margin: auto;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.4fr 0.6fr;
+  gap: 28px;
+  align-items: center;
+}
+
+h1 {
+  font-size: 40px;
+  margin: 0 0 12px;
+}
+
+.lead {
+  font-size: 19px;
+  opacity: 0.95;
+}
+
+.badge {
+  display: inline-block;
+  background: #ffffff22;
+  border: 1px solid #ffffff44;
+  padding: 7px 12px;
+  border-radius: 999px;
+  margin: 4px;
+}
+
+nav {
+  position: sticky;
+  top: 0;
+  background: #ffffffee;
+  backdrop-filter: blur(8px);
+  z-index: 3;
+  border-bottom: 1px solid var(--line);
+}
+
+nav .wrap {
+  display: flex;
+  gap: 8px;
+  overflow: auto;
+  padding: 10px 16px;
+}
+
+nav a {
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--ink);
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+nav a:hover {
+  background: #eaf2f8;
+}
+
+main {
+  padding: 28px 16px 60px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 24px;
+  margin: 18px 0;
+  box-shadow: 0 7px 24px #1720330b;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 28px;
+}
+
+h3 {
+  margin-bottom: 8px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.note {
+  background: #eaf2f8;
+  border-left: 5px solid var(--accent);
+  padding: 14px 16px;
+  border-radius: 10px;
+}
+
+.teacher {
+  background: var(--warn);
+  border-left: 5px solid #f4b400;
+  padding: 14px 16px;
+  border-radius: 10px;
+}
+
+/* === СТИЛИ ДЛЯ БЛОКОВ КОДА И ПОДСВЕТКИ PRISM.JS === */
+pre,
+pre[class*="language-"] {
+  background: var(--code) !important;
+  color: #f8f8f2;
+  padding: 17px;
+  border-radius: 13px;
+  overflow: auto;
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 16px 0;
+}
+
+code,
+code[class*="language-"] {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  text-shadow: none !important;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: var(--code) !important;
+}
+
+/* Безопасные CSS-правила без вызова ошибок JS */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #7f8c8d !important;
+}
+
+.token.keyword {
+  color: #f7768e !important;
+}
+
+.token.string {
+  color: #9ece6a !important;
+}
+
+.token.number {
+  color: #ff9e64 !important;
+}
+
+.token.operator,
+.token.punctuation {
+  color: #89ddff !important;
+}
+
+.token.function {
+  color: #2ac3de !important;
+}
+
+/* ==================================================== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border-bottom: 1px solid var(--line);
+  padding: 11px;
+  text-align: left;
+}
+
+th {
+  background: #f8f8fc;
+}
+
+textarea, input[type=text] {
+  width: 100%;
+  border: 1px solid #ccd0dc;
+  border-radius: 10px;
+  padding: 12px;
+  font: inherit;
+  margin: 7px 0;
+}
+
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  background: var(--accent);
+  color: white;
+}
+
+button.alt {
+  background: var(--accent2);
+}
+
+button.ghost {
+  background: #eef0f5;
+  color: #273043;
+}
+
+.answer {
+  display: none;
+  margin-top: 10px;
+}
+
+.ok {
+  color: #087f5b;
+  font-weight: 700;
+}
+
+.bad {
+  color: #c92a2a;
+  font-weight: 700;
+}
+
+details {
+  border: 1px solid var(--line);
+  padding: 12px 14px;
+  border-radius: 12px;
+  margin: 10px 0;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.pill {
+  font-size: 13px;
+  background: #edf7f5;
+  color: #087f5b;
+  padding: 4px 999px;
+  border-radius: 999px;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  padding: 30px;
+}
+
+@media (max-width: 760px) {
+  .hero, .grid {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    padding: 18px;
+  }
+}

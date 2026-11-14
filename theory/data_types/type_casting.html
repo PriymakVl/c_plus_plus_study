@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Приведення типів (Type Casting)</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Приведення типів (Type Casting)</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="casting-intro">
+            <h2>1. Що таке приведення типів</h2>
+            <ul>
+                <li><b>Приведення типів</b> — це перетворення значення одного типу в інший.</li>
+            </ul>
+        </section>
+
+        <section class="card" id="implicit-casting">
+            <h2>2. Неявне (автоматичне) приведення</h2>
+            <ul>
+                <li>Виконується компілятором автоматично під час присвоєння або обчислень.</li>
+                <li>При перетворенні дробового числа в ціле дробова частина відкидається.</li>
+            </ul>
+
+            <pre><code class="language-cpp">int a = 5;
+double b = a; // a автоматично перетворюється на 5.0
+
+double x = 9.99;
+int y = x;    // Автоматично відкидає дробову частину! y стане 9</code></pre>
+        </section>
+
+        <section class="card" id="explicit-casting">
+            <h2>3. Явне перетворення (static_cast)</h2>
+            <ul>
+                <li>Рекомендований стиль явного перетворення типів у сучасному C++.</li>
+            </ul>
+
+            <pre><code class="language-cpp">int num = 7, den = 2;
+double result = static_cast&lt;double&gt;(num) / den; // Результат 3.5 замість 3</code></pre>
+        </section>
+
+    </main>
+
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
