@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Параметры и аргументы функций</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Подключение стилей Highlight.js (темная тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Параметры и аргументы функций</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="basics">
+            <h2>1. Параметры и аргументы: в чём разница</h2>
+            <ul>
+                <li><b>Параметры</b> — переменные, указанные в круглых скобках при объявлении или определении функции.</li>
+                <li><b>Аргументы</b> — реальные значения или переменные, которые передаются в функцию при её вызове.</li>
+                <li>Количество и типы аргументов при вызове должны соответствовать параметрам функции.</li>
+            </ul>
+            
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// a и b — параметры функции
+int sum(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int x = 5;
+    // x и 10 — аргументы функции
+    cout &lt;&lt; sum(x, 10) &lt;&lt; endl; // Выведет: 15
+    return 0;
+}</code></pre>
+        </section>
+
+        <section class="card" id="passing-methods">
+            <h2>2. Способы передачи параметров</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Способ</th>
+                        <th>Синтаксис</th>
+                        <th>Как работает</th>
+                        <th>Когда использовать</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>По значению</b></td>
+                        <td><code>void f(int x)</code></td>
+                        <td>Создаётся копия аргумента. Оригинал не меняется.</td>
+                        <td>Для простых типов (<code>int</code>, <code>double</code>, <code>char</code>, <code>bool</code>).</td>
+                    </tr>
+                    <tr>
+                        <td><b>По ссылке</b></td>
+                        <td><code>void f(int&amp; x)</code></td>
+                        <td>Передаётся сам оригинал без копирования. Изменения влияют на исходную переменную.</td>
+                        <td>Когда нужно изменить переменную внутри функции.</td>
+                    </tr>
+                    <tr>
+                        <td><b>По константной ссылке</b></td>
+                        <td><code>void f(const string&amp; s)</code></td>
+                        <td>Передаётся оригинал без копирования, но менять его запрещено.</td>
+                        <td>Для тяжёлых объектов (<code>string</code>, <code>vector</code>) только для чтения.</td>
+                    </tr>
+                    <tr>
+                        <td><b>По указателю</b></td>
+                        <td><code>void f(int* p)</code></td>
+                        <td>Передаётся адрес в памяти. Может принимать <code>nullptr</code>.</td>
+                        <td>Для работы с динамической памятью, массивами или опциональными параметрами.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+void byValue(int x) { x = 100; }
+void byRef(int&amp; x) { x = 100; }
+void byConstRef(const string&amp; text) { cout &lt;&lt; text &lt;&lt; endl; }
+
+int main() {
+    int num = 10;
+    byValue(num); // num остаётся 10
+    byRef(num);   // num становится 100
+
+    string msg = "Hello";
+    byConstRef(msg); // Без лишнего копирования строки
+    return 0;
+}</code></pre>
+        </section>
+
+        <section class="card" id="default-args">
+            <h2>3. Аргументы по умолчанию</h2>
+            <ul>
+                <li>Параметру можно задать стандартное значение на случай, если аргумент не передан при вызове.</li>
+                <li>Параметры со значениями по умолчанию должны располагаться строго <b>справа</b> (в конце списка параметров).</li>
+            </ul>
+            
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// Правильно: b имеет значение по умолчанию и стоит в конце
+int power(int base, int exp = 2) {
+    int res = 1;
+    for (int i = 0; i &lt; exp; i++) res *= base;
+    return res;
+}
+
+int main() {
+    cout &lt;&lt; power(5) &lt;&lt; endl;    // Используется exp = 2 -&gt; 25
+    cout &lt;&lt; power(5, 3) &lt;&lt; endl; // Используется exp = 3 -&gt; 125
+    return 0;
+}</code></pre>
+
+            <div class="note">
+                Если функция имеет прототип (объявление перед <code>main</code>), значение по умолчанию указывается только в прототипе, а не в определении.
+            </div>
+        </section>
+
+        <section class="card" id="arrays">
+            <h2>4. Передача массивов в функцию</h2>
+            <ul>
+                <li>Обычный массив при передаче в функцию «распадается» (decay) на указатель на его первый элемент.</li>
+                <li>Функция не знает размер переданного массива, поэтому размер всегда передаётся отдельным параметром.</li>
+            </ul>
+
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// Массив передаётся по указателю (изменения внутри меняют исходный массив)
+void printArray(const int arr[], int size) {
+    for (int i = 0; i &lt; size; i++) {
+        cout &lt;&lt; arr[i] &lt;&lt; " ";
+    }
+    cout &lt;&lt; endl;
+}
+
+int main() {
+    int numbers[] = {10, 20, 30, 40};
+    printArray(numbers, 4);
+    return 0;
+}</code></pre>
+        </section>
+
+    </main>
+
+    <!-- Подключение скрипту Highlight.js и инициализация -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

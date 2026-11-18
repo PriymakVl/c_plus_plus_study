@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Оператори порівняння (відношення)</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Оператори порівняння (відношення)</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <section class="card" id="relational">
+            <h2>Оператори порівняння (відношення)</h2>
+            <p>Використовуються для порівняння двох значень. Результатом завжди є логічне значення: <code>true</code> (1) або <code>false</code> (0).</p>
+            <table>
+                <tr><th>Оператор</th><th>Значення</th><th>Приклад</th><th>Результат (якщо x = 5)</th></tr>
+                <tr><td><code>==</code></td><td>Рівно</td><td><code>x == 5</code></td><td><code>true</code></td></tr>
+                <tr><td><code>!=</code></td><td>Не дорівнює</td><td><code>x != 5</code></td><td><code>false</code></td></tr>
+                <tr><td><code>&gt;</code></td><td>Більше</td><td><code>x &gt; 3</code></td><td><code>true</code></td></tr>
+                <tr><td><code>&lt;</code></td><td>Менше</td><td><code>x &lt; 10</code></td><td><code>true</code></td></tr>
+                <tr><td><code>&gt;=</code></td><td>Більше або дорівнює</td><td><code>x &gt;= 5</code></td><td><code>true</code></td></tr>
+                <tr><td><code>&lt;=</code></td><td>Менше або дорівнює</td><td><code>x &lt;= 4</code></td><td><code>false</code></td></tr>
+            </table>
+            <div class="teacher"><b>Типова помилка початківців:</b> Плутанина між <code>=</code> (присвоєння) та <code>==</code> (перевірка на рівність). Запис <code>if (a = 5)</code> присвоїть змінній значення 5 і завжди поверне <code>true</code>!</div>
+        </section>
+    </main>
+
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

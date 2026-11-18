@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Логічні оператори</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Логічні оператори</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <section class="card" id="logical">
+            <h2>Логічні оператори</h2>
+            <p>Використовуються для поєднання декількох умов.</p>
+            <table>
+                <tr><th>Оператор</th><th>Назва</th><th>Опис</th><th>Приклад</th></tr>
+                <tr><td><code>&&</code></td><td>Логічне І (AND)</td><td>Повертає <code>true</code>, тільки якщо <b>обидва</b> операнди є <code>true</code></td><td><code>(age &gt;= 18 && age &lt;= 65)</code></td></tr>
+                <tr><td><code>||</code></td><td>Логічне АБО (OR)</td><td>Повертає <code>true</code>, якщо <b>хоча б один</b> з операндів є <code>true</code></td><td><code>(isWeekend || isHoliday)</code></td></tr>
+                <tr><td><code>!</code></td><td>Логічне НЕ (NOT)</td><td>Змінює значення на протилежне (інверсія)</td><td><code>!(x &gt; 5)</code></td></tr>
+            </table>
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int age = 20;
+    bool hasLicense = true;
+
+    if (age &gt;= 18 && hasLicense) {
+        cout &lt;&lt; "You can drive a car!" &lt;&lt; endl;
+    }
+
+    return 0;
+}</code></pre>
+        </section>
+    </main>
+
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

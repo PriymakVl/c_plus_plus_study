@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Оператори присвоєння та комбіновані оператори</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Оператори присвоєння та комбіновані оператори</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <section class="card" id="compound">
+            <h2>Оператори присвоєння та комбіновані оператори</h2>
+            <p>Базовий оператор присвоєння — це <code>=</code>. Він копіює значення з правої частини у змінну ліворуч.</p>
+            <p>Для скорочення запису стандартних операцій використовуються <b>комбіновані оператори</b>:</p>
+            <table>
+                <tr><th>Скорочений запис</th><th>Повний еквівалент</th><th>Опис</th></tr>
+                <tr><td><code>x += 5;</code></td><td><code>x = x + 5;</code></td><td>Збільшити x на 5</td></tr>
+                <tr><td><code>x -= 3;</code></td><td><code>x = x - 3;</code></td><td>Зменшити x на 3</td></tr>
+                <tr><td><code>x *= 2;</code></td><td><code>x = x * 2;</code></td><td>Помножити x на 2</td></tr>
+                <tr><td><code>x /= 4;</code></td><td><code>x = x / 4;</code></td><td>Поділити x на 4</td></tr>
+                <tr><td><code>x %= 10;</code></td><td><code>x = x % 10;</code></td><td>Отримати остачу від ділення x на 10</td></tr>
+            </table>
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int score = 100;
+    score += 50;  // score тепер 150
+    score *= 2;   // score тепер 300
+    cout &lt;&lt; "Score: " &lt;&lt; score &lt;&lt; endl;
+    return 0;
+}</code></pre>
+        </section>
+    </main>
+
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

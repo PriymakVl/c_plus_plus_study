@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Локальні та глобальні змінні</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Локальні та глобальні змінні</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="scope">
+            <h2>Локальні та глобальні змінні</h2>
+            <p>Змінні, оголошені поза будь-якою функцією, є <b>глобальними</b>. Змінні, оголошені всередині функції — <b>локальними</b> (існують тільки під час виконання цієї функції та всередині її блоку <code>{}</code>).</p>
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int g = 10; // Глобальна змінна
+
+void test() {
+    int l = 5; // Локальна змінна
+    cout &lt;&lt; g &lt;&lt; endl; // Глобальні змінні видно всюди
+}
+
+int main() {
+    test();
+    // cout &lt;&lt; l; -&gt; ПОМИЛКА КОМПІЛЯЦІЇ! Змінна 'l' тут не існує.
+    return 0;
+}</code></pre>
+        </section>
+
+    </main>
+
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Інкремент (++) та Декремент (--)</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Інкремент (++) та Декремент (--)</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <section class="card" id="incdec">
+            <h2>Інкремент (++) та Декремент (--)</h2>
+            <p>Оператори інкременту (<code>++</code>) та декременту (<code>--</code>) збільшують або зменшують значення змінної на 1.</p>
+            <div class="grid">
+                <div>
+                    <h3>Префіксна форма (++x)</h3>
+                    <p>Спочатку змінює значення змінної, а потім використовує нове значення у виразі.</p>
+                    <pre><code class="language-cpp">int a = 5;
+int b = ++a; // a = 6, b = 6</code></pre>
+                </div>
+                <div>
+                    <h3>Постфіксна форма (x++)</h3>
+                    <p>Спочатку використовує поточне значення у виразі, а потім змінює значення змінної.</p>
+                    <pre><code class="language-cpp">int a = 5;
+int b = a++; // b = 5, a = 6</code></pre>
+                </div>
+            </div>
+            <div class="note"><b>Запам'ятай:</b> Якщо операція виконується окремим рядком (наприклад, <code>count++;</code>), різниці між <code>++count</code> та <code>count++</code> немає.</div>
+        </section>
+    </main>
+
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

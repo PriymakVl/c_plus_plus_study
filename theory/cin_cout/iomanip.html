@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Форматування дробових чисел (iomanip)</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Форматування дробових чисел (iomanip)</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="iomanip">
+            <h2>Форматування дробових чисел (iomanip)</h2>
+            <p>За замовчуванням C++ виводить дробові числа без зайвих нулів. Щоб встановити точну кількість знаків після коми, використовують прапорці <code>fixed</code> та <code>setprecision(n)</code> з бібліотеки <code>&lt;iomanip&gt;</code>.</p>
+
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;iomanip&gt; // Обов'язково для setprecision
+using namespace std;
+
+int main() {
+    double pi = 3.14159265;
+
+    cout &lt;&lt; fixed &lt;&lt; setprecision(2);
+    cout &lt;&lt; "Число Pi з 2 знаками: " &lt;&lt; pi &lt;&lt; endl; // Виведе 3.14
+
+    return 0;
+}</code></pre>
+        </section>
+
+    </main>
+
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

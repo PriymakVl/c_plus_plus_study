@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Арифметичні оператори</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Арифметичні оператори</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <section class="card" id="arithmetic">
+            <h2>Арифметичні оператори</h2>
+            <p>Арифметичні оператори виконують математичні обчислення над значеннями (операндами).</p>
+            <table>
+                <tr><th>Оператор</th><th>Назва</th><th>Приклад</th><th>Результат (якщо a = 10, b = 3)</th></tr>
+                <tr><td><code>+</code></td><td>Додавання</td><td><code>a + b</code></td><td>13</td></tr>
+                <tr><td><code>-</code></td><td>Віднімання</td><td><code>a - b</code></td><td>7</td></tr>
+                <tr><td><code>*</code></td><td>Множення</td><td><code>a * b</code></td><td>30</td></tr>
+                <tr><td><code>/</code></td><td>Ділення</td><td><code>a / b</code></td><td>3 <i>(цілочисельне ділення)</i></td></tr>
+                <tr><td><code>%</code></td><td>Остача від ділення</td><td><code>a % b</code></td><td>1 <i>(10 = 3 * 3 + 1)</i></td></tr>
+            </table>
+            <div class="teacher"><b>Зверніть увагу!</b> Оператор остачі від ділення (<code>%</code>) працює <b>тільки з цілими числами</b> (<code>int</code>, <code>short</code>, <code>long</code>). Якщо використати його з <code>double</code>, виникне помилка компіляції.</div>
+        </section>
+    </main>
+
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

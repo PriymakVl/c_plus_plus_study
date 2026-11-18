@@ -4,21 +4,22 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Вбудовані Функції в C++</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Подключение стилей Prism.js для подсветки синтаксиса -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
+    <title>C++ — Вбудовані функції</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 </head>
 
 <body>
     <header>
-        <div class="wrap">
-            <h1>Вбудовані функції в C++</h1>
+        <div class="wrap hero">
+            <h1>C++ — Вбудовані функції</h1>
         </div>
     </header>
     
     <main class="wrap">
-        <section class="card">
+        <section class="card" id="cmath-functions">
             <h2>1. Вбудовані математичні функції (&lt;cmath&gt;)</h2>
             <p>Для використання математичних функцій у C++ підключають бібліотеку
                 <code>#include &lt;cmath&gt;</code></p>
@@ -66,8 +67,8 @@
             </table>
         </section>
     
-        <section class="card">
-            <h2>Приклад використання функції pow()</h2>
+        <section class="card" id="pow-example">
+            <h2>2. Приклад використання функції pow()</h2>
             <p>Нижче наведено робочий приклад програми C++, яка підключає бібліотеку <code>&lt;cmath&gt;</code> та обчислює значення x<sup>y</sup>:</p>
             
             <pre><code class="language-cpp">#include &lt;iostream&gt;
@@ -87,17 +88,9 @@ int main() {
         </section>
     </main>
     
-    <!-- Подключение скриптов Prism.js -->
-    <!-- Основное ядро Prism.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    
-    <!-- Autoloader (автоматически подгрузит C, C++ и любые другие языки) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script> -->
-
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

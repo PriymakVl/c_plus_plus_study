@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Пріоритет операторів</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Пріоритет операторів</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <section class="card" id="precedence">
+            <h2>Пріоритет операторів</h2>
+            <p>Оператори виконуються у певному порядку від найвищого пріоритету до найнижчого:</p>
+            <table>
+                <tr><th>Пріоритет</th><th>Оператори</th><th>Опис</th></tr>
+                <tr><td>1 (найвищий)</td><td><code>()</code>, <code>++</code> (постфікс), <code>--</code> (постфікс)</td><td>Дужки та постфіксні оператори</td></tr>
+                <tr><td>2</td><td><code>!</code>, <code>++</code> (префікс), <code>--</code> (префікс), унарний <code>-</code></td><td>Унарні оператори та логічне НЕ</td></tr>
+                <tr><td>3</td><td><code>*</code>, <code>/</code>, <code>%</code></td><td>Множення, ділення, остача</td></tr>
+                <tr><td>4</td><td><code>+</code>, <code>-</code></td><td>Додавання та віднімання</td></tr>
+                <tr><td>5</td><td><code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code></td><td>Оператори порівняння</td></tr>
+                <tr><td>6</td><td><code>==</code>, <code>!=</code></td><td>Оператори рівності</td></tr>
+                <tr><td>7</td><td><code>&&</code></td><td>Логічне І</td></tr>
+                <tr><td>8</td><td><code>||</code></td><td>Логічне АБО</td></tr>
+                <tr><td>9 (найнижчий)</td><td><code>=</code>, <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code></td><td>Оператори присвоєння</td></tr>
+            </table>
+        </section>
+    </main>
+
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

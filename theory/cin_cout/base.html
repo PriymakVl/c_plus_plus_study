@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Введення та виведення (cin і cout)</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Введення та виведення (cin і cout)</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="about-cout">
+            <h2>1. Робота з об'єктом cout (виведення даних)</h2>
+            <p>Об'єкт <code>cout</code> (походить від <i>Console Output</i>) використовується для виведення інформації на екран консолі. Він працює в парі з бібліотекою <code>&lt;iostream&gt;</code>.</p>
+
+            <h3>Ланцюжки виведення оператором <code>&lt;&lt;</code></h3>
+            <p>Оператор <code>&lt;&lt;</code> можна використовувати багаторазово в одному рядку, об'єднуючи текст, змінні та вирази:</p>
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int score = 100;
+    string player = "Alex";
+
+    // Ланцюжкове виведення
+    cout &lt;&lt; "Гравець " &lt;&lt; player &lt;&lt; " має " &lt;&lt; score &lt;&lt; " балів!" &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+
+            <h3>Перехід на новий рядок: <code>endl</code> проти <code>"
+"</code></h3>
+            <p>Для перенесення курсора на новий рядок є два шляхи:</p>
+            <table>
+                <tr>
+                    <th>Спосіб</th>
+                    <th>Приклад</th>
+                    <th>Особливість</th>
+                </tr>
+                <tr>
+                    <td><code>endl</code></td>
+                    <td><code>cout &lt;&lt; "Привіт" &lt;&lt; endl;</code></td>
+                    <td>Переносить рядок та очищає буфер виводу (Flush).</td>
+                </tr>
+                <tr>
+                    <td><code>"
+"</code></td>
+                    <td><code>cout &lt;&lt; "Привіт
+";</code></td>
+                    <td>Працює швидше, просто вставляє символ нового рядка.</td>
+                </tr>
+            </table>
+
+            <div class="note"><b>Порада:</b> Для звичайних програм навчального рівня різниця непомітна, але у великих програмах <code>"
+"</code> працює дещо швидше за <code>endl</code>.</div>
+        </section>
+
+        <section class="card" id="about-cin">
+            <h2>2. Робота з об'єктом cin (введення даних)</h2>
+            <p>Об'єкт <code>cin</code> (походить від <i>Console Input</i>) зчитує дані, які користувач вводить з клавіатури, та записує їх у змінні.</p>
+
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int age;
+    cout &lt;&lt; "Введіть ваш вік: "; // Спочатку підказка
+    cin &gt;&gt; age;                 // Очікування введення
+
+    cout &lt;&lt; "Ваш вік: " &lt;&lt; age &lt;&lt; endl;
+    return 0;
+}</code></pre>
+
+            <h3>Зчитування кількох змінних поспіль</h3>
+            <p>Можна зчитувати кілька значень поспіль через один об'єкт <code>cin</code>. Значення у консолі можна розділяти пробілами або кнопкою <code>Enter</code>:</p>
+            <pre><code class="language-cpp">int x, y, z;
+cout &lt;&lt; "Введіть три числа: ";
+cin &gt;&gt; x &gt;&gt; y &gt;&gt; z; // Зчитує спочатку x, потім y, потім z</code></pre>
+
+            <div class="teacher"><b>Важливо:</b> <code>cin &gt;&gt;</code> пропускає пробіли, табуляції та символи переходу на новий рядок під час пошуку наступного значення!</div>
+        </section>
+
+    </main>
+
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

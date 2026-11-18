@@ -4,50 +4,49 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Створення та використання функцій в C++</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Подключение стилей Prism.js для подсветки синтаксиса -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
+    <title>C++ — Створення та використання функцій</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 </head>
 
 <body>
     <header>
-        <div class="wrap">
-            <h1>Створення та використання функцій в C++</h1>
+        <div class="wrap hero">
+            <h1>C++ — Створення та використання функцій</h1>
         </div>
     </header>
 
     <main class="wrap">
-        <section class="card">
+        <section class="card" id="void-functions">
             <h2>1. Створення власних функцій (void та глобальні змінні)</h2>
-            <p>Функція типу <code>void</code> не повертає значення</p>
+            <p>Функція типу <code>void</code> не повертає значення.</p>
 
             <h3>Приклад: Функція з логікою лічильника</h3>
-            <pre><code class="language-cpp">
-    #include &lt;iostream&gt;
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+// Глобальна змінна
+int count = 0;
+
+// Функція з логікою лічильника
+void counter() {
     
-    // Глобальна змінна
-    int count = 0;
+    // Збільшуємо значення на 1
+    count++;
     
-    // Функція з логікою лічильника
-    void counter() {
-        
-        // Збільшуємо значення на 1
-        count++;
-        
-        // Виводимо поточне значення
-        std::cout &lt;&lt; count &lt;&lt; std::endl;
-    }
+    // Виводимо поточне значення
+    std::cout &lt;&lt; count &lt;&lt; std::endl;
+}
+
+int main() {
+    // Виклики функції counter()
+    counter();
+    counter();
+    counter();
     
-    int main() {
-        // Виклики функції counter()
-        counter();
-        counter();
-        counter();
-        
-        return 0;
-    }
-    </code></pre>
+    return 0;
+}</code></pre>
 
             <div class="note">
                 <b>Запам'ятай:</b>
@@ -59,32 +58,30 @@
             </div>
         </section>
 
-        <section class="card">
+        <section class="card" id="return-functions">
             <h2>2. Функції, що повертають значення</h2>
             <p>Якщо функція має обчислити та повернути результат, замість <code>void</code> вказують тип даних, який
                 вона повертає (наприклад, <code>int</code>, <code>double</code>). Для повернення результату
                 використовується оператор <code>return</code>.</p>
 
             <h3>Приклад: Обчислення куба числа</h3>
-            <pre><code class="language-cpp">
-    #include &lt;iostream&gt;
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+// Функція обчислення куба числа
+int cube(int x) {
+    return x * x * x;
+}
+
+int main() {
+    // Перший виклик з аргументом 3
+    int result1 = cube(3);
+    std::cout &lt;&lt; "Куб числа 3: " &lt;&lt; result1 &lt;&lt; std::endl;
     
-    // Функція обчислення куба числа
-    int cube(int x) {
-        return x * x * x;
-    }
+    // Другий виклик з аргументом 5 безпосередньо у виводі
+    std::cout &lt;&lt; "Куб числа 5: " &lt;&lt; cube(5) &lt;&lt; std::endl;
     
-    int main() {
-        // Перший виклик з аргументом 3
-        int result1 = cube(3);
-        std::cout &lt;&lt; "Куб числа 3: " &lt;&lt; result1 &lt;&lt; std::endl;
-        
-        // Другий виклик з аргументом 5 безпосередньо у виводі
-        std::cout &lt;&lt; "Куб числа 5: " &lt;&lt; cube(5) &lt;&lt; std::endl;
-        
-        return 0;
-    }
-    </code></pre>
+    return 0;
+}</code></pre>
 
             <div class="note">
                 <b>Запам'ятай:</b>
@@ -97,10 +94,9 @@
         </section>
     </main>
 
-    <!-- Подключение скриптов Prism.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

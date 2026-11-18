@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Передача за значенням та за посиланням (&amp;)</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Передача за значенням та за посиланням (&amp;)</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="params">
+            <h2>Передача за значенням та за посиланням (&amp;)</h2>
+            <p>За замовчуванням параметри передаються за значенням (створюється копія). Щоб функція могла <b>змінити значення оригінальної змінної</b>, використовують амперсанд <code>&amp;</code> (передача за посиланням).</p>
+
+            <pre><code class="language-cpp">void swap(int &amp;a, int &amp;b) { // &amp; дозволяє змінювати оригінали
+    int temp = a;
+    a = b;
+    b = temp;
+}</code></pre>
+
+            <table>
+                <tr>
+                    <th>Тип передачі</th>
+                    <th>Синтаксис</th>
+                    <th>Опис</th>
+                    <th>Змінює оригінал?</th>
+                </tr>
+                <tr>
+                    <td>За значенням</td>
+                    <td><code>(int a)</code></td>
+                    <td>Передається копія даних</td>
+                    <td>Ні</td>
+                </tr>
+                <tr>
+                    <td>За посиланням</td>
+                    <td><code>(int &amp;a)</code></td>
+                    <td>Передається адреса самої змінної</td>
+                    <td>Так</td>
+                </tr>
+                <tr>
+                    <td>Константне посилання</td>
+                    <td><code>(const string &amp;s)</code></td>
+                    <td>Передача без копіювання (швидко), але без права зміни</td>
+                    <td>Ні</td>
+                </tr>
+            </table>
+        </section>
+
+    </main>
+
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
