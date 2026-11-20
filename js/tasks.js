@@ -28,6 +28,7 @@ function escapeHtml(str) {
       card.className = 'card';
       card.id = task.id;
   
+      // Добавлен класс language-cpp для тега <code>
       card.innerHTML = `
         <h2 class="task-header">
           <span>${task.title}</span>
@@ -40,13 +41,18 @@ function escapeHtml(str) {
           </div>
           <button type="button" class="btn-toggle-sol">Показать решение</button>
           <div class="solution" style="display: none;">
-            <pre><code>${escapeHtml(task.solution)}</code></pre>
+            <pre><code class="language-cpp">${escapeHtml(task.solution)}</code></pre>
           </div>
         </div>
       `;
   
       container.appendChild(card);
     });
+  
+    // Запускаем подсветку синтаксиса для всех сгенерированных блоков кода
+    if (typeof hljs !== 'undefined') {
+      hljs.highlightAll();
+    }
   }
   
   // Обработка кликов (делегирование)
