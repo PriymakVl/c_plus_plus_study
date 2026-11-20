@@ -1,31 +1,28 @@
 <!doctype html>
 <html lang="uk">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>C++ з нуля — інтерактивний урок: Використання масивів у циклах</title>
-<link rel="stylesheet" href="../../css/theory.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Масиви та цикли</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 </head>
+
 <body>
-<header>
-<div class="wrap hero">
-  <div>
-    <h1>Основи C++: Масиви та цикли</h1>
-    <p class="lead">Інтерактивний урок з вивчення обробки масивів за допомогою циклів: обхід, введення/виведення та базові алгоритми.</p>
-  </div>
-</div>
-</header>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Масиви та цикли</h1>
+        </div>
+    </header>
 
-<nav><div class="wrap">
-<a href="#traversal">Обхід масиву</a><a href="#input">Введення з клавіатури</a><a href="#algorithms">Базові алгоритми</a><a href="#checklist">Чеклист</a><a href="#test">Міні-тест</a>
-</div></nav>
-
-<main class="wrap">
-
-<section class="card" id="traversal">
-<h2>1. Перебір елементів масиву циклом for</h2>
-<p>Оскільки елементи масиву мають послідовні індекси від <code>0</code> до <code>N - 1</code>, цикл <code>for</code> ідеально підходить для їхньої обробки.</p>
-<pre><code>#include &lt;iostream&gt;
+    <main class="wrap">
+        <section class="card" id="traversal">
+            <h2>1. Перебір елементів масиву циклом for</h2>
+            <p>Оскільки елементи масиву мають послідовні індекси від <code>0</code> до <code>N - 1</code>, цикл <code>for</code> ідеально підходить для їхньої обробки.</p>
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
 using namespace std;
 
 int main() {
@@ -41,12 +38,12 @@ int main() {
 
     return 0;
 }</code></pre>
-</section>
+        </section>
 
-<section class="card" id="input">
-<h2>2. Заповнення масиву даними від користувача</h2>
-<p>Щоб заповнити масив значеннями з клавіатури, використовується виклик <code>cin</code> всередині циклу:</p>
-<pre><code>#include &lt;iostream&gt;
+        <section class="card" id="input">
+            <h2>2. Заповнення масиву даними від користувача</h2>
+            <p>Щоб заповнити масив значеннями з клавіатури, використовується виклик <code>cin</code> всередині циклу:</p>
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
 using namespace std;
 
 int main() {
@@ -61,12 +58,12 @@ int main() {
 
     return 0;
 }</code></pre>
-</section>
+        </section>
 
-<section class="card" id="algorithms">
-<h2>3. Базові обчислення над масивами</h2>
-<p>Часті завдання при роботі з масивами — знаходження суми, середнього арифметичного або пошук елементів.</p>
-<pre><code>#include &lt;iostream&gt;
+        <section class="card" id="algorithms">
+            <h2>3. Базові обчислення над масивами</h2>
+            <p>Часті завдання при роботі з масивами — знаходження суми, середнього арифметичного або пошук елементів.</p>
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
 using namespace std;
 
 int main() {
@@ -92,52 +89,15 @@ int main() {
 
     return 0;
 }</code></pre>
-<div class="teacher"><b>Порада:</b> Завжди ініціалізуйте змінну для збереження мінімуму/максимуму першим елементом масиву (<code>arr[0]</code>), а не довільним числом на зразок 0.</div>
-</section>
+            <div class="teacher">
+                <b>Порада:</b> Завжди ініціалізуйте змінну для збереження мінімуму/максимуму першим елементом масиву (<code>arr[0]</code>), а не довільним числом на зразок 0.
+            </div>
+        </section>
+    </main>
 
-<section class="card" id="checklist">
-<h2>4. Що учень має знати після уроку <span class="pill">checklist</span></h2>
-<label><input type="checkbox"> як використовувати цикл <code>for</code> для послідовного доступу до елементів</label><br>
-<label><input type="checkbox"> як заповнити масив значеннями через <code>cin</code></label><br>
-<label><input type="checkbox"> як знайти суму та середнє арифметичне елементів масиву</label><br>
-<label><input type="checkbox"> базовий алгоритм пошуку найбільшого або найменшого елемента</label>
-</section>
-
-<section class="card" id="test">
-<h2>5. Міні-тест</h2>
-<p>1. Яка умова лічильника циклу є правильною для масиву розміром <code>SIZE</code>?</p>
-<label><input type="radio" name="q1" value="a"> i &lt;= SIZE</label><br>
-<label><input type="radio" name="q1" value="b"> i &lt; SIZE</label><br>
-<label><input type="radio" name="q1" value="c"> i &gt; SIZE</label>
-
-<p>2. Чим краще ініціалізувати змінну <code>max</code> перед пошуком максимуму в масиві?</p>
-<label><input type="radio" name="q2" value="a"> Числом 0</label><br>
-<label><input type="radio" name="q2" value="b"> Значенням <code>arr[0]</code></label><br>
-<label><input type="radio" name="q2" value="c"> Числом 100</label>
-
-<p>3. Скільки разів виконається цикл <code>for (int i = 0; i &lt; 5; i++)</code>?</p>
-<label><input type="radio" name="q3" value="a"> 4 рази</label><br>
-<label><input type="radio" name="q3" value="b"> 5 разів</label><br>
-<label><input type="radio" name="q3" value="c"> 6 разів</label><br><br>
-
-<button onclick="quiz()">Перевірити тест</button>
-<p id="quizResult"></p>
-</section>
-
-</main>
-
-<footer>Інтерактивний навчальний конспект • C++: Масиви та цикли</footer>
-<script>
-function quiz(){
- let s=0;
- const a=document.querySelector('input[name=q1]:checked');
- const b=document.querySelector('input[name=q2]:checked');
- const c=document.querySelector('input[name=q3]:checked');
- if(a&&a.value==='b')s++; if(b&&b.value==='b')s++; if(c&&c.value==='b')s++;
- const r=document.getElementById('quizResult');
- r.textContent='Результат: '+s+'/3'+(s===3?' — чудово!':' — переглянь теорію та спробуй ще раз.');
- r.className=s===3?'ok':'bad';
-}
-</script>
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
 </body>
+
 </html>

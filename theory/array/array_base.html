@@ -1,45 +1,56 @@
 <!doctype html>
 <html lang="uk">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>C++: Базові масиви</title>
-<link rel="stylesheet" href="../../css/theory.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Базові масиви</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 </head>
+
 <body>
-<header>
-<div class="wrap hero">
-  <div>
-    <h1>Основи C++: Базові масиви</h1>
-    <p class="lead">Інтерактивний урок з вивчення основ одновимірних масивів у мові C++: оголошення, ініціалізація та доступ за індексом.</p>
-  </div>
-</div>
-</header>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Базові масиви</h1>
+        </div>
+    </header>
 
-<nav><div class="wrap">
-<a href="#intro">Що таке масив</a><a href="#init">Ініціалізація</a><a href="#access">Доступ до елементів</a><a href="#checklist">Чеклист</a><a href="#test">Міні-тест</a>
-</div></nav>
+    <main class="wrap">
+        <section class="card" id="intro">
+            <h2>1. Що таке масив та як його оголосити</h2>
+            <p><b>Масив</b> — це впорядкована сукупність елементів одного типу, які розташовані у пам'яті послідовно та мають спільне ім'я.</p>
+            <p>Синтаксис оголошення одномірного масиву:</p>
+            <pre><code class="language-cpp">тип_даних ім_я_масиву[розмір];</code></pre>
+            <table>
+                <tr>
+                    <th>Приклад</th>
+                    <th>Опис</th>
+                </tr>
+                <tr>
+                    <td><code>int numbers[5];</code></td>
+                    <td>Масив з 5 цілих чисел</td>
+                </tr>
+                <tr>
+                    <td><code>double temp[7];</code></td>
+                    <td>Масив з 7 дробових чисел</td>
+                </tr>
+                <tr>
+                    <td><code>char letters[10];</code></td>
+                    <td>Масив з 10 символів</td>
+                </tr>
+            </table>
+            <div class="teacher">
+                <b>Важливо!</b> Елементи масиву нумеруються з <b>0</b>. Перший елемент має індекс <code>0</code>, а останній у масиві з N елементів — індекс <code>N - 1</code>.
+            </div>
+        </section>
 
-<main class="wrap">
-
-<section class="card" id="intro">
-<h2>1. Що таке масив та як його оголосити</h2>
-<p><b>Масив</b> — це впорядкована сукупність елементів одного типу, які розташовані у пам'яті послідовно та мають спільне ім'я.</p>
-<p>Синтаксис оголошення одномірного масиву:</p>
-<pre><code>тип_даних ім_я_масиву[розмір];</code></pre>
-<table>
-<tr><th>Приклад</th><th>Опис</th></tr>
-<tr><td><code>int numbers[5];</code></td><td>Масив з 5 цілих чисел</td></tr>
-<tr><td><code>double temp[7];</code></td><td>Масив з 7 дробових чисел</td></tr>
-<tr><td><code>char letters[10];</code></td><td>Масив з 10 символів</td></tr>
-</table>
-<div class="teacher"><b>Важливо!</b> Елементи масиву нумеруються з <b>0</b>. Перший елемент має індекс <code>0</code>, а останній у масиві з N елементів — індекс <code>N - 1</code>.</div>
-</section>
-
-<section class="card" id="init">
-<h2>2. Ініціалізація масивів</h2>
-<p>Надати початкові значення елементам масиву можна одразу при оголошенні за допомогою фігурних дужок:</p>
-<pre><code>#include &lt;iostream&gt;
+        <section class="card" id="init">
+            <h2>2. Ініціалізація масивів</h2>
+            <p>Надати початкові значення елементам масиву можна одразу при оголошенні за допомогою фігурних дужок:</p>
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
 using namespace std;
 
 int main() {
@@ -54,12 +65,12 @@ int main() {
 
     return 0;
 }</code></pre>
-</section>
+        </section>
 
-<section class="card" id="access">
-<h2>3. Доступ до елементів та зміна значень</h2>
-<p>Звернення до конкретного елемента виконується за його індексом у квадратних дужках:</p>
-<pre><code>#include &lt;iostream&gt;
+        <section class="card" id="access">
+            <h2>3. Доступ до елементів та зміна значень</h2>
+            <p>Звернення до конкретного елемента виконується за його індексом у квадратних дужках:</p>
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
 using namespace std;
 
 int main() {
@@ -72,53 +83,15 @@ int main() {
 
     return 0;
 }</code></pre>
-<div class="note"><b>Запам'ятай:</b> Вихід за межі масиву (наприклад, звернення до <code>arr[10]</code> у масиві з 5 елементів) призводить до невизначеної поведінки (Undefined Behavior).</div>
-</section>
+            <div class="note">
+                <b>Запам'ятай:</b> Вихід за межі масиву (наприклад, звернення до <code>arr[10]</code> у масиві з 5 елементів) призводить до невизначеної поведінки (Undefined Behavior).
+            </div>
+        </section>
+    </main>
 
-<section class="card" id="checklist">
-<h2>4. Що учень має знати після уроку <span class="pill">checklist</span></h2>
-<label><input type="checkbox"> що таке масив та для чого він потрібен</label><br>
-<label><input type="checkbox"> як оголосити масив потрібного типу та розміру</label><br>
-<label><input type="checkbox"> чому індексація завжди починається з 0</label><br>
-<label><input type="checkbox"> як отримати та змінити значення елемента за індексом</label><br>
-<label><input type="checkbox"> чим небезпечний вихід за межі масиву</label>
-</section>
-
-<section class="card" id="test">
-<h2>5. Міні-тест</h2>
-<p>1. З якого індексу починається нумерація елементів масиву в C++?</p>
-<label><input type="radio" name="q1" value="a"> 1</label><br>
-<label><input type="radio" name="q1" value="b"> 0</label><br>
-<label><input type="radio" name="q1" value="c"> Від розміру масиву</label>
-
-<p>2. Який індекс має останній елемент у масиві з 10 елементів (<code>int arr[10];</code>)?</p>
-<label><input type="radio" name="q2" value="a"> 10</label><br>
-<label><input type="radio" name="q2" value="b"> 9</label><br>
-<label><input type="radio" name="q2" value="c"> 0</label>
-
-<p>3. Як правильно вивести перший елемент масиву <code>numbers</code>?</p>
-<label><input type="radio" name="q3" value="a"> cout &lt;&lt; numbers[1];</label><br>
-<label><input type="radio" name="q3" value="b"> cout &lt;&lt; numbers(0);</label><br>
-<label><input type="radio" name="q3" value="c"> cout &lt;&lt; numbers[0];</label><br><br>
-
-<button onclick="quiz()">Перевірити тест</button>
-<p id="quizResult"></p>
-</section>
-
-</main>
-
-<footer>Інтерактивний навчальний конспект • C++: Базові масиви</footer>
-<script>
-function quiz(){
- let s=0;
- const a=document.querySelector('input[name=q1]:checked');
- const b=document.querySelector('input[name=q2]:checked');
- const c=document.querySelector('input[name=q3]:checked');
- if(a&&a.value==='b')s++; if(b&&b.value==='b')s++; if(c&&c.value==='c')s++;
- const r=document.getElementById('quizResult');
- r.textContent='Результат: '+s+'/3'+(s===3?' — чудово!':' — переглянь теорію та спробуй ще раз.');
- r.className=s===3?'ok':'bad';
-}
-</script>
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
 </body>
+
 </html>
