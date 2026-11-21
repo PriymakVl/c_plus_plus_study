@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Цикли та їх порівняння</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Подключение стилей Highlight.js (темная тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Цикли та їх порівняння</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <section class="card" id="intro">
+            <h2>Що таке цикл?</h2>
+            <p><b>Цикл</b> — це конструкція мови, яка дозволяє повторювати виконання одного й того ж блоку коду декілька разів.</p>
+            <div class="note">
+                <b>Запам'ятай:</b> У C++ є 3 основні види циклів:
+                <ul>
+                    <li><code>for</code> — цикл із лічильником (найчастіше використовується, коли кількість повторень відома заздалегідь).</li>
+                    <li><code>while</code> — цикл із передумовою (перевіряє умову ПЕРЕД виконанням).</li>
+                    <li><code>do-while</code> — цикл із постумовою (перевіряє умову ПІСЛЯ виконання).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="card" id="compare">
+            <h2>Порівняння типів циклів</h2>
+            <table>
+                <tr>
+                    <th>Цикл</th>
+                    <th>Коли використовувати</th>
+                    <th>Кількість повторів</th>
+                </tr>
+                <tr>
+                    <td><code>for</code></td>
+                    <td>Відома точна кількість повторень або конкретний крок</td>
+                    <td>Фіксована (0 або більше)</td>
+                </tr>
+                <tr>
+                    <td><code>while</code></td>
+                    <td>Кількість повторів невідома, перевірка ДО дії</td>
+                    <td>Від 0 до нескінченності</td>
+                </tr>
+                <tr>
+                    <td><code>do-while</code></td>
+                    <td>Потрібно хоча б 1 раз виконати дію (наприклад, перевірка введення)</td>
+                    <td>Від 1 до нескінченності</td>
+                </tr>
+            </table>
+        </section>
+    </main>
+
+    <!-- Подключение скрипта Highlight.js и инициализация -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

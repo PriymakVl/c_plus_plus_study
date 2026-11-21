@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Цикл із лічильником (FOR)</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Цикл із лічильником (FOR)</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="for">
+            <h2>Цикл із лічильником (FOR)</h2>
+            <p>Використовується, коли ми точно знаємо, скільки разів має виконатися цикл або з яким кроком потрібно змінювати змінну.</p>
+
+            <h3>Синтаксис (прямий порядок):</h3>
+            <pre><code class="language-cpp">for (int i = 1; i &lt;= 5; i++) {
+    std::cout &lt;&lt; "Крок: " &lt;&lt; i &lt;&lt; std::endl;
+}</code></pre>
+
+            <h3>Синтаксис (зворотний порядок):</h3>
+            <pre><code class="language-cpp">for (int i = 5; i &gt;= 1; i--) {
+    std::cout &lt;&lt; "Зворотний відлік: " &lt;&lt; i &lt;&lt; std::endl;
+}</code></pre>
+
+            <div class="teacher"><b>Пояснення синтаксису.</b> Заголовок циклу <code>for (ініціалізація; умова; крок)</code> складається з трьох частин, розділених крапкою з комою <code>;</code>. Якщо тіло циклу містить кілька команд, їх об'єднують фігурними дужками <code>{ ... }</code>.</div>
+        </section>
+
+    </main>
+
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

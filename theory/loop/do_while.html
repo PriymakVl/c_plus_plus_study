@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Цикл із постумовою (DO-WHILE)</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Підключення стилів Highlight.js (темна тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Цикл із постумовою (DO-WHILE)</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="dowhile">
+            <h2>Цикл із постумовою (DO-WHILE)</h2>
+            <p>Тіло циклу спочатку виконується, а потім перевіряється умова. Повторення триває <b>доти, поки умова є істинною</b> (<code>true</code>).</p>
+
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string password;
+    do {
+        cout &lt;&lt; "Введіть пароль: ";
+        cin &gt;&gt; password;
+    } while (password != "1234");
+    
+    cout &lt;&lt; "Доступ дозволено!" &lt;&lt; endl;
+    return 0;
+}</code></pre>
+
+            <div class="teacher"><b>Зверни увагу:</b>
+                <ul>
+                    <li>Тіло циклу <code>do-while</code> завжди виконується <b>як мінімум 1 раз</b>.</li>
+                    <li>Наприкінці після дужки з умовою <code>while (умова)</code> обов'язково ставиться крапка з комою <code>;</code>!</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Підключення скрипту Highlight.js та ініціалізація -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
