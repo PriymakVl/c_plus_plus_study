@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Операторы и их виды</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Подключение стилей Highlight.js (темная тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Операторы и их виды</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <section class="card" id="what-is-operator">
+            <h2>Что такое оператор в C++?</h2>
+            <p><b>Оператор</b> — это специальный символ или ключевое слово, которое указывает компилятору выполнить определенную математическую, логическую или любую другую операцию над данными.</p>
+            <p>Значения или переменные, над которыми выполняется действие, называются <b>операндами</b>. Например, в выражении <code>a + b</code> знак <code>+</code> является оператором, а <code>a</code> и <code>b</code> — операндами.</p>
+            <div class="teacher"><b>Обратите внимание!</b> По количеству операндов операторы делятся на <b>унарные</b> (один операнд, например <code>-a</code> или <code>i++</code>), <b>бинарные</b> (два операнда, например <code>a + b</code>) и <b>тернарный</b> (три операнда — условный оператор <code>?:</code>).</div>
+        </section>
+
+        <section class="card" id="operator-types">
+            <h2>Основные виды операторов в C++</h2>
+            <p>Все операторы в языке C++ делятся на несколько основных категорий в зависимости от их назначения:</p>
+            <table>
+                <tr>
+                    <th>Категория</th>
+                    <th>Назначение</th>
+                    <th>Примеры операторов</th>
+                </tr>
+                <tr>
+                    <td><b>Арифметические</b></td>
+                    <td>Выполнение базовых математических вычислений</td>
+                    <td><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code></td>
+                </tr>
+                <tr>
+                    <td><b>Инкремент и декремент</b></td>
+                    <td>Увеличение или уменьшение значения переменной на 1</td>
+                    <td><code>++</code>, <code>--</code></td>
+                </tr>
+                <tr>
+                    <td><b>Присваивания</b></td>
+                    <td>Запись значения в переменную (в том числе с вычислением)</td>
+                    <td><code>=</code>, <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code></td>
+                </tr>
+                <tr>
+                    <td><b>Сравнения (отношений)</b></td>
+                    <td>Сравнение двух значений (возвращают <code>true</code> или <code>false</code>)</td>
+                    <td><code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code></td>
+                </tr>
+                <tr>
+                    <td><b>Логические</b></td>
+                    <td>Объединение или инвертирование логических условий</td>
+                    <td><code>&amp;&amp;</code> (И), <code>||</code> (ИЛИ), <code>!</code> (НЕ)</td>
+                </tr>
+                <tr>
+                    <td><b>Побитовые</b></td>
+                    <td>Выполнение операций над отдельными битами целых чисел</td>
+                    <td><code>&amp;</code>, <code>|</code>, <code>^</code>, <code>~</code>, <code>&lt;&lt;</code>, <code>&gt;&gt;</code></td>
+                </tr>
+                <tr>
+                    <td><b>Прочие (специальные)</b></td>
+                    <td>Работа с памятью, размером типов, условиями и доступом</td>
+                    <td><code>?:</code>, <code>sizeof</code>, <code>&amp;</code> (адрес), <code>*</code> (указатель)</td>
+                </tr>
+            </table>
+        </section>
+
+        <section class="card" id="precedence">
+            <h2>Приоритет операторов</h2>
+            <p>Если в одном выражении используется сразу несколько операторов, компилятор выполняет их в строго определенном порядке (приоритете), подобно правилам математики:</p>
+            <table>
+                <tr>
+                    <th>Приоритет</th>
+                    <th>Операторы</th>
+                    <th>Пример</th>
+                </tr>
+                <tr>
+                    <td>1 (Высший)</td>
+                    <td>Скобки <code>()</code></td>
+                    <td><code>(2 + 3) * 4</code> &rarr; 20</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Унарные: <code>++</code>, <code>--</code>, <code>!</code>, унарный <code>-</code></td>
+                    <td><code>-a + 5</code></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Умножение, деление, остаток: <code>*</code>, <code>/</code>, <code>%</code></td>
+                    <td><code>2 + 3 * 4</code> &rarr; 14</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Сложение и вычитание: <code>+</code>, <code>-</code></td>
+                    <td><code>10 - 3 + 2</code> &rarr; 9</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Операторы сравнения: <code>&lt;</code>, <code>&gt;</code>, <code>==</code>, <code>!=</code></td>
+                    <td><code>a + 2 &gt; b</code></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Логические: <code>&amp;&amp;</code>, затем <code>||</code></td>
+                    <td><code>a &gt; 0 &amp;&amp; b &gt; 0</code></td>
+                </tr>
+                <tr>
+                    <td>7 (Низший)</td>
+                    <td>Операторы присваивания: <code>=</code>, <code>+=</code>, <code>-=</code></td>
+                    <td><code>x = 2 + 3 * 4</code> &rarr; 14</td>
+                </tr>
+            </table>
+            <div class="teacher"><b>Совет:</b> Если вы не уверены в приоритете операторов в сложном выражении, всегда используйте круглые скобки <code>()</code> — это сделает код понятнее и защитит от логических ошибок.</div>
+        </section>
+    </main>
+
+    <!-- Подключение скрипта Highlight.js и инициализация -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
