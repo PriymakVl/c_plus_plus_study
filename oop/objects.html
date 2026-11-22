@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Несколько объектов класса</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Подключение стилей Highlight.js (темная тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Несколько объектов в C++</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="multiple-objects">
+            <h2>Несколько объектов одного класса</h2>
+            <p>Один класс является шаблоном, на основе которого можно создать сколько угодно объектов (экземпляров). У каждого объекта выделяется своя область памяти под поля: изменение значения поля одного объекта никак не влияет на поля других объектов.</p>
+            
+            <div class="note">
+                <strong>Важно:</strong> Каждый созданный объект независим и хранит собственное состояние (свои значения полей), даже если все объекты созданы по одному и тому же классу.
+            </div>
+        </section>
+
+        <section class="card" id="class-definition">
+            <h2>1. Объявление класса</h2>
+            <p>Опишем класс <code>User</code> с публичным полем <code>age</code>, задав ему начальное значение по умолчанию:</p>
+            
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class User {
+public:
+    int age = 0;
+};</code></pre>
+        </section>
+
+        <section class="card" id="usage-example">
+            <h2>2. Создание и использование нескольких объектов</h2>
+            <p>Создадим два отдельных объекта <code>user1</code> и <code>user2</code>, запишем в их поля <code>age</code> разные значения и выведем результат на экран:</p>
+            
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class User {
+public:
+    int age = 0;
+};
+
+int main() {
+    // Создание двух независимых объектов
+    User user1;
+    User user2;
+
+    // Установка разных значений для каждого объекта
+    user1.age = 20;
+    user2.age = 30;
+
+    // Вывод значений полей
+    std::cout &lt;&lt; user1.age &lt;&lt; "\n"; // выведет 20
+    std::cout &lt;&lt; user2.age &lt;&lt; "\n"; // выведет 30
+
+    return 0;
+}</code></pre>
+        </section>
+
+    </main>
+
+    <!-- Подключение скрипта Highlight.js и инициализация -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

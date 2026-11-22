@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Константные методы (const)</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Подключение стилей Highlight.js (темная тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Константные методы (const)</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="what-is-const-method">
+            <h2>Что такое константный метод</h2>
+            <p><strong>Константный метод</strong> — это метод класса, который гарантирует, что при его вызове состояние объекта (значения его полей) не будет изменено.</p>
+            <ul>
+                <li><strong>Синтаксис:</strong> ключевое слово <code>const</code> указывается после списка параметров метода (и в объявлении, и в определении).</li>
+                <li><strong>Безопасность:</strong> компилятор запрещает изменять поля объекта внутри такого метода и вызывать из него другие неконстантные методы.</li>
+                <li><strong>Работа с <code>const</code>-объектами:</strong> для константных объектов (или ссылок/указателей на них) можно вызывать <strong>только</strong> константные методы.</li>
+            </ul>
+        </section>
+
+        <section class="card" id="syntax-and-example">
+            <h2>1. Синтаксис и пример использования</h2>
+            <p>Обычно константными делают геттеры и методы вывода информации, так как они только читают данные объекта, не модифицируя их.</p>
+            
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Student {
+private:
+    string name;
+    double gpa;
+
+public:
+    Student(string n, double g) : name(n), gpa(g) {}
+
+    // Обычный (неконстантный) метод — может изменять поля
+    void setGpa(double value) {
+        if (value &gt;= 0.0 &amp;&amp; value &lt;= 5.0) {
+            gpa = value;
+        }
+    }
+
+    // Константный метод (геттер) — только чтение
+    double getGpa() const {
+        return gpa;
+    }
+
+    // Константный метод вывода информации
+    void printInfo() const {
+        // gpa = 5.0; // ОШИБКА КОМПИЛЯЦИИ: нельзя менять поля в const-методе
+        cout &lt;&lt; "Студент: " &lt;&lt; name &lt;&lt; ", Средний балл: " &lt;&lt; gpa &lt;&lt; endl;
+    }
+};</code></pre>
+
+            <div class="note">
+                <strong>Важно:</strong> Если метод разделён на объявление в классе и определение за его пределами, ключевое слово <code>const</code> необходимо писать в обоих местах: <code>void Student::printInfo() const { ... }</code>.
+            </div>
+        </section>
+
+        <section class="card" id="const-objects">
+            <h2>2. Вызов для константных и обычных объектов</h2>
+            <p>Константные методы универсальны: их можно вызывать как для обычных, так и для константных объектов (например, при передаче объекта в функцию по константной ссылке <code>const Student&amp;</code>).</p>
+            
+            <pre><code class="language-cpp">void showStudent(const Student&amp; s) {
+    // s — константная ссылка, доступны только const-методы
+    s.printInfo(); // ОК
+    // s.setGpa(4.9); // ОШИБКА: setGpa() не является константным
+}
+
+int main() {
+    Student s1("Алексей", 4.7);
+    s1.setGpa(4.8);   // ОК: объект неконстантный
+    s1.printInfo();   // ОК: const-метод можно вызвать для обычного объекта
+
+    const Student s2("Мария", 5.0);
+    s2.printInfo();   // ОК: printInfo() помечен как const
+    // s2.setGpa(4.5); // ОШИБКА: нельзя вызывать неконстантный метод для const-объекта
+
+    showStudent(s1);
+
+    return 0;
+}</code></pre>
+        </section>
+
+        <section class="card" id="mutable-and-overloading">
+            <h2>3. Ключевое слово <code>mutable</code> и перегрузка</h2>
+            <p>В редких случаях требуется изменять служебное поле (например, счётчик обращений или кэш) внутри константного метода, не нарушая логическую константность объекта.</p>
+            <ul>
+                <li><strong><code>mutable</code></strong> — модификатор поля класса, разрешающий его изменение даже внутри <code>const</code>-методов.</li>
+                <li><strong>Перегрузка по <code>const</code></strong> — в классе могут существовать два метода с одинаковым именем и параметрами, один из которых <code>const</code>, а другой — нет. Компилятор выберет нужный в зависимости от константности объекта.</li>
+            </ul>
+
+            <pre><code class="language-cpp">class Logger {
+private:
+    mutable int readCount = 0; // Можно менять в const-методах
+    string message;
+
+public:
+    Logger(string msg) : message(msg) {}
+
+    string getMessage() const {
+        readCount++; // Разрешено благодаря mutable
+        return message;
+    }
+};</code></pre>
+
+            <div class="teacher">
+                <strong>Совет:</strong> Всегда помечайте как <code>const</code> все методы, которые не изменяют состояние объекта. Это защищает код от случайных ошибок и делает классы удобными для работы с константными ссылками.
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Подключение скрипта Highlight.js и инициализация -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

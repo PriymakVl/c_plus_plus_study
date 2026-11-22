@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Геттеры (методы доступа)</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Подключение стилей Highlight.js (темная тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Геттеры (методы доступа)</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="what-is-getter">
+            <h2>Что такое геттер</h2>
+            <p><strong>Геттер</strong> (от англ. <em>get</em> — получать) — это публичный метод класса, который возвращает значение приватного (<code>private</code>) или защищённого (<code>protected</code>) поля.</p>
+            <ul>
+                <li><strong>Инкапсуляция</strong> — скрытие внутренних данных класса от прямого изменения извне, предоставляя контролируемый доступ только для чтения.</li>
+                <li><strong>Именование</strong> — по соглашению имена геттеров начинаются с префикса <code>get</code>, за которым следует имя поля с заглавной буквы (например, <code>getGpa()</code>, <code>getName()</code>), или используются префиксы <code>is</code> / <code>has</code> для логических полей (<code>isActive()</code>).</li>
+                <li><strong>Константность (<code>const</code>)</strong> — геттеры не должны изменять состояние объекта, поэтому в их сигнатуре обязательно ставится модификатор <code>const</code>.</li>
+            </ul>
+        </section>
+
+        <section class="card" id="getter-example">
+            <h2>1. Создание и использование геттеров</h2>
+            <p>Добавим геттеры в класс <code>Student</code>, чтобы безопасно получать значения закрытых полей.</p>
+            
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Student {
+private:
+    string name;
+    int age;
+    double gpa;
+
+public:
+    // Сеттеры для записи значений
+    void setName(const string&amp; newName) {
+        if (!newName.empty()) {
+            name = newName;
+        }
+    }
+
+    void setAge(int newAge) {
+        if (newAge &gt; 0) {
+            age = newAge;
+        }
+    }
+
+    void setGpa(double value) {
+        if (value &gt;= 0.0 &amp;&amp; value &lt;= 5.0) {
+            gpa = value;
+        }
+    }
+
+    // Геттеры для получения значений (помечены как const)
+    string getName() const {
+        return name;
+    }
+
+    int getAge() const {
+        return age;
+    }
+
+    double getGpa() const {
+        return gpa;
+    }
+};
+
+int main() {
+    Student s1;
+    s1.setName("Алексей");
+    s1.setAge(20);
+    s1.setGpa(4.7);
+
+    // Получение данных через геттеры
+    cout &lt;&lt; "Имя: " &lt;&lt; s1.getName() &lt;&lt; endl;
+    cout &lt;&lt; "Возраст: " &lt;&lt; s1.getAge() &lt;&lt; endl;
+    cout &lt;&lt; "Средний балл: " &lt;&lt; s1.getGpa() &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+
+            <div class="note">
+                <strong>Важно:</strong> Ключевое слово <code>const</code> после списка параметров метода гарантирует компилятору, что метод не изменяет поля объекта. Это позволяет вызывать геттеры даже у константных объектов (<code>const Student s2;</code>).
+            </div>
+        </section>
+
+        <section class="card" id="return-types">
+            <h2>2. Возврат по значению и по константной ссылке</h2>
+            <p>Выбор способа возврата данных из геттера зависит от типа поля и его размера в памяти.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Способ возврата</th>
+                        <th>Синтаксис</th>
+                        <th>Когда применять</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>По значению</strong></td>
+                        <td><code>int getAge() const</code></td>
+                        <td>Для примитивных типов (<code>int</code>, <code>double</code>, <code>bool</code>, <code>char</code>), копирование которых дёшево.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>По константной ссылке</strong></td>
+                        <td><code>const string&amp; getName() const</code></td>
+                        <td>Для тяжёлых объектов (<code>std::string</code>, <code>std::vector</code> и др.), чтобы избежать лишнего копирования в памяти и запретить изменение оригинала.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="teacher">
+                <strong>Совет:</strong> Никогда не возвращайте из геттера неконстантную ссылку (<code>string&amp; getName()</code>), так как это нарушит инкапсуляцию и позволит изменить приватное поле напрямую в обход сеттера.
+            </div>
+        </section>
+
+        <section class="card" id="computed-getters">
+            <h2>3. Вычисляемые геттеры</h2>
+            <p>Геттер не обязан напрямую возвращать существующее поле класса — он может вычислять результат на основе других данных.</p>
+
+            <pre><code class="language-cpp">class Rectangle {
+private:
+    double width;
+    double height;
+
+public:
+    Rectangle(double w, double h) : width(w), height(h) {}
+
+    double getWidth() const { return width; }
+    double getHeight() const { return height; }
+
+    // Вычисляемый геттер (поля area в классе нет)
+    double getArea() const {
+        return width * height;
+    }
+};</code></pre>
+        </section>
+
+    </main>
+
+    <!-- Подключение скрипта Highlight.js и инициализация -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

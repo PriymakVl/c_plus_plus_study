@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Структуры и классы</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Подключение стилей Highlight.js (темная тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Структуры и классы</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="intro">
+            <h2>Что такое структура и класс</h2>
+            <p>В C++ <strong>структура</strong> (<code>struct</code>) и <strong>класс</strong> (<code>class</code>) — это пользовательские типы данных, которые позволяют объединить переменные разных типов (поля) и функции для работы с ними (методы) в единую сущность.</p>
+            <ul>
+                <li><strong>Поля (атрибуты)</strong> — переменные внутри структуры или класса, описывающие состояние объекта.</li>
+                <li><strong>Методы</strong> — функции внутри структуры или класса, определяющие поведение объекта.</li>
+                <li><strong>Объект (экземпляр)</strong> — конкретная переменная, созданная на основе структуры или класса.</li>
+            </ul>
+        </section>
+
+        <section class="card" id="structs">
+            <h2>1. Структура (struct)</h2>
+            <p>Исторически структуры пришли из языка C как способ группировки данных. В C++ структуры могут содержать не только поля, но и методы, конструкторы и деструкторы. Главная особенность <code>struct</code> — <strong>все члены по умолчанию открыты (<code>public</code>)</strong>.</p>
+            
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+// Объявление структуры
+struct Point {
+    // По умолчанию модификатор доступа — public
+    double x;
+    double y;
+
+    // Метод внутри структуры
+    void print() {
+        cout &lt;&lt; "Точка (" &lt;&lt; x &lt;&lt; "; " &lt;&lt; y &lt;&lt; ")" &lt;&lt; endl;
+    }
+};
+
+int main() {
+    Point p1 = {3.5, 7.2}; // Агрегатная инициализация
+    p1.x = 5.0;            // Прямой доступ к полю разрешен
+    p1.print();            // Выведет: Точка (5; 7.2)
+
+    return 0;
+}</code></pre>
+        </section>
+
+        <section class="card" id="classes">
+            <h2>2. Класс (class)</h2>
+            <p><strong>Класс</strong> — основа объектно-ориентированного программирования (ООП) в C++. Главная особенность <code>class</code> — <strong>все члены по умолчанию закрыты (<code>private</code>)</strong>, что обеспечивает инкапсуляцию и защиту данных от некорректного изменения извне.</p>
+            
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+// Объявление класса
+class BankAccount {
+private:
+    // Приватное поле (по умолчанию в class, доступно только внутри класса)
+    double balance;
+
+public:
+    // Публичное поле
+    string owner;
+
+    // Метод для безопасного пополнения счета
+    void deposit(double amount) {
+        if (amount &gt; 0) {
+            balance += amount;
+        }
+    }
+
+    // Метод для получения значения закрытого поля (геттер)
+    double getBalance() {
+        return balance;
+    }
+};
+
+int main() {
+    BankAccount acc;
+    acc.owner = "Иван";
+    // acc.balance = 1000; // Ошибка компиляции: поле balance закрыто (private)
+    
+    acc.deposit(1500.0);
+    cout &lt;&lt; acc.owner &lt;&lt; ": " &lt;&lt; acc.getBalance() &lt;&lt; " руб." &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+
+            <div class="note">
+                <strong>Важно:</strong> В конце определения как структуры, так и класса после закрывающей фигурной скобки <code>}</code> обязательно ставится точка с запятой <code>;</code>.
+            </div>
+        </section>
+
+        <section class="card" id="comparison">
+            <h2>3. Сравнение struct и class</h2>
+            <p>С технической точки зрения в C++ между <code>struct</code> и <code>class</code> почти нет разницы: оба поддерживают наследование, полиморфизм, шаблоны, конструкторы и модификаторы доступа. Отличия заключаются лишь в правах доступа по умолчанию и соглашениях о стиле кода:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Критерий</th>
+                        <th>Структура (<code>struct</code>)</th>
+                        <th>Класс (<code>class</code>)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Доступ к полям и методам по умолчанию</strong></td>
+                        <td><code>public</code> (открытый)</td>
+                        <td><code>private</code> (закрытый)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Наследование по умолчанию</strong></td>
+                        <td><code>public</code></td>
+                        <td><code>private</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Типичное применение</strong></td>
+                        <td>Простые наборы данных (POD-типы), координаты, настройки, где нет сложной логики защиты.</td>
+                        <td>Полноценные объекты со сложным поведением, инкапсуляцией и проверкой корректности состояния.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <!-- Подключение скрипта Highlight.js и инициализация -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

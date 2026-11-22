@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Сеттеры (методы установки значений)</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Подключение стилей Highlight.js (темная тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Сеттеры (методы установки значений)</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="what-is-setter">
+            <h2>Что такое сеттер</h2>
+            <p><strong>Сеттер</strong> (от англ. <em>set</em> — устанавливать) — это публичный метод класса, который позволяет безопасно изменять значение приватного (<code>private</code>) или защищённого (<code>protected</code>) поля.</p>
+            <ul>
+                <li><strong>Валидация данных</strong> — перед записью значения в поле сеттер может проверить его корректность (например, не допускать отрицательный возраст или пустое имя), защищая объект от некорректного состояния.</li>
+                <li><strong>Именование</strong> — по соглашению имена сеттеров начинаются с префикса <code>set</code>, за которым следует имя поля с заглавной буквы (например, <code>setGpa()</code>, <code>setName()</code>).</li>
+                <li><strong>Возвращаемый тип</strong> — обычно сеттеры имеют тип <code>void</code> (ничего не возвращают), но иногда возвращают <code>bool</code> (успешна ли запись) или ссылку на текущий объект <code>*this</code> для цепочки вызовов.</li>
+            </ul>
+        </section>
+
+        <section class="card" id="setter-example">
+            <h2>1. Создание и использование сеттеров</h2>
+            <p>Добавим сеттеры с проверкой входных данных в класс <code>Student</code>, чтобы исключить запись недопустимых значений.</p>
+            
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Student {
+private:
+    string name;
+    int age;
+    double gpa;
+
+public:
+    // Сеттеры с проверкой корректности данных
+    void setName(const string&amp; newName) {
+        if (!newName.empty()) {
+            name = newName;
+        }
+    }
+
+    void setAge(int newAge) {
+        if (newAge &gt;= 16 &amp;&amp; newAge &lt;= 100) {
+            age = newAge;
+        }
+    }
+
+    void setGpa(double value) {
+        if (value &gt;= 0.0 &amp;&amp; value &lt;= 5.0) {
+            gpa = value;
+        }
+    }
+
+    // Геттеры для чтения значений
+    string getName() const { return name; }
+    int getAge() const { return age; }
+    double getGpa() const { return gpa; }
+};
+
+int main() {
+    Student s1;
+
+    // Установка значений через сеттеры
+    s1.setName("Алексей");
+    s1.setAge(20);
+    s1.setGpa(4.7);
+
+    // Попытка передать некорректное значение будет проигнорирована
+    s1.setGpa(10.5);
+
+    cout &lt;&lt; "Имя: " &lt;&lt; s1.getName() &lt;&lt; endl;
+    cout &lt;&lt; "Возраст: " &lt;&lt; s1.getAge() &lt;&lt; endl;
+    cout &lt;&lt; "Средний балл: " &lt;&lt; s1.getGpa() &lt;&lt; endl; // Выведет 4.7
+
+    return 0;
+}</code></pre>
+
+            <div class="note">
+                <strong>Важно:</strong> В отличие от геттеров, сеттеры изменяют состояние объекта, поэтому модификатор <code>const</code> после списка параметров у них <strong>не ставится</strong>.
+            </div>
+        </section>
+
+        <section class="card" id="parameter-passing">
+            <h2>2. Передача параметров в сеттер</h2>
+            <p>Способ передачи аргумента в сеттер зависит от типа данных обновляемого поля.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Способ передачи</th>
+                        <th>Синтаксис</th>
+                        <th>Когда применять</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>По значению</strong></td>
+                        <td><code>void setAge(int newAge)</code></td>
+                        <td>Для примитивных типов (<code>int</code>, <code>double</code>, <code>bool</code>, <code>char</code>), которые быстро копируются.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>По константной ссылке</strong></td>
+                        <td><code>void setName(const string&amp; newName)</code></td>
+                        <td>Для крупных объектов (<code>std::string</code>, <code>std::vector</code> и др.), чтобы избежать лишнего копирования при передаче в метод.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="teacher">
+                <strong>Совет:</strong> Если имя параметра сеттера совпадает с именем поля класса (например, <code>void setAge(int age)</code>), используйте указатель <code>this-&gt;age = age;</code>, чтобы избежать конфликта имён.
+            </div>
+        </section>
+
+        <section class="card" id="chaining-setters">
+            <h2>3. Цепочка вызовов (Method Chaining)</h2>
+            <p>Если сеттер возвращает ссылку на текущий объект (<code>*this</code>), методы можно вызывать последовательно в одну строку.</p>
+
+            <pre><code class="language-cpp">class Box {
+private:
+    double width = 0;
+    double height = 0;
+
+public:
+    Box&amp; setWidth(double w) {
+        if (w &gt; 0) width = w;
+        return *this; // Возвращаем ссылку на текущий объект
+    }
+
+    Box&amp; setHeight(double h) {
+        if (h &gt; 0) height = h;
+        return *this;
+    }
+};
+
+int main() {
+    Box b;
+    // Цепочка вызовов сеттеров
+    b.setWidth(10.5).setHeight(20.0);
+
+    return 0;
+}</code></pre>
+        </section>
+
+    </main>
+
+    <!-- Подключение скрипта Highlight.js и инициализация -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

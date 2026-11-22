@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Обращение через this</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Подключение стилей Highlight.js (темная тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Обращение через this</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="what-is-this">
+            <h2>Что такое <code>this</code></h2>
+            <p>Внутри методов класса доступна специальная переменная (указатель) <code>this</code>, которая указывает на текущий объект класса, для которого был вызван метод.</p>
+            
+            <pre><code class="language-cpp">class User {
+public:
+    void show() {
+        // this — указатель на текущий объект
+    }
+};</code></pre>
+
+            <div class="note">
+                <strong>Важно:</strong> Поскольку <code>this</code> является указателем на объект, обращение к полям и методам через него выполняется с помощью оператора стрелки <code>-&gt;</code> (например, <code>this-&gt;name</code>), а не через точку.
+            </div>
+        </section>
+
+        <section class="card" id="access-via-this">
+            <h2>1. Доступ к полям объекта через <code>this</code></h2>
+            <p>Чтобы обратиться к полю объекта внутри метода, имя поля записывается после стрелки: <code>this-&gt;name</code>. Рассмотрим класс <code>User</code> с полем <code>name</code> и методом <code>show()</code>, который возвращает значение этого поля:</p>
+            
+            <pre><code class="language-cpp">#include &lt;string&gt;
+
+class User {
+public:
+    std::string name;
+
+    std::string show() {
+        return this-&gt;name;
+    }
+};</code></pre>
+        </section>
+
+        <section class="card" id="usage-example">
+            <h2>2. Использование в программе</h2>
+            <p>Создадим объект класса <code>User</code>, присвоим значение полю <code>name</code> и вызовем метод <code>show()</code> для вывода результата на экран:</p>
+            
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+class User {
+public:
+    std::string name;
+
+    std::string show() {
+        return this-&gt;name;
+    }
+};
+
+int main() {
+    // Создание объекта класса
+    User user;
+
+    // Запись значения в поле
+    user.name = "john";
+
+    // Вызов метода для вывода значения поля
+    std::cout &lt;&lt; user.show() &lt;&lt; "\n"; // выведет john
+
+    return 0;
+}</code></pre>
+        </section>
+
+    </main>
+
+    <!-- Подключение скрипта Highlight.js и инициализация -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

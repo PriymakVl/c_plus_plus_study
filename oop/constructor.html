@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Конструкторы в классах</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Подключение стилей Highlight.js (темная тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Конструкторы в классах</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="what-is-constructor">
+            <h2>Что такое конструктор</h2>
+            <p><strong>Конструктор</strong> — это специальный метод класса, который автоматически вызывается при создании объекта. Его главная задача — инициализация полей объекта начальными значениями и выделение необходимых ресурсов.</p>
+            <ul>
+                <li><strong>Имя конструктора</strong> всегда полностью совпадает с именем класса.</li>
+                <li><strong>Тип возвращаемого значения</strong> отсутствует (не пишется даже <code>void</code>).</li>
+                <li><strong>Модификатор доступа</strong> обычно <code>public</code>, чтобы объекты можно было создавать извне класса.</li>
+                <li><strong>Перегрузка</strong> поддерживается — в одном классе может быть несколько конструкторов с разными наборами параметров.</li>
+            </ul>
+        </section>
+
+        <section class="card" id="default-constructor">
+            <h2>1. Конструктор по умолчанию (без параметров)</h2>
+            <p>Вызывается автоматически, когда объект создаётся без передачи аргументов. Если в классе не объявлен ни один конструктор, компилятор создаёт пустой конструктор по умолчанию самостоятельно.</p>
+            
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Student {
+private:
+    string name;
+    int age;
+    double gpa;
+
+public:
+    // Конструктор по умолчанию
+    Student() {
+        name = "Неизвестно";
+        age = 18;
+        gpa = 0.0;
+        cout &lt;&lt; "Вызван конструктор по умолчанию" &lt;&lt; endl;
+    }
+
+    void printInfo() {
+        cout &lt;&lt; "Имя: " &lt;&lt; name &lt;&lt; ", Возраст: " &lt;&lt; age &lt;&lt; ", Средний балл: " &lt;&lt; gpa &lt;&lt; endl;
+    }
+};
+
+int main() {
+    Student s1; // Автоматически вызывается Student()
+    s1.printInfo(); // Выведет: Имя: Неизвестно, Возраст: 18, Средний балл: 0
+    return 0;
+}</code></pre>
+        </section>
+
+        <section class="card" id="param-constructor">
+            <h2>2. Параметризованный конструктор и список инициализации</h2>
+            <p>Позволяет передать начальные данные сразу при создании объекта. Для инициализации полей рекомендуется использовать <strong>список инициализации</strong> (через двоеточие <code>:</code> после заголовка конструктора) — это работает быстрее и обязательно для константных (<code>const</code>) полей и ссылок.</p>
+            
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Student {
+private:
+    string name;
+    int age;
+    double gpa;
+
+public:
+    // Параметризованный конструктор со списком инициализации
+    Student(string studentName, int studentAge, double studentGpa)
+        : name(studentName), age(studentAge), gpa(studentGpa) {
+        // Тело конструктора может оставаться пустым или содержать проверки
+        if (gpa &lt; 0.0 || gpa &gt; 5.0) {
+            gpa = 0.0;
+        }
+    }
+
+    void printInfo() {
+        cout &lt;&lt; "Имя: " &lt;&lt; name &lt;&lt; ", Возраст: " &lt;&lt; age &lt;&lt; ", Средний балл: " &lt;&lt; gpa &lt;&lt; endl;
+    }
+};
+
+int main() {
+    // Создание объектов с передачей аргументов в конструктор
+    Student s1("Алексей", 20, 4.7);
+    Student s2{"Мария", 19, 4.9}; // Унифицированная инициализация (C++11)
+
+    s1.printInfo();
+    s2.printInfo();
+
+    return 0;
+}</code></pre>
+
+            <div class="note">
+                <strong>Важно:</strong> Если вы объявили свой конструктор с параметрами, компилятор перестаёт автоматически создавать конструктор по умолчанию. Чтобы сохранить возможность создавать объекты без параметров (<code>Student s;</code>), нужно объявить конструктор по умолчанию явно или написать <code>Student() = default;</code>.
+            </div>
+        </section>
+
+        <section class="card" id="copy-and-delegating">
+            <h2>3. Конструктор копирования и делегирование</h2>
+            <p>В C++ также часто используются дополнительные виды конструкторов для удобства и безопасной работы с памятью:</p>
+            <ul>
+                <li><strong>Конструктор копирования</strong> (<code>ClassName(const ClassName&amp; other)</code>) — создаёт новый объект как точную копию уже существующего.</li>
+                <li><strong>Делегирующий конструктор</strong> (C++11) — позволяет одному конструктору вызывать другой конструктор этого же класса через список инициализации, избавляя от дублирования кода.</li>
+            </ul>
+
+            <pre><code class="language-cpp">class Rectangle {
+private:
+    double width;
+    double height;
+
+public:
+    // Основной параметризованный конструктор
+    Rectangle(double w, double h) : width(w), height(h) {}
+
+    // Делегирующий конструктор (квадрат — частный случай прямоугольника)
+    Rectangle(double side) : Rectangle(side, side) {}
+
+    // Конструктор копирования
+    Rectangle(const Rectangle&amp; other) : width(other.width), height(other.height) {
+        cout &lt;&lt; "Объект скопирован" &lt;&lt; endl;
+    }
+
+    double area() {
+        return width * height;
+    }
+};
+
+int main() {
+    Rectangle r1(4.0, 5.0); // Основной конструктор
+    Rectangle r2(3.0);      // Делегирующий конструктор (3.0 x 3.0)
+    Rectangle r3 = r1;      // Конструктор копирования
+
+    return 0;
+}</code></pre>
+        </section>
+
+        <section class="card" id="summary-table">
+            <h2>Сравнение видов конструкторов</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Вид конструктора</th>
+                        <th>Синтаксис объявления</th>
+                        <th>Когда вызывается</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>По умолчанию</td>
+                        <td><code>Student()</code></td>
+                        <td>При создании объекта без аргументов: <code>Student s;</code></td>
+                    </tr>
+                    <tr>
+                        <td>Параметризованный</td>
+                        <td><code>Student(string n, int a)</code></td>
+                        <td>При передаче аргументов: <code>Student s("Иван", 19);</code></td>
+                    </tr>
+                    <tr>
+                        <td>Копирования</td>
+                        <td><code>Student(const Student&amp; other)</code></td>
+                        <td>При инициализации копией: <code>Student s2 = s1;</code> или передаче по значению</td>
+                    </tr>
+                    <tr>
+                        <td>Делегирующий</td>
+                        <td><code>Student() : Student("Нет имени", 18)</code></td>
+                        <td>Перенаправляет инициализацию другому конструктору того же класса</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <!-- Подключение скрипта Highlight.js и инициализация -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

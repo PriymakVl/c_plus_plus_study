@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Классы, поля и методы</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Подключение стилей Highlight.js (темная тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Классы, поля и методы</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="classes">
+            <h2>Что такое класс и объект</h2>
+            <p><strong>Класс</strong> (<code>class</code>) — это пользовательский тип данных (шаблон), который объединяет данные и функции для работы с ними. <strong>Объект</strong> — это конкретный экземпляр класса.</p>
+            <ul>
+                <li><strong>Поля (атрибуты)</strong> — переменные внутри класса, описывающие состояние объекта.</li>
+                <li><strong>Методы</strong> — функции внутри класса, определяющие поведение объекта.</li>
+                <li><strong>Модификаторы доступа</strong> — <code>public</code> (доступно отовсюду) и <code>private</code> (доступно только внутри класса, используется по умолчанию).</li>
+            </ul>
+        </section>
+
+        <section class="card" id="create-class">
+            <h2>1. Создание класса</h2>
+            <p>Объявление класса описывает его структуру (поля и методы) и обязательно завершается точкой с запятой <code>;</code>.</p>
+            
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+// Объявление класса
+class Student {
+private:
+    double gpa; // Приватное поле (доступно только внутри класса)
+
+public:
+    // Публичные поля
+    string name;
+    int age;
+
+    // Метод для установки приватного поля
+    void setGpa(double value) {
+        if (value &gt;= 0.0 &amp;&amp; value &lt;= 5.0) {
+            gpa = value;
+        }
+    }
+
+    // Метод для вывода информации
+    void printInfo() {
+        cout &lt;&lt; "Имя: " &lt;&lt; name &lt;&lt; ", Возраст: " &lt;&lt; age &lt;&lt; ", Средний балл: " &lt;&lt; gpa &lt;&lt; endl;
+    }
+};</code></pre>
+
+            <div class="note">
+                <strong>Важно:</strong> В конце определения класса после закрывающей фигурной скобки <code>}</code> обязательно ставится точка с запятой <code>;</code>.
+            </div>
+        </section>
+
+        <section class="card" id="use-class">
+            <h2>2. Использование класса</h2>
+            <p>Чтобы использовать класс, нужно создать его экземпляр (объект). Доступ к открытым полям и методам объекта осуществляется через оператор точки (<code>.</code>).</p>
+            
+            <pre><code class="language-cpp">int main() {
+    // Создание объекта (экземпляра класса)
+    Student s1;
+
+    // Обращение к публичным полям
+    s1.name = "Алексей";
+    s1.age = 20;
+
+    // Вызов методов объекта
+    s1.setGpa(4.7);
+    s1.printInfo(); // Выведет: Имя: Алексей, Возраст: 20, Средний балл: 4.7
+
+    return 0;
+}</code></pre>
+        </section>
+
+    </main>
+
+    <!-- Подключение скрипта Highlight.js и инициализация -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

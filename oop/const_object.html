@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Константные объекты и методы</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Подключение стилей Highlight.js (темная тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Константные объекты и методы</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="const-object">
+            <h2>Что такое константный объект</h2>
+            <p><strong>Константный объект</strong> — это экземпляр класса, объявленный с ключевым словом <code>const</code>. После создания и инициализации (с помощью конструктора) состояние такого объекта <strong>нельзя изменить</strong> на протяжении всего времени его жизни.</p>
+            <ul>
+                <li><strong>Запрет изменения полей:</strong> любая попытка присвоить новое значение полям константного объекта приведёт к ошибке компиляции.</li>
+                <li><strong>Вызов только константных методов:</strong> для константного объекта можно вызывать исключительно те методы, которые помечены как <code>const</code> (гарантируют, что объект не будет изменён).</li>
+                <li><strong>Обязательная инициализация:</strong> константный объект должен быть инициализирован при создании (через конструктор или список инициализации).</li>
+            </ul>
+        </section>
+
+        <section class="card" id="const-methods">
+            <h2>1. Константные методы (const-методы)</h2>
+            <p>Чтобы метод можно было вызывать у константного объекта, после списка параметров в его объявлении и определении указывается модификатор <code>const</code>. Такой метод не имеет права изменять поля класса и вызывать неконстантные методы.</p>
+            
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Book {
+private:
+    string title;
+    int pages;
+
+public:
+    // Конструктор для инициализации полей
+    Book(string t, int p) : title(t), pages(p) {}
+
+    // Обычный (неконстантный) метод — изменяет состояние объекта
+    void setPages(int p) {
+        if (p &gt; 0) {
+            pages = p;
+        }
+    }
+
+    // Константный метод — только читает данные, не меняя объект
+    void printInfo() const {
+        // pages = 100; // ОШИБКА: внутри const-метода нельзя менять поля!
+        cout &lt;&lt; "Книга: «" &lt;&lt; title &lt;&lt; "», страниц: " &lt;&lt; pages &lt;&lt; endl;
+    }
+
+    int getPages() const {
+        return pages;
+    }
+};</code></pre>
+
+            <div class="note">
+                <strong>Хорошая практика:</strong> Все методы, которые не изменяют состояние объекта (например, геттеры <code>get...()</code> или методы вывода информации), рекомендуется всегда объявлять как <code>const</code>.
+            </div>
+        </section>
+
+        <section class="card" id="usage">
+            <h2>2. Создание и использование константного объекта</h2>
+            <p>Константный объект создаётся так же, как и обычная константная переменная — с указанием ключевого слова <code>const</code> перед типом класса или после него.</p>
+            
+            <pre><code class="language-cpp">int main() {
+    // Обычный (изменяемый) объект
+    Book b1("Война и мир", 1200);
+    b1.setPages(1300); // Разрешено
+    b1.printInfo();    // Разрешено (обычный объект может вызывать const-методы)
+
+    // Константный объект
+    const Book b2("Мастер и Маргарита", 480);
+    b2.printInfo();    // Разрешено: метод printInfo() помечен как const
+    cout &lt;&lt; "Страниц: " &lt;&lt; b2.getPages() &lt;&lt; endl; // Разрешено
+
+    // b2.setPages(500); // ОШИБКА КОМПИЛЯЦИИ: нельзя вызвать неконстантный метод!
+
+    return 0;
+}</code></pre>
+        </section>
+
+        <section class="card" id="mutable-overloading">
+            <h2>3. Ключевое слово mutable и перегрузка по const</h2>
+            <p>В C++ существуют два важных механизма, тесно связанных с константными объектами:</p>
+            <ul>
+                <li><strong><code>mutable</code></strong> — модификатор поля класса, который разрешает изменять это конкретное поле даже внутри <code>const</code>-методов и у константных объектов (например, для счётчиков вызовов или кэширования).</li>
+                <li><strong>Перегрузка методов по <code>const</code></strong> — в классе могут существовать два метода с одинаковым именем и параметрами, один из которых <code>const</code>, а другой — нет. Для константного объекта компилятор выберет <code>const</code>-версию.</li>
+            </ul>
+
+            <pre><code class="language-cpp">class Counter {
+private:
+    int value;
+    mutable int readCount = 0; // Можно менять даже в const-объекте
+
+public:
+    Counter(int v) : value(v) {}
+
+    int getValue() const {
+        readCount++; // Разрешено благодаря mutable
+        return value;
+    }
+
+    // Перегрузка по const
+    void show() {
+        cout &lt;&lt; "Обычный объект: " &lt;&lt; value &lt;&lt; endl;
+    }
+
+    void show() const {
+        cout &lt;&lt; "Константный объект: " &lt;&lt; value &lt;&lt; endl;
+    }
+};</code></pre>
+
+            <div class="teacher">
+                <strong>Совет:</strong> Передача объектов в функции по константной ссылке (<code>void func(const Book&amp; b)</code>) — стандарт в C++. Это позволяет избежать лишнего копирования объекта в памяти и одновременно защищает его от случайного изменения внутри функции.
+            </div>
+        </section>
+
+        <section class="card" id="comparison">
+            <h2>4. Сравнение обычного и константного объектов</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Характеристика</th>
+                        <th>Обычный объект (<code>Class obj</code>)</th>
+                        <th>Константный объект (<code>const Class obj</code>)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Изменение публичных полей</td>
+                        <td>Разрешено</td>
+                        <td>Запрещено</td>
+                    </tr>
+                    <tr>
+                        <td>Вызов обычных методов</td>
+                        <td>Разрешён</td>
+                        <td>Запрещён (ошибка компиляции)</td>
+                    </tr>
+                    <tr>
+                        <td>Вызов <code>const</code>-методов</td>
+                        <td>Разрешён</td>
+                        <td>Разрешён</td>
+                    </tr>
+                    <tr>
+                        <td>Изменение <code>mutable</code>-полей</td>
+                        <td>Разрешено</td>
+                        <td>Разрешено (внутри <code>const</code>-методов)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <!-- Подключение скрипта Highlight.js и инициализация -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
