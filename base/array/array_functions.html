@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Функции и алгоритмы для работы с массивами</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+
+    <!-- Подключение стилей Highlight.js (темная тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Функции и алгоритмы для работы с массивами</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <section class="card" id="intro">
+            <p>В C++ для работы с обычными (статическими) массивами можно использовать встроенные функции, методы стандартной библиотеки и алгоритмы из <code>&lt;algorithm&gt;</code>. Рассмотрим основные инструменты для начинающих.</p>
+        </section>
+
+        <section class="card" id="size">
+            <h2>1. Получение размера массива</h2>
+            <pre><code class="language-cpp">int arr[] = {10, 20, 30, 40, 50};
+
+int size = sizeof(arr) / sizeof(arr[0]);</code></pre>
+            <ul>
+                <li><code>sizeof(arr)</code> — размер всего массива в байтах.</li>
+                <li><code>sizeof(arr[0])</code> — размер одного элемента.</li>
+                <li>Деление позволяет получить количество элементов.</li>
+            </ul>
+        </section>
+
+        <section class="card" id="functions">
+            <h2>2. Функции для работы с массивами</h2>
+            <p>Для использования подключаем заголовочный файл:</p>
+            <pre><code class="language-cpp">#include &lt;algorithm&gt;</code></pre>
+            <table>
+                <tr>
+                    <th>Функция</th>
+                    <th>Назначение</th>
+                    <th>Пример</th>
+                </tr>
+                <tr>
+                    <td><code>sort()</code></td>
+                    <td>Сортировка</td>
+                    <td><code>sort(arr, arr + size)</code></td>
+                </tr>
+                <tr>
+                    <td><code>reverse()</code></td>
+                    <td>Обратный порядок</td>
+                    <td><code>reverse(arr, arr + size)</code></td>
+                </tr>
+                <tr>
+                    <td><code>find()</code></td>
+                    <td>Поиск элемента</td>
+                    <td><code>find(arr, arr + size, 20)</code></td>
+                </tr>
+                <tr>
+                    <td><code>count()</code></td>
+                    <td>Подсчёт элементов</td>
+                    <td><code>count(arr, arr + size, 10)</code></td>
+                </tr>
+                <tr>
+                    <td><code>min_element()</code></td>
+                    <td>Минимальный элемент</td>
+                    <td><code>min_element(arr, arr + size)</code></td>
+                </tr>
+                <tr>
+                    <td><code>max_element()</code></td>
+                    <td>Максимальный элемент</td>
+                    <td><code>max_element(arr, arr + size)</code></td>
+                </tr>
+                <tr>
+                    <td><code>fill()</code></td>
+                    <td>Заполнение массива</td>
+                    <td><code>fill(arr, arr + size, 0)</code></td>
+                </tr>
+                <tr>
+                    <td><code>copy()</code></td>
+                    <td>Копирование массива</td>
+                    <td><code>copy(arr, arr + size, dest)</code></td>
+                </tr>
+                <tr>
+                    <td><code>replace()</code></td>
+                    <td>Замена значений</td>
+                    <td><code>replace(arr, arr + size, 10, 100)</code></td>
+                </tr>
+            </table>
+        </section>
+
+        <section class="card" id="examples">
+            <h2>3. Примеры использования</h2>
+
+            <h3>Сортировка массива:</h3>
+            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int main() {
+    int arr[] = {5, 2, 8, 1, 4};
+    int size = 5;
+
+    sort(arr, arr + size);
+
+    for (int i = 0; i &lt; size; i++) {
+        cout &lt;&lt; arr[i] &lt;&lt; " ";
+    }
+}</code></pre>
+            <div class="note">
+                <b>Результат:</b> <code>1 2 4 5 8</code>
+            </div>
+
+            <h3>Поиск элемента:</h3>
+            <pre><code class="language-cpp">int arr[] = {10, 20, 30, 40, 50};
+
+int* result = find(arr, arr + 5, 30);
+
+if (result != arr + 5) {
+    cout &lt;&lt; "Найден";
+} else {
+    cout &lt;&lt; "Не найден";
+}</code></pre>
+
+            <h3>Поиск минимального и максимального значения:</h3>
+            <pre><code class="language-cpp">int arr[] = {15, 4, 28, 7, 12};
+
+int min = *min_element(arr, arr + 5);
+int max = *max_element(arr, arr + 5);</code></pre>
+
+            <h3>Заполнение массива:</h3>
+            <pre><code class="language-cpp">int arr[5];
+
+fill(arr, arr + 5, 10);</code></pre>
+            <p>Все элементы получат значение <code>10</code>.</p>
+        </section>
+
+        <section class="card" id="extra">
+            <h2>4. Другие полезные возможности</h2>
+            <table>
+                <tr>
+                    <th>Возможность</th>
+                    <th>Пример</th>
+                </tr>
+                <tr>
+                    <td>Обмен элементов</td>
+                    <td><code>swap(arr[0], arr[1])</code></td>
+                </tr>
+                <tr>
+                    <td>Сумма элементов</td>
+                    <td><code>accumulate(arr, arr + 5, 0)</code></td>
+                </tr>
+                <tr>
+                    <td>Проверка условия для всех элементов</td>
+                    <td><code>all_of()</code></td>
+                </tr>
+                <tr>
+                    <td>Проверка хотя бы одного элемента</td>
+                    <td><code>any_of()</code></td>
+                </tr>
+                <tr>
+                    <td>Удаление повторяющихся значений</td>
+                    <td><code>unique()</code></td>
+                </tr>
+                <tr>
+                    <td>Проверка отсортированности</td>
+                    <td><code>is_sorted()</code></td>
+                </tr>
+            </table>
+            <div class="teacher" style="margin-top: 16px;">
+                <b>Важно!</b> Для <code>accumulate()</code> дополнительно подключается заголовочный файл:
+                <pre style="margin-bottom: 0;"><code class="language-cpp">#include &lt;numeric&gt;</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подключение скрипта Highlight.js и инициализация -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

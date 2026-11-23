@@ -1,6 +1,6 @@
 const lessonData = {
     title: "Практические задачи на C++",
-    topic: "Массивы",
+    topic: "Цикл FOR",
     footer: "Интерактивные задачи по C++",
     tasks: [
       {
