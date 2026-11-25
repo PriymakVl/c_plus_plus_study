@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++ — Вынесение класса в отдельный файл (.h и .cpp)</title>
+    <link rel="stylesheet" href="../../css/theory.css">
+    
+    <!-- Подключение стилей Highlight.js (темная тема) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap hero">
+            <h1>C++ — Вынесение класса в отдельный файл</h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="card" id="why-split">
+            <h2>Зачем разделять класс на файлы?</h2>
+            <p>В реальных проектах на C++ каждый класс обычно выносят из <code>main.cpp</code> в пару отдельных файлов: <strong>заголовочный файл</strong> и <strong>файл реализации</strong>. Это делает код структурированным, ускоряет перекомпиляцию и позволяет легко переиспользовать классы в других программах.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Файл</th>
+                        <th>Расширение</th>
+                        <th>Что содержит</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Заголовочный файл</strong></td>
+                        <td><code>.h</code> (или <code>.hpp</code>)</td>
+                        <td>Объявление класса: его имя, поля и прототипы (сигнатуры) методов без их реализации.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Файл реализации</strong></td>
+                        <td><code>.cpp</code></td>
+                        <td>Определение (код) всех методов класса с указанием принадлежности классу через <code>::</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Главный файл</strong></td>
+                        <td><code>main.cpp</code></td>
+                        <td>Подключает заголовочный файл и создает объекты класса для работы программы.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="card" id="header-file">
+            <h2>1. Заголовочный файл (Student.h)</h2>
+            <p>В файле <code>Student.h</code> описывается структура класса. Вместо тела методов ставятся точки с запятой <code>;</code>.</p>
+            <p>Чтобы избежать ошибки повторного включения файла при компиляции, используется директива <code>#pragma once</code> (или классические Include Guards: <code>#ifndef</code> / <code>#define</code> / <code>#endif</code>).</p>
+            
+            <pre><code class="language-cpp">#pragma once // Защита от повторного подключения файла
+
+#include &lt;string&gt;
+
+// В заголовочных файлах не принято писать using namespace std;
+// Поэтому используем полное имя std::string
+
+class Student {
+private:
+    double gpa;
+
+public:
+    std::string name;
+    int age;
+
+    // Только объявления (прототипы) методов
+    void setGpa(double value);
+    void printInfo();
+};</code></pre>
+
+            <div class="teacher">
+                <strong>Совет:</strong> Никогда не пишите <code>using namespace std;</code> в <code>.h</code>-файлах — это загрязняет глобальное пространство имен во всех файлах, куда будет подключен этот заголовок.
+            </div>
+        </section>
+
+        <section class="card" id="cpp-file">
+            <h2>2. Файл реализации (Student.cpp)</h2>
+            <p>В файле <code>Student.cpp</code> мы подключаем свой заголовочный файл через двойные кавычки <code>#include "Student.h"</code> и пишем код методов.</p>
+            <p>Чтобы компилятор понял, что функция относится именно к классу <code>Student</code>, перед именем метода ставится <strong>оператор разрешения области видимости</strong> <code>Student::</code>.</p>
+            
+            <pre><code class="language-cpp">#include "Student.h" // Подключаем объявление нашего класса
+#include &lt;iostream&gt;
+
+using namespace std;
+
+// Реализация метода setGpa класса Student
+void Student::setGpa(double value) {
+    if (value &gt;= 0.0 &amp;&amp; value &lt;= 5.0) {
+        gpa = value;
+    }
+}
+
+// Реализация метода printInfo класса Student
+void Student::printInfo() {
+    cout &lt;&lt; "Имя: " &lt;&lt; name &lt;&lt; ", Возраст: " &lt;&lt; age &lt;&lt; ", Средний балл: " &lt;&lt; gpa &lt;&lt; endl;
+}</code></pre>
+
+            <div class="note">
+                <strong>Обратите внимание:</strong> Тип возвращаемого значения (например, <code>void</code>) пишется <em>до</em> имени класса: <code>void Student::setGpa(double value)</code>.
+            </div>
+        </section>
+
+        <section class="card" id="main-file">
+            <h2>3. Использование в основной программе (main.cpp)</h2>
+            <p>В <code>main.cpp</code> достаточно подключить только заголовочный файл <code>"Student.h"</code>. Подключать <code>"Student.cpp"</code> через <code>#include</code> <strong>нельзя</strong> — компоновщик (linker) сам свяжет скомпилированные <code>.cpp</code>-файлы проекта.</p>
+            
+            <pre><code class="language-cpp">#include "Student.h"
+
+int main() {
+    Student s1;
+
+    s1.name = "Алексей";
+    s1.age = 20;
+
+    s1.setGpa(4.7);
+    s1.printInfo(); // Выведет: Имя: Алексей, Возраст: 20, Средний балл: 4.7
+
+    return 0;
+}</code></pre>
+        </section>
+
+        <section class="card" id="summary-rules">
+            <h2>Чек-лист при вынесении класса</h2>
+            <ul>
+                <li><strong>Системные библиотеки</strong> подключаются в угловых скобках: <code>#include &lt;iostream&gt;</code>.</li>
+                <li><strong>Свои заголовочные файлы</strong> подключаются в кавычках: <code>#include "Student.h"</code>.</li>
+                <li><strong>В <code>.h</code>-файле</strong> всегда добавляется <code>#pragma once</code> в самой первой строке.</li>
+                <li><strong>В <code>.cpp</code>-файле</strong> у каждого метода указывается префикс <code>ИмяКласса::</code>, а у полей внутри методов префикс не нужен.</li>
+                <li><strong>Не подключайте <code>.cpp</code> через <code>#include</code></strong> — добавляйте все <code>.cpp</code>-файлы в сборку проекта (CMake, Visual Studio, g++ <code>main.cpp Student.cpp</code>).</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <!-- Подключение скрипта Highlight.js и инициализация -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
